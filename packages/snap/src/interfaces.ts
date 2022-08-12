@@ -1,13 +1,13 @@
 import {
   MessageStatus,
-  MetamaskFilecoinRpcRequest,
+  MetamaskAptosRpcRequest,
   SnapConfig,
-} from "@chainsafe/filsnap-types";
+} from "@keystonehq/aptosnap-types";
 import { defaultConfiguration } from "./configuration/predefined";
 
 export type FMethodCallback = (
   originString: string,
-  requestObject: MetamaskFilecoinRpcRequest
+  requestObject: MetamaskAptosRpcRequest
 ) => Promise<unknown>;
 
 export type MetamaskState = {

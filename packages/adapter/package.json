@@ -1,12 +1,12 @@
 {
-  "name": "@chainsafe/filsnap-adapter",
-  "version": "2.1.1",
+  "name": "@keystonehq/aptosnap-adapter",
+  "version": "0.1.0",
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
-  "author": "chainsafe <info@chainsafe.io>",
+  "author": "mrzhao <zhaomengru2018@gmail.com>",
   "license": "(Apache-2.0 AND MIT)",
-  "homepage": "https://github.com/chainsafe/filecoin-metamask-snap/tree/master/packages/adapter",
+  "homepage": "https://github.com/keystoneHQ/aptosnap/tree/master/packages/adapter",
   "keywords": [
     "filecoin",
     "metamask",
@@ -29,7 +29,7 @@
     "test": "exit 0"
   },
   "dependencies": {
-    "@chainsafe/filsnap-types": "workspace:^"
+    "@keystonehq/aptosnap-types": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "^12.12.35",

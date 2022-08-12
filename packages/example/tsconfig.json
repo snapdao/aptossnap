@@ -17,7 +17,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "target": "ES2017",
+    "target": "es2020",
     "noFallthroughCasesInSwitch": true
   },
   "include": [

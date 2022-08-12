@@ -1,19 +1,19 @@
 import React, {createContext, Dispatch, PropsWithChildren, Reducer, useReducer} from "react";
-import {hasMetaMask, MetamaskFilecoinSnap} from "@chainsafe/filsnap-adapter";
+import {hasMetaMask, MetamaskAptosSnap} from "@keystonehq/aptosnap-adapter";
 
-interface IFilecoinSnap {
+interface IAptosSnap {
     isInstalled: boolean
     message: string
-    snap?: MetamaskFilecoinSnap
+    snap?: MetamaskAptosSnap
 }
 
 export interface MetamaskState {
-    filecoinSnap: IFilecoinSnap,
+    aptosSnap: IAptosSnap,
     hasMetaMask: boolean,
 }
 
 const initialState: MetamaskState = {
-    filecoinSnap: {
+    aptosSnap: {
         isInstalled: false,
         message: ""
     },
@@ -32,7 +32,7 @@ const reducer: Reducer<MetamaskState, MetamaskDispatch> = (state, action) => {
         case MetamaskActions.SET_INSTALLED_STATUS: {
             return {
                 ...state,
-                filecoinSnap: action.payload
+                aptosSnap: action.payload
             }
         }
         default: {

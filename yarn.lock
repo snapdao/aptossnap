@@ -4026,57 +4026,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chainsafe/filsnap-adapter@workspace:^, @chainsafe/filsnap-adapter@workspace:packages/adapter":
-  version: 0.0.0-use.local
-  resolution: "@chainsafe/filsnap-adapter@workspace:packages/adapter"
-  dependencies:
-    "@chainsafe/filsnap-types": "workspace:^"
-    "@types/node": ^12.12.35
-    eslint: ^7.11.0
-    typescript: 4.3.5
-  languageName: unknown
-  linkType: soft
-
-"@chainsafe/filsnap-types@workspace:^, @chainsafe/filsnap-types@workspace:packages/types":
-  version: 0.0.0-use.local
-  resolution: "@chainsafe/filsnap-types@workspace:packages/types"
-  languageName: unknown
-  linkType: soft
-
-"@chainsafe/filsnap@workspace:packages/snap":
-  version: 0.0.0-use.local
-  resolution: "@chainsafe/filsnap@workspace:packages/snap"
-  dependencies:
-    "@chainsafe/filsnap-types": "workspace:^"
-    "@filecoin-shipyard/lotus-client-provider-nodejs": 1.1.1
-    "@filecoin-shipyard/lotus-client-rpc": ^0.2.0
-    "@filecoin-shipyard/lotus-client-schema": ^0.0.14
-    "@glif/filecoin-number": ^2.0.0-beta.0
-    "@metamask/key-tree": ^4.0.0
-    "@metamask/key-tree-old": "npm:@metamask/key-tree@^3.0.1"
-    "@metamask/providers": ^9.0.0
-    "@metamask/snap-types": ^0.18.1
-    "@metamask/snaps-cli": ^0.18.1
-    "@types/bn.js": ^4.11.6
-    "@types/chai": ^4.2.10
-    "@types/mocha": ^9.1.1
-    "@types/sinon": ^7.5.2
-    "@types/sinon-chai": ^3.2.3
-    "@zondax/filecoin-signing-tools": ^0.20.0
-    babelify: ^10.0.0
-    bn.js: ^5.1.2
-    chai: ^4.2.0
-    concurrently: ^5.1.0
-    deepmerge: ^4.2.2
-    eslint: ^7
-    mocha: ^10.0.0
-    sinon: ^9.0.1
-    sinon-chai: ^3.5.0
-    ts-node: ^10.8.0
-    typescript: 4.3.5
-  languageName: unknown
-  linkType: soft
-
 "@chainsafe/strip-comments@npm:^1.0.7":
   version: 1.0.7
   resolution: "@chainsafe/strip-comments@npm:1.0.7"
@@ -5011,6 +4960,59 @@ __metadata:
   checksum: 54824bf17cc25b741c434f24ded7bcc5a2fd1f67da009829266eb2eb04152883f5f13e0e6ca0392e59a2bb7db4fe2930e105c9488827a2b78c78eb6253c3c9d1
   languageName: node
   linkType: hard
+
+"@keystonehq/aptosnap-adapter@workspace:^, @keystonehq/aptosnap-adapter@workspace:packages/adapter":
+  version: 0.0.0-use.local
+  resolution: "@keystonehq/aptosnap-adapter@workspace:packages/adapter"
+  dependencies:
+    "@keystonehq/aptosnap-types": "workspace:^"
+    "@types/node": ^12.12.35
+    eslint: ^7.11.0
+    typescript: 4.3.5
+  languageName: unknown
+  linkType: soft
+
+"@keystonehq/aptosnap-types@workspace:^, @keystonehq/aptosnap-types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@keystonehq/aptosnap-types@workspace:packages/types"
+  dependencies:
+    aptos: ^1.3.5
+  languageName: unknown
+  linkType: soft
+
+"@keystonehq/aptosnap@workspace:packages/snap":
+  version: 0.0.0-use.local
+  resolution: "@keystonehq/aptosnap@workspace:packages/snap"
+  dependencies:
+    "@filecoin-shipyard/lotus-client-provider-nodejs": 1.1.1
+    "@filecoin-shipyard/lotus-client-rpc": ^0.2.0
+    "@filecoin-shipyard/lotus-client-schema": ^0.0.14
+    "@glif/filecoin-number": ^2.0.0-beta.0
+    "@keystonehq/aptosnap-types": "workspace:^"
+    "@metamask/key-tree": ^4.0.0
+    "@metamask/key-tree-old": "npm:@metamask/key-tree@^3.0.1"
+    "@metamask/providers": ^9.0.0
+    "@metamask/snap-types": ^0.18.1
+    "@metamask/snaps-cli": ^0.18.1
+    "@types/bn.js": ^4.11.6
+    "@types/chai": ^4.2.10
+    "@types/mocha": ^9.1.1
+    "@types/sinon": ^7.5.2
+    "@types/sinon-chai": ^3.2.3
+    "@zondax/filecoin-signing-tools": ^0.20.0
+    babelify: ^10.0.0
+    bn.js: ^5.1.2
+    chai: ^4.2.0
+    concurrently: ^5.1.0
+    deepmerge: ^4.2.2
+    eslint: ^7
+    mocha: ^10.0.0
+    sinon: ^9.0.1
+    sinon-chai: ^3.5.0
+    ts-node: ^10.8.0
+    typescript: 4.3.5
+  languageName: unknown
+  linkType: soft
 
 "@keystonehq/base-eth-keyring@npm:^0.4.0":
   version: 0.4.0
@@ -7537,6 +7539,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"aptos@npm:^1.3.5":
+  version: 1.3.5
+  resolution: "aptos@npm:1.3.5"
+  dependencies:
+    axios: ^0.27.2
+    buffer: ^6.0.3
+    js-sha3: ^0.8.0
+    lodash: ^4.17.21
+    tweetnacl: ^1.0.3
+    typescript-memoize: ^1.1.0
+    yarn: ^1.22.19
+  checksum: 0873c122bbb10a2d3933aacca57df0b2211f2967c9180148f7c50cf60ba734832e209209a3c5e1b1aee5b3f7c28654891e3e1c8dab8a9d377c411ce3c01ff80f
+  languageName: node
+  linkType: hard
+
 "are-we-there-yet@npm:^3.0.0":
   version: 3.0.0
   resolution: "are-we-there-yet@npm:3.0.0"
@@ -7936,6 +7953,16 @@ __metadata:
   dependencies:
     follow-redirects: ^1.14.4
   checksum: d106561e761bf48633633073626eafb80289eb7c7c27f9fae4fb796939b6ecd2c9f63b596e3b3d872f7c0bec6b2fb117c58456d387e4ca2da7fc07c795a979c3
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.27.2":
+  version: 0.27.2
+  resolution: "axios@npm:0.27.2"
+  dependencies:
+    follow-redirects: ^1.14.9
+    form-data: ^4.0.0
+  checksum: 76d673d2a90629944b44d6f345f01e58e9174690f635115d5ffd4aca495d99bcd8f95c590d5ccb473513f5ebc1d1a6e8934580d0c57cdd0498c3a101313ef771
   languageName: node
   linkType: hard
 
@@ -9061,6 +9088,16 @@ __metadata:
     base64-js: ^1.0.2
     ieee754: ^1.1.4
   checksum: 07037a0278b07fbc779920f1ba1b473933ffb4a2e2f7b387c55daf6ac64a05b58c27da9e85730a4046e8f97a49f8acd9f7bf89605c0a4dfda88ebfb7e08bfe4a
+  languageName: node
+  linkType: hard
+
+"buffer@npm:^6.0.3":
+  version: 6.0.3
+  resolution: "buffer@npm:6.0.3"
+  dependencies:
+    base64-js: ^1.3.1
+    ieee754: ^1.2.1
+  checksum: 2a905fbbcde73cc5d8bd18d1caa23715d5f83a5935867c2329f0ac06104204ba7947be098fe1317fbd8830e26090ff8e764f08cd14fefc977bb248c3487bcbd0
   languageName: node
   linkType: hard
 
@@ -12630,8 +12667,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example@workspace:packages/example"
   dependencies:
-    "@chainsafe/filsnap-adapter": "workspace:^"
-    "@chainsafe/filsnap-types": "workspace:^"
+    "@keystonehq/aptosnap-adapter": "workspace:^"
+    "@keystonehq/aptosnap-types": "workspace:^"
     "@material-ui/core": 4.12.4
     "@material-ui/icons": 4.11.3
     "@material-ui/lab": latest
@@ -13185,6 +13222,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"follow-redirects@npm:^1.14.9":
+  version: 1.15.1
+  resolution: "follow-redirects@npm:1.15.1"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: ea21337fe38eac8d75f5af12c425cc40e0bb44dcc3091fd0bde1c828596251a7a9638b5720fee5a0a5c62524450cbe16c52aae1dce88c6aee68577e441842e7f
+  languageName: node
+  linkType: hard
+
 "for-in@npm:^1.0.2":
   version: 1.0.2
   resolution: "for-in@npm:1.0.2"
@@ -13229,6 +13276,17 @@ __metadata:
     combined-stream: ^1.0.8
     mime-types: ^2.1.12
   checksum: 1ccc3ae064a080a799923f754d49fcebdd90515a8924f0f54de557540b50e7f1fe48ba5f2bd0435a5664aa2d49729107e6aaf2155a9abf52339474c5638b4485
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "form-data@npm:4.0.0"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: cb6f3ac49180be03ff07ba3ff125f9eba2ff0b277fb33c7fc47569fc5e616882c5b1c69b9904c4c4187e97dd0419dd03b134174756f296dec62041e6527e2c6e
   languageName: node
   linkType: hard
 
@@ -14298,6 +14356,13 @@ __metadata:
   version: 1.1.13
   resolution: "ieee754@npm:1.1.13"
   checksum: eaf8c87e014282bfb5b13670991a2ed086eaef35ccc3fb713833863f2e7213041b2c29246adbc5f6561d51d53861c3b11f3b82b28fc6fa1352edeff381f056e5
+  languageName: node
+  linkType: hard
+
+"ieee754@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "ieee754@npm:1.2.1"
+  checksum: b0782ef5e0935b9f12883a2e2aa37baa75da6e66ce6515c168697b42160807d9330de9a32ec1ed73149aea02e0d822e572bca6f1e22bdcbd2149e13b050b17bb
   languageName: node
   linkType: hard
 
@@ -15916,7 +15981,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-sha3@npm:0.8.0":
+"js-sha3@npm:0.8.0, js-sha3@npm:^0.8.0":
   version: 0.8.0
   resolution: "js-sha3@npm:0.8.0"
   checksum: 43a21dc7967c871bd2c46cb1c2ae97441a97169f324e509f382d43330d8f75cf2c96dba7c806ab08a425765a9c847efdd4bffbac2d99c3a4f3de6c0218f40533
@@ -23260,6 +23325,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript-memoize@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "typescript-memoize@npm:1.1.0"
+  checksum: 21c880c969bf14517d80cddd663b69031ede8627782562faa123204d7f9c775589611053593d8b980d94684308cb00d4499776116e574ec7a260aab94d5c62b7
+  languageName: node
+  linkType: hard
+
 "typescript@npm:4.3.5":
   version: 4.3.5
   resolution: "typescript@npm:4.3.5"
@@ -24759,6 +24831,16 @@ __metadata:
     y18n: ^4.0.0
     yargs-parser: ^18.1.2
   checksum: f1ca680c974333a5822732825cca7e95306c5a1e7750eb7b973ce6dc4f97a6b0a8837203c8b194f461969bfe1fb1176d1d423036635285f6010b392fa498ab2d
+  languageName: node
+  linkType: hard
+
+"yarn@npm:^1.22.19":
+  version: 1.22.19
+  resolution: "yarn@npm:1.22.19"
+  bin:
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: a6f9cdf67cca7e11141a18ffc1736a24dd569885b2ec0838982fcf21e5138840c66d9ebfc1846b0b35bc7b415cb985c65d79fb43aa1721b865e4f60c5569062a
   languageName: node
   linkType: hard
 

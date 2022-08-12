@@ -3,8 +3,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import Alert from "@material-ui/lab/Alert";
 import {MetamaskActions, MetaMaskContext} from "../../context/metamask";
-import {initiateFilecoinSnap} from "../../services/metamask";
-import {isMetamaskSnapsSupported} from "@chainsafe/filsnap-adapter";
+import {initiateAptosSnap} from "../../services/metamask";
+import {isMetamaskSnapsSupported} from "@keystonehq/aptosnap-adapter";
 
 export const MetaMaskConnector = () => {
 
@@ -15,7 +15,7 @@ export const MetaMaskConnector = () => {
         (async () => {
             const isConnected = sessionStorage.getItem('metamask-snap');
             if (isConnected) {
-                const installResult = await initiateFilecoinSnap();
+                const installResult = await initiateAptosSnap();
                 if (installResult.isSnapInstalled) { 
                     dispatch({
                         type: MetamaskActions.SET_INSTALLED_STATUS,
@@ -33,7 +33,7 @@ export const MetaMaskConnector = () => {
     }, [state.hasMetaMask]);
 
     const installSnap = useCallback(async () => {
-        const installResult = await initiateFilecoinSnap();
+        const installResult = await initiateAptosSnap();
         if (!installResult.isSnapInstalled) {
             dispatch({
                 type: MetamaskActions.SET_INSTALLED_STATUS,
@@ -56,7 +56,7 @@ export const MetaMaskConnector = () => {
     };
 
     const shouldDisplaySnackbar = (): boolean => {
-        return !!(!state.filecoinSnap.isInstalled && state.filecoinSnap.message);
+        return !!(!state.aptosSnap.isInstalled && state.aptosSnap.message);
     };
 
     return (
@@ -69,7 +69,7 @@ export const MetaMaskConnector = () => {
                 open={shouldDisplaySnackbar()}
                 autoHideDuration={6000}
                 onClose={handleClose}
-                message={state.filecoinSnap.message}
+                message={state.aptosSnap.message}
                 action={
                     <React.Fragment>
                         <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>

@@ -1,20 +1,20 @@
-import { SnapConfig } from "@chainsafe/filsnap-types";
+import { SnapConfig } from "@keystonehq/aptosnap-types";
 import { SnapProvider } from "@metamask/snap-types";
 import { MetamaskState } from "../interfaces";
 import {
   defaultConfiguration,
-  filecoinMainnetConfiguration,
-  filecoinTestnetConfiguration,
+  aptosMainnetConfiguration,
+  aptosDevnetConfiguration,
 } from "./predefined";
 
 export function getDefaultConfiguration(networkName?: string): SnapConfig {
   switch (networkName) {
     case "f":
       console.log("Filecoin mainnett network selected");
-      return filecoinMainnetConfiguration;
+      return aptosMainnetConfiguration;
     case "t":
       console.log("Filecoin testnet network selected");
-      return filecoinTestnetConfiguration;
+      return aptosDevnetConfiguration;
     default:
       return defaultConfiguration;
   }

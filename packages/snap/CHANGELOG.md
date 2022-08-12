@@ -82,7 +82,7 @@
 
 * The following workspace dependencies were updated
   * devDependencies
-    * @chainsafe/filsnap-types bumped from ^2.1.1 to ^2.1.2
+    * @keystonehq/aptosnap-types bumped from ^2.1.1 to ^2.1.2
 
 ## [2.2.0](https://github.com/ChainSafe/filsnap/compare/filsnap-v2.1.0...filsnap-v2.2.0) (2022-04-07)
 
@@ -101,4 +101,4 @@
 
 * The following workspace dependencies were updated
   * devDependencies
-    * @chainsafe/filsnap-types bumped from ^2.1.0 to ^2.1.1
+    * @keystonehq/aptosnap-types bumped from ^2.1.0 to ^2.1.1

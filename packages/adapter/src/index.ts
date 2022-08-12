@@ -1,15 +1,14 @@
-import { SnapConfig } from "@chainsafe/filsnap-types";
+import { SnapConfig } from "@keystonehq/aptosnap-types";
 import {
   hasMetaMask,
   isMetamaskSnapsSupported,
   isSnapInstalled,
 } from "./utils";
-import { MetamaskFilecoinSnap } from "./snap";
+import { MetamaskAptosSnap } from "./snap";
 
-const defaultSnapOrigin =
-  "https://bafybeigzphbumdkucnj2c6nr5xb3kwsq5gs2gp7w3qldgbvfeycfsbjylu.ipfs.infura-ipfs.io";
+const defaultSnapOrigin = `local:${window.location.href}`;
 
-export { MetamaskFilecoinSnap } from "./snap";
+export { MetamaskAptosSnap } from "./snap";
 export {
   hasMetaMask,
   isMetamaskSnapsSupported,
@@ -19,23 +18,17 @@ export {
 export type SnapInstallationParamNames = "version" | string;
 
 /**
- * Install and enable Filecoin snap
- *
- * Checks for existence of Metamask and version compatibility with snaps before installation.
- *
- * Provided snap configuration must define at least network property so predefined configuration can be selected.
- * All other properties are optional, and if present will overwrite predefined property.
- *
+ * Install and enable Aptos snap
  * @param config - SnapConfig
  * @param snapOrigin
  *
- * @return MetamaskFilecoinSnap - adapter object that exposes snap API
+ * @return MetamaskAptosSnap - adapter object that exposes snap API
  */
-export async function enableFilecoinSnap(
+export async function enableAptosSnap(
   config: Partial<SnapConfig>,
   snapOrigin?: string,
   snapInstallationParams: Record<SnapInstallationParamNames, unknown> = {}
-): Promise<MetamaskFilecoinSnap> {
+): Promise<MetamaskAptosSnap> {
   const snapId = snapOrigin ?? defaultSnapOrigin;
 
   // check all conditions
@@ -52,25 +45,27 @@ export async function enableFilecoinSnap(
   const isInstalled = await isSnapInstalled(snapId);
 
   if (!isInstalled) {
+    console.log("snap does not installed");
     // // enable snap
-    await window.ethereum.request({
+    const result = await window.ethereum.request({
       method: "wallet_enable",
       params: [
         {
-          [`wallet_snap_${snapId}`]: {
-            ...snapInstallationParams,
-          },
+          [`wallet_snap_${snapId}`]: {},
         },
       ],
     });
+    console.log("-----", result, { snapInstallationParams });
   }
 
   //await unlockMetamask();
 
   // create snap describer
-  const snap = new MetamaskFilecoinSnap(snapOrigin || defaultSnapOrigin);
+  const snap = new MetamaskAptosSnap(snapOrigin || defaultSnapOrigin);
+  console.log("enableAptosSnap", snap);
   // set initial configuration
-  await (await snap.getFilecoinSnapApi()).configure(config);
+  // await (await snap.getAptosSnapApi()).configure(config);
+  await snap.getAptosSnapApi();
   // return snap object
   return snap;
 }

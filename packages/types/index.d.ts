@@ -1,72 +1,19 @@
-export interface GetPublicKeyRequest {
-  method: "fil_getPublicKey";
-}
+import { AptosAccount } from "aptos";
 
-export interface GetAddressRequest {
-  method: "fil_getAddress";
-}
-
-export interface ExportSeedRequest {
-  method: "fil_exportPrivateKey";
+export interface connectRequest {
+  method: "aptos_connect";
 }
 
 export interface ConfigureRequest {
-  method: "fil_configure";
+  method: "aptos_configure";
   params: {
     configuration: SnapConfig;
   };
 }
 
-export interface SignMessageRequest {
-  method: "fil_signMessage";
-  params: {
-    message: MessageRequest;
-  };
-}
+export type MetamaskAptosRpcRequest = connectRequest | ConfigureRequest;
 
-export interface SignMessageRawRequest {
-  method: "fil_signMessageRaw";
-  params: {
-    message: string;
-  };
-}
-
-export interface SendMessageRequest {
-  method: "fil_sendMessage";
-  params: {
-    signedMessage: SignedMessage;
-  };
-}
-
-export interface GetBalanceRequest {
-  method: "fil_getBalance";
-}
-
-export interface GetMessagesRequest {
-  method: "fil_getMessages";
-}
-
-export interface GetGasForMessageRequest {
-  method: "fil_getGasForMessage";
-  params: {
-    message: MessageRequest;
-    maxFee?: string;
-  };
-}
-
-export type MetamaskFilecoinRpcRequest =
-  | GetPublicKeyRequest
-  | GetAddressRequest
-  | ExportSeedRequest
-  | ConfigureRequest
-  | GetBalanceRequest
-  | GetMessagesRequest
-  | SignMessageRequest
-  | SignMessageRawRequest
-  | SendMessageRequest
-  | GetGasForMessageRequest;
-
-type Method = MetamaskFilecoinRpcRequest["method"];
+type Method = MetamaskAptosRpcRequest["method"];
 
 export interface WalletEnableRequest {
   method: "wallet_enable";
@@ -79,7 +26,7 @@ export interface GetSnapsRequest {
 
 export interface SnapRpcMethodRequest {
   method: string;
-  params: [MetamaskFilecoinRpcRequest];
+  params: [MetamaskAptosRpcRequest];
 }
 
 export type MetamaskRpcRequest =
@@ -87,107 +34,20 @@ export type MetamaskRpcRequest =
   | GetSnapsRequest
   | SnapRpcMethodRequest;
 
-export interface UnitConfiguration {
-  symbol: string;
-  decimals: number;
-  image?: string;
-  customViewUrl?: string;
-}
-
 export interface SnapConfig {
   derivationPath: string;
-  network: FilecoinNetwork;
+  network: AptosNetwork;
   rpc: {
-    token: string;
-    url: string;
+    node: string;
+    faucet: string;
   };
-  unit?: UnitConfiguration;
 }
 
 export type Callback<T> = (arg: T) => void;
 
-// Filecoin types
+export type AptosNetwork = "mainnet" | "devnet";
 
-export interface Message {
-  to: string;
-  from: string;
-  nonce: number;
-  value: string;
-  gasfeecap: string;
-  gaspremium: string;
-  gaslimit: number;
-  method: number;
-  params?: string;
-}
-
-export interface SignedMessage {
-  message: Message;
-  signature: MessageSignature;
-}
-
-export interface MessageSignature {
-  data: string;
-  type: number;
-}
-
-export interface SignMessageResponse {
-  signedMessage: SignedMessage;
-  confirmed: boolean;
-  error: Error;
-}
-
-export interface SignRawMessageResponse {
-  signature: string;
-  confirmed: boolean;
-  error: Error;
-}
-
-export interface MessageRequest {
-  to: string;
-  value: string;
-  gaslimit?: number;
-  gasfeecap?: string;
-  gaspremium?: string;
-  nonce?: number;
-  method?: number;
-  params?: string;
-}
-
-export interface MessageGasEstimate {
-  gaslimit: number;
-  gasfeecap: string;
-  gaspremium: string;
-  maxfee: string;
-}
-
-export interface MessageStatus {
-  message: Message;
-  cid: string;
-}
-
-export type FilecoinNetwork = "f" | "t";
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface FilecoinEventApi {}
-
-export interface FilecoinSnapApi {
-  getPublicKey(): Promise<string>;
-  getAddress(): Promise<string>;
-  getBalance(): Promise<string>;
-  exportPrivateKey(): Promise<string>;
+export interface AptosSnapApi {
+  connect(): Promise<AptosAccount>;
   configure(configuration: Partial<SnapConfig>): Promise<void>;
-  signMessage(message: MessageRequest): Promise<SignMessageResponse>;
-  signMessageRaw(message: string): Promise<SignRawMessageResponse>;
-  sendMessage(signedMessage: SignedMessage): Promise<MessageStatus>;
-  getMessages(): Promise<MessageStatus[]>;
-  calculateGasForMessage(
-    message: MessageRequest,
-    maxFee?: string
-  ): Promise<MessageGasEstimate>;
-}
-
-export interface KeyPair {
-  address: string;
-  privateKey: string;
-  publicKey: string;
 }

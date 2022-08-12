@@ -1,17 +1,17 @@
 {
-  "version": "2.3.9",
-  "proposedName": "Filsnap",
-  "description": "The Filecoin snap.",
+  "version": "0.1.0",
+  "proposedName": "Aptosnap",
+  "description": "The Aptos snap.",
   "repository": {
     "type": "git",
     "url": "https://github.com/Chainsafe/filsnap.git"
   },
   "source": {
-    "shasum": "a3CXQvJp2vz7Hp24PDJY2wnXAbwjNQl8I7seM0ZbMKE=",
+    "shasum": "zlx3ZO+oPi4vFCCKnncr+0X0FzleNa1dtbSKEpHtNGI=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
-        "packageName": "@chainsafe/filsnap",
+        "packageName": "@keystonehq/aptosnap",
         "registry": "https://registry.npmjs.org/"
       }
     }

@@ -1,33 +1,22 @@
-import { SnapConfig } from "@chainsafe/filsnap-types";
+import { SnapConfig } from "@keystonehq/aptosnap-types";
 
-export const filecoinMainnetConfiguration: SnapConfig = {
-  derivationPath: "m/44'/461'/0'/0/0",
-  network: "f",
+export const aptosMainnetConfiguration: SnapConfig = {
+  derivationPath: "m/44'/637'/0'/0/0",
+  network: "mainnet",
   rpc: {
-    token: "",
-    url: "https://api.node.glif.io",
-  },
-  unit: {
-    decimals: 6,
-    image: `https://cryptologos.cc/logos/filecoin-fil-logo.svg?v=007`,
-    symbol: "FIL",
+    node: "",
+    faucet: "",
   },
 };
 
 // devnet configuration replaces testnet for now
-export const filecoinTestnetConfiguration: SnapConfig = {
-  derivationPath: "m/44'/1'/0'/0/0",
-  network: "t",
+export const aptosDevnetConfiguration: SnapConfig = {
+  derivationPath: "m/44'/637'/0'/0/0",
+  network: "devnet",
   rpc: {
-    token: "",
-    url: `https://api.calibration.node.glif.io`,
-  },
-  unit: {
-    decimals: 6,
-    image: `https://cryptologos.cc/logos/filecoin-fil-logo.svg?v=007`,
-    symbol: "FIL",
-    // custom view url ?
+    node: "https://devnet.aptoslabs.com/",
+    faucet: `https://faucet.devnet.aptoslabs.com/`,
   },
 };
 
-export const defaultConfiguration: SnapConfig = filecoinMainnetConfiguration;
+export const defaultConfiguration: SnapConfig = aptosMainnetConfiguration;

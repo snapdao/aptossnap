@@ -11,10 +11,10 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "manifest": "yarn workspace @chainsafe/filsnap manifest",
-    "build:snap": "yarn workspace @chainsafe/filsnap build",
-    "build:adapter": "yarn workspace @chainsafe/filsnap-adapter build",
-    "start:snap": "yarn workspace @chainsafe/filsnap serve",
+    "manifest": "yarn workspace @keystonehq/aptosnap manifest",
+    "build:snap": "yarn workspace @keystonehq/aptosnap build",
+    "build:adapter": "yarn workspace @keystonehq/aptosnap-adapter build",
+    "start:snap": "yarn workspace @keystonehq/aptosnap serve",
     "start:example": "REACT_APP_SNAP=local yarn workspace example start",
     "predemo": "yarn run build:snap && yarn run build:adapter",
     "build": "yarn workspaces foreach -vpt run build",
