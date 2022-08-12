@@ -1,22 +1,16 @@
-import {
-  MessageStatus,
-  MetamaskAptosRpcRequest,
-  SnapConfig,
-} from "@keystonehq/aptosnap-types";
-import { defaultConfiguration } from "./configuration/predefined";
+import { SnapConfig } from "@keystonehq/aptosnap-types";
 
-export type FMethodCallback = (
-  originString: string,
-  requestObject: MetamaskAptosRpcRequest
-) => Promise<unknown>;
+export type AptosNetwork = "devnet" | "mainnet";
+
+export interface Wallet {
+  request(options: { method: string; params?: unknown[] }): unknown;
+}
 
 export type MetamaskState = {
-  filecoin: {
+  aptos: {
     config: SnapConfig;
-    messages: MessageStatus[];
   };
 };
-
 export const EmptyMetamaskState: () => MetamaskState = () => ({
-  filecoin: { config: defaultConfiguration, messages: [] },
+  aptos: { config: null },
 });

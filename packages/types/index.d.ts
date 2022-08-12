@@ -1,17 +1,17 @@
 import { AptosAccount } from "aptos";
 
-export interface connectRequest {
-  method: "aptos_connect";
+export interface getAddressRequest {
+  method: "aptos_getAddress";
 }
 
-export interface ConfigureRequest {
+export interface ConfigureSnapRequest {
   method: "aptos_configure";
   params: {
     configuration: SnapConfig;
   };
 }
 
-export type MetamaskAptosRpcRequest = connectRequest | ConfigureRequest;
+export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest;
 
 type Method = MetamaskAptosRpcRequest["method"];
 
@@ -35,9 +35,9 @@ export type MetamaskRpcRequest =
   | SnapRpcMethodRequest;
 
 export interface SnapConfig {
-  derivationPath: string;
+  derivationPath?: string;
   network: AptosNetwork;
-  rpc: {
+  rpc?: {
     node: string;
     faucet: string;
   };
@@ -50,4 +50,18 @@ export type AptosNetwork = "mainnet" | "devnet";
 export interface AptosSnapApi {
   connect(): Promise<AptosAccount>;
   configure(configuration: Partial<SnapConfig>): Promise<void>;
+}
+
+export interface BlockInfo {
+  hash: string;
+  number: string;
+}
+
+export interface Transaction {
+  hash: string;
+  block: string;
+  sender: string;
+  destination: string;
+  amount: string | number;
+  fee: string;
 }

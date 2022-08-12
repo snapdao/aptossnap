@@ -1,5 +1,5 @@
-import { AptosSnapApi } from "@keystonehq/aptosnap-types";
-import { configure, connect } from "./methods";
+import { MetamaskSnapApi } from "./types";
+import { getAddress, setConfiguration } from "./methods";
 
 export class MetamaskAptosSnap {
   // snap parameters
@@ -12,10 +12,10 @@ export class MetamaskAptosSnap {
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  public getAptosSnapApi = async (): Promise<AptosSnapApi> => {
+  public getMetamaskSnapApi = async (): Promise<MetamaskSnapApi> => {
     return {
-      configure: configure.bind(this),
-      connect: connect.bind(this),
+      getAddress: getAddress.bind(this),
+      setConfiguration: setConfiguration.bind(this),
     };
   };
 }

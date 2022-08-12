@@ -2,7 +2,6 @@ import {
   MetamaskAptosRpcRequest,
   SnapConfig,
 } from "@keystonehq/aptosnap-types";
-import { AptosAccount } from "aptos";
 import { MetamaskAptosSnap } from "./snap";
 
 async function sendSnapMethod<T>(
@@ -15,16 +14,25 @@ async function sendSnapMethod<T>(
   });
 }
 
-export async function connect(this: MetamaskAptosSnap): Promise<AptosAccount> {
-  return await sendSnapMethod({ method: "aptos_connect" }, this.snapId);
+export async function getAddress(this: MetamaskAptosSnap): Promise<string> {
+  return await sendSnapMethod({ method: "aptos_getAddress" }, this.snapId);
 }
-
-export async function configure(
+export async function setConfiguration(
   this: MetamaskAptosSnap,
-  configuration: SnapConfig
+  config: SnapConfig
 ): Promise<void> {
-  return await sendSnapMethod(
-    { method: "aptos_configure", params: { configuration: configuration } },
+  await sendSnapMethod(
+    { method: "aptos_configure", params: { configuration: config } },
     this.snapId
   );
 }
+
+// export async function configure(
+//   this: MetamaskAptosSnap,
+//   configuration: SnapConfig
+// ): Promise<void> {
+//   return await sendSnapMethod(
+//     { method: "aptos_configure", params: { configuration: configuration } },
+//     this.snapId
+//   );
+// }

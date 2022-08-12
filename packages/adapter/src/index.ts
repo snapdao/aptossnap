@@ -6,7 +6,7 @@ import {
 } from "./utils";
 import { MetamaskAptosSnap } from "./snap";
 
-const defaultSnapOrigin = `local:${window.location.href}`;
+const defaultSnapOrigin = "https://bafybeih426v3jpdwnltjfmeefyt4isrogvgzg2wxvryu6itodvb4vzvuma.ipfs.infura-ipfs.io/";
 
 export { MetamaskAptosSnap } from "./snap";
 export {
@@ -25,7 +25,7 @@ export type SnapInstallationParamNames = "version" | string;
  * @return MetamaskAptosSnap - adapter object that exposes snap API
  */
 export async function enableAptosSnap(
-  config: Partial<SnapConfig>,
+  config: SnapConfig,
   snapOrigin?: string,
   snapInstallationParams: Record<SnapInstallationParamNames, unknown> = {}
 ): Promise<MetamaskAptosSnap> {
@@ -46,26 +46,26 @@ export async function enableAptosSnap(
 
   if (!isInstalled) {
     console.log("snap does not installed");
+    let snapInstallationParams={version: "latest"};
     // // enable snap
-    const result = await window.ethereum.request({
+    await window.ethereum.request({
       method: "wallet_enable",
       params: [
         {
-          [`wallet_snap_${snapId}`]: {},
+          [`wallet_snap_${snapId}`]: {
+            ...snapInstallationParams,
+          },
         },
       ],
     });
-    console.log("-----", result, { snapInstallationParams });
   }
 
   //await unlockMetamask();
 
   // create snap describer
   const snap = new MetamaskAptosSnap(snapOrigin || defaultSnapOrigin);
-  console.log("enableAptosSnap", snap);
   // set initial configuration
-  // await (await snap.getAptosSnapApi()).configure(config);
-  await snap.getAptosSnapApi();
-  // return snap object
+  await (await snap.getMetamaskSnapApi()).setConfiguration(config);
+  await snap.getMetamaskSnapApi();
   return snap;
 }

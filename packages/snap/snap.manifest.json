@@ -4,10 +4,10 @@
   "description": "The Aptos snap.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Chainsafe/filsnap.git"
+    "url": "https://github.com/keystoneHQ/aptos.git"
   },
   "source": {
-    "shasum": "zlx3ZO+oPi4vFCCKnncr+0X0FzleNa1dtbSKEpHtNGI=",
+    "shasum": "K6TvF+XCL/QLIEahYVjjWw0HDcB4idThDhmoWlCdH7A=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -17,11 +17,8 @@
     }
   },
   "initialPermissions": {
-    "endowment:network-access": {},
     "snap_confirm": {},
-    "snap_getBip44Entropy_1": {},
-    "snap_getBip44Entropy_461": {},
-    "snap_manageState": {}
+    "snap_getBip44Entropy_637": {}
   },
   "manifestVersion": "0.1"
 }

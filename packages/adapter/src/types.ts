@@ -1,4 +1,10 @@
-import { SnapRpcMethodRequest } from "@keystonehq/aptosnap-types";
+import {SnapConfig, SnapRpcMethodRequest} from "@keystonehq/aptosnap-types";
+// import { AptosAccount } from "aptos";
+
+export interface MetamaskSnapApi {
+  getAddress(): Promise<string>;
+  setConfiguration(configuration: SnapConfig): Promise<void>;
+}
 
 declare global {
   interface Window {

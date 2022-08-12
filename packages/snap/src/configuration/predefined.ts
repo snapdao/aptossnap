@@ -1,22 +1,33 @@
-import { SnapConfig } from "@keystonehq/aptosnap-types";
+import {SnapConfig} from "@keystonehq/aptosnap-types";
 
-export const aptosMainnetConfiguration: SnapConfig = {
-  derivationPath: "m/44'/637'/0'/0/0",
-  network: "mainnet",
-  rpc: {
-    node: "",
-    faucet: "",
-  },
-};
-
-// devnet configuration replaces testnet for now
-export const aptosDevnetConfiguration: SnapConfig = {
-  derivationPath: "m/44'/637'/0'/0/0",
+export const devnetConfiguartion: SnapConfig = {
+  // derivationPath: "",
   network: "devnet",
+  // unit: {
+  //   decimals: 12,
+  //   image: "https://svgshare.com/i/L3o.svg",
+  //   symbol: "KSM",
+  // },
   rpc: {
-    node: "https://devnet.aptoslabs.com/",
-    faucet: `https://faucet.devnet.aptoslabs.com/`,
+    node: "https://devnet.aptoslabs.com",
+    faucet: "https://faucet.devnet.aptoslabs.com",
   },
+  // wsRpcUrl: "wss://kusama-rpc.polkadot.io/",
 };
 
-export const defaultConfiguration: SnapConfig = aptosMainnetConfiguration;
+export const mainnetConfiguartion: SnapConfig = {
+  // derivationPath: "",
+  network: "mainnet",
+  // unit: {
+  //   decimals: 12,
+  //   image: "https://svgshare.com/i/L3o.svg",
+  //   symbol: "KSM",
+  // },
+  rpc: {
+    node: "https://devnet.aptoslabs.com",
+    faucet: "https://faucet.devnet.aptoslabs.com",
+  },
+  // wsRpcUrl: "wss://kusama-rpc.polkadot.io/",
+};
+
+export const defaultConfiguration: SnapConfig = devnetConfiguartion;

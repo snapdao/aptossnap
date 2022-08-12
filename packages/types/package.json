@@ -7,12 +7,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Types for Filsnap.",
+  "description": "Types for Aptosnap.",
   "keywords": [
-    "filecoin",
+    "aptos",
     "metamask",
-    "snap",
-    "dapp"
+    "snap"
   ],
   "dependencies": {
     "aptos": "^1.3.5"

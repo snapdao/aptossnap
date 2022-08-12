@@ -1,34 +1,31 @@
-import { SnapConfig } from "@keystonehq/aptosnap-types";
-import { SnapProvider } from "@metamask/snap-types";
-import { MetamaskState } from "../interfaces";
+import { MetamaskState, Wallet } from "../interfaces";
 import {
   defaultConfiguration,
-  aptosMainnetConfiguration,
-  aptosDevnetConfiguration,
+  devnetConfiguartion,
+  mainnetConfiguartion,
 } from "./predefined";
+import {SnapConfig} from "@keystonehq/aptosnap-types";
 
-export function getDefaultConfiguration(networkName?: string): SnapConfig {
+export function getDefaultConfiguration(networkName: string): SnapConfig {
   switch (networkName) {
-    case "f":
-      console.log("Filecoin mainnett network selected");
-      return aptosMainnetConfiguration;
-    case "t":
-      console.log("Filecoin testnet network selected");
-      return aptosDevnetConfiguration;
+    case "devnet":
+      console.log("devnet configuration selected");
+      return devnetConfiguartion;
+    case "mainnet":
+      console.log("mainnet configuration selected");
+      return mainnetConfiguartion;
     default:
       return defaultConfiguration;
   }
 }
 
-export async function getConfiguration(
-  wallet: SnapProvider
-): Promise<SnapConfig> {
+export async function getConfiguration(wallet: Wallet): Promise<SnapConfig> {
   const state = (await wallet.request({
     method: "snap_manageState",
     params: ["get"],
   })) as MetamaskState;
-  if (!state || !state.filecoin.config) {
+  if (!state || !state.aptos.config) {
     return defaultConfiguration;
   }
-  return state.filecoin.config;
+  return state.aptos.config;
 }

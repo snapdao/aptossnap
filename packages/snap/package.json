@@ -5,41 +5,39 @@
   "description": "Aptos - Metamask snap to interact with Aptos.",
   "main": "build/index.js",
   "scripts": {
-    "snap": "mm-snap",
-    "manifest": "mm-snap manifest",
     "lint": "yarn run lint:types && yarn run lint:style",
     "lint:types": "tsc --noEmit --pretty",
-    "lint:style": "eslint --color '{src, test, @types}/**/*.{js,ts,tsx}'",
-    "lint:style:fix": "yarn run lint --fix",
+    "lint:style": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:fix": "yarn run lint --fix",
     "start": "yarn run build && yarn run serve",
-    "prebuild": "rm -rf build && rm -rf dist",
+    "prebuild": "rm -rf build dist ipfs",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "yarn run build:snap",
+    "build": "yarn run build:tsc && yarn run build:snap",
+    "build:tsc": "tsc --pretty --project tsconfig.build.json",
     "build:snap": "yarn build:snap:bundle && yarn build:snap:postprocess && yarn build:snap:eval",
-    "build:snap:bundle": "mm-snap build --src src/index.ts --writeManifest false --manifest false --verboseErrors  --stripComments --eval false",
-    "build:snap:postprocess": "node ./post-process.js && mm-snap manifest --fix",
+    "build:snap:bundle": "mm-snap build -s build/index.js --verboseErrors --transpilationMode localAndDeps --stripComments --eval false",
+    "build:snap:postprocess": "mm-snap manifest --fix",
     "build:snap:eval": "mm-snap eval -b dist/bundle.js --verboseErrors",
+    "snapEval": "mm-snap eval",
     "watch": "concurrently  --raw --kill-others \"yarn run watch:tsc\" \"yarn run watch:snap\" \"yarn run serve\"",
     "watch:tsc": "yarn run build:tsc --watch",
-    "watch:snap": "mm-snap watch --sourceMaps",
+    "watch:snap": "mm-snap watch --debug",
+    "prepublish": "yarn run build && mkdir ipfs && cp package.json ipfs/package.json",
+    "publish": "export BUNDLE_URL=`ipd --no-clipboard -O -p infura dist/bundle.js` && sed -i 's/http:\\/\\/localhost:8081\\/dist\\/bundle.js/https:\\/\\/ipfs.infura.io\\/ipfs\\/'\"$BUNDLE_URL\"'/g' ipfs/package.json && ipd --no-clipboard -O -p infura ipfs/package.json",
+    "postpublish": "rm -rf ipfs",
     "serve": "mm-snap serve",
     "test": "yarn run test:unit",
-    "test:unit": "mocha --colors -r ts-node/register \"test/unit/**/*.test.ts\"",
-    "eval:snap": "mm-snap eval -b dist/bundle.js --verboseErrors",
-    "prepublish": "yarn run build"
+    "test:unit": "mocha --colors -r ts-node/register \"test/unit/**/*.test.ts\""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Chainsafe/filsnap.git"
+    "url": "https://github.com/keystoneHQ/aptos.git"
   },
   "keywords": [
-    "filecoin",
+    "aptos",
     "metamask",
-    "snap",
-    "dapp",
-    "wallet",
-    "plugin"
+    "snap"
   ],
   "author": "mrzhao <zhaomengru2018@gmail.com>",
   "bugs": {
@@ -47,7 +45,7 @@
   },
   "homepage": "https://github.com/keystoneHQ/aptosnap#readme",
   "devDependencies": {
-    "@keystonehq/aptosnap-types": "workspace:^",
+    "@keystonehq/aptosnap-types": "*",
     "@metamask/providers": "^9.0.0",
     "@metamask/snaps-cli": "^0.18.1",
     "@types/bn.js": "^4.11.6",
@@ -66,14 +64,10 @@
     "typescript": "4.3.5"
   },
   "dependencies": {
-    "@filecoin-shipyard/lotus-client-provider-nodejs": "1.1.1",
-    "@filecoin-shipyard/lotus-client-rpc": "^0.2.0",
-    "@filecoin-shipyard/lotus-client-schema": "^0.0.14",
     "@glif/filecoin-number": "^2.0.0-beta.0",
     "@metamask/key-tree": "^4.0.0",
-    "@metamask/key-tree-old": "npm:@metamask/key-tree@^3.0.1",
     "@metamask/snap-types": "^0.18.1",
-    "@zondax/filecoin-signing-tools": "^0.20.0",
+    "aptos": "^1.3.6",
     "bn.js": "^5.1.2",
     "deepmerge": "^4.2.2"
   }
