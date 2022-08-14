@@ -11,10 +11,10 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "manifest": "yarn workspace @keystonehq/aptosnap manifest",
-    "build:snap": "yarn workspace @keystonehq/aptosnap build",
-    "build:adapter": "yarn workspace @keystonehq/aptosnap-adapter build",
-    "start:snap": "yarn workspace @keystonehq/aptosnap serve",
+    "manifest": "yarn workspace @keystonehq/aptossnap manifest",
+    "build:snap": "yarn workspace @keystonehq/aptossnap build",
+    "build:adapter": "yarn workspace @keystonehq/aptossnap-adapter build",
+    "start:snap": "yarn workspace @keystonehq/aptossnap serve",
     "start:example": "REACT_APP_SNAP=local yarn workspace example start",
     "predemo": "yarn run build:snap && yarn run build:adapter",
     "build": "yarn workspaces foreach -vpt run build",
@@ -32,6 +32,7 @@
     "@types/node": "^12.12.35",
     "concurrently": "^7.1.0",
     "eslint": "7",
+    "lerna": "^5.4.1",
     "mocha": "^10.0.0",
     "ts-node": "^10.8.0",
     "typescript": "4.6.4"

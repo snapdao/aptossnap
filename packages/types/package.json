@@ -1,5 +1,5 @@
 {
-  "name": "@keystonehq/aptosnap-types",
+  "name": "@keystonehq/aptossnap-types",
   "version": "0.1.0",
   "types": "./index.d.ts",
   "license": "ISC",
@@ -7,7 +7,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Types for Aptosnap.",
+  "description": "Types for aptos snap.",
   "keywords": [
     "aptos",
     "metamask",

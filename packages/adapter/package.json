@@ -1,12 +1,12 @@
 {
-  "name": "@keystonehq/aptosnap-adapter",
+  "name": "@keystonehq/aptossnap-adapter",
   "version": "0.1.0",
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
   "author": "mrzhao <zhaomengru2018@gmail.com>",
   "license": "(Apache-2.0 AND MIT)",
-  "homepage": "https://github.com/keystoneHQ/aptosnap/tree/master/packages/adapter",
+  "homepage": "https://github.com/keystoneHQ/aptossnap/tree/master/packages/adapter",
   "keywords": [
     "filecoin",
     "metamask",
@@ -29,7 +29,7 @@
     "test": "exit 0"
   },
   "dependencies": {
-    "@keystonehq/aptosnap-types": "*",
+    "@keystonehq/aptossnap-types": "*",
     "aptos": "^1.3.6"
   },
   "devDependencies": {

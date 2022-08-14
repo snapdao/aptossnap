@@ -1,5 +1,5 @@
 import deepmerge from "deepmerge";
-import { SnapConfig } from "@keystonehq/aptosnap-types";
+import { SnapConfig } from "@keystonehq/aptossnap-types";
 import { MetamaskState, Wallet } from "../interfaces";
 import { getDefaultConfiguration } from "../configuration";
 

@@ -1,4 +1,4 @@
-import {SnapConfig} from "@keystonehq/aptosnap-types";
+import { SnapConfig } from "@keystonehq/aptossnap-types";
 
 export const devnetConfiguartion: SnapConfig = {
   // derivationPath: "",

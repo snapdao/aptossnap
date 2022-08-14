@@ -1,10 +1,10 @@
+import { SnapConfig } from "@keystonehq/aptossnap-types";
 import { MetamaskState, Wallet } from "../interfaces";
 import {
   defaultConfiguration,
   devnetConfiguartion,
   mainnetConfiguartion,
 } from "./predefined";
-import {SnapConfig} from "@keystonehq/aptosnap-types";
 
 export function getDefaultConfiguration(networkName: string): SnapConfig {
   switch (networkName) {

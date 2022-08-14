@@ -18,8 +18,8 @@ import { Account } from "../../components/Account/Account";
 import { MetaMaskConnector } from "../MetaMaskConnector/MetaMaskConnector";
 import { MetaMaskContext } from "../../context/metamask";
 import { LatestBlock } from "../../components/LatestBlock/LatestBlock";
-import { BlockInfo, Transaction } from "@keystonehq/aptosnap-types";
-import { MetamaskSnapApi } from "@keystonehq/aptosnap-adapter/build/types";
+import { BlockInfo, Transaction } from "@keystonehq/aptossnap-types";
+import { MetamaskSnapApi } from "@keystonehq/aptossnap-adapter/build/types";
 
 export const Dashboard = () => {
   const [state] = useContext(MetaMaskContext);

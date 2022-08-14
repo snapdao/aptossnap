@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Card, CardContent, CardHeader, Divider, Grid, Typography } from "@material-ui/core";
-import { BlockInfo } from "@keystonehq/aptosnap-types";
+import { BlockInfo } from "@keystonehq/aptossnap-types";
 
 export const LatestBlock = (props: { block: BlockInfo }) => {
 

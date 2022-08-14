@@ -1,7 +1,7 @@
 import {
   MetamaskAptosRpcRequest,
   SnapConfig,
-} from "@keystonehq/aptosnap-types";
+} from "@keystonehq/aptossnap-types";
 import { MetamaskAptosSnap } from "./snap";
 
 async function sendSnapMethod<T>(

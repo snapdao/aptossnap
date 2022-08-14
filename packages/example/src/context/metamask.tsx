@@ -1,6 +1,6 @@
 import { hasMetaMask } from "../services/metamask";
 import React, { createContext, Dispatch, PropsWithChildren, Reducer, useReducer } from "react";
-import { MetamaskAptosSnap } from "@keystonehq/aptosnap-adapter/build/snap";
+import { MetamaskAptosSnap } from "@keystonehq/aptossnap-adapter/build/snap";
 
 interface IaptosSnap {
   isInstalled: boolean

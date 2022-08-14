@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import { shortAddress } from "../../services/format";
 // import { formatBalance } from "@polkadot/util";
-import { Transaction } from "@keystonehq/aptosnap-types";
+import { Transaction } from "@keystonehq/aptossnap-types";
 
 export interface TransactionTableProps {
   txs: Transaction[];

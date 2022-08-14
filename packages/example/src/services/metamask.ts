@@ -1,9 +1,9 @@
 // import { web3EnablePromise } from "@polkadot/extension-dapp";
 // import { InjectedMetamaskExtension } from "@chainsafe/metamask-polkadot-adapter/src/types";
-import { SnapRpcMethodRequest } from "@keystonehq/aptosnap-types";
+import { SnapRpcMethodRequest } from "@keystonehq/aptossnap-types";
 // import { InjectedExtension } from "@polkadot/extension-inject/types";
-import { enableAptosSnap } from "@keystonehq/aptosnap-adapter";
-import { MetamaskAptosSnap } from "@keystonehq/aptosnap-adapter/build/snap";
+import { enableAptosSnap } from "@keystonehq/aptossnap-adapter";
+import { MetamaskAptosSnap } from "@keystonehq/aptossnap-adapter/build/snap";
 
 declare global {
   interface Window {

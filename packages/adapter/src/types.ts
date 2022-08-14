@@ -1,4 +1,4 @@
-import {SnapConfig, SnapRpcMethodRequest} from "@keystonehq/aptosnap-types";
+import { SnapConfig, SnapRpcMethodRequest } from "@keystonehq/aptossnap-types";
 // import { AptosAccount } from "aptos";
 
 export interface MetamaskSnapApi {

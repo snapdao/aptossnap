@@ -1,4 +1,4 @@
-import { SnapConfig } from "@keystonehq/aptosnap-types";
+import { SnapConfig } from "@keystonehq/aptossnap-types";
 import {
   hasMetaMask,
   isMetamaskSnapsSupported,
@@ -6,7 +6,8 @@ import {
 } from "./utils";
 import { MetamaskAptosSnap } from "./snap";
 
-const defaultSnapOrigin = "https://bafybeih426v3jpdwnltjfmeefyt4isrogvgzg2wxvryu6itodvb4vzvuma.ipfs.infura-ipfs.io/";
+const defaultSnapOrigin =
+  "https://bafybeih426v3jpdwnltjfmeefyt4isrogvgzg2wxvryu6itodvb4vzvuma.ipfs.infura-ipfs.io/";
 
 export { MetamaskAptosSnap } from "./snap";
 export {
@@ -46,7 +47,7 @@ export async function enableAptosSnap(
 
   if (!isInstalled) {
     console.log("snap does not installed");
-    let snapInstallationParams={version: "latest"};
+    const snapInstallationParams = { version: "latest" };
     // // enable snap
     await window.ethereum.request({
       method: "wallet_enable",
