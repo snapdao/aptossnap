@@ -2,6 +2,7 @@ import { OnRpcRequestHandler } from "@metamask/snap-types";
 import { getAddress } from "./rpc/getAddress";
 import { Wallet } from "./interfaces";
 import { configure } from "./rpc/configure";
+import getBalance from "./rpc/getBalance";
 
 declare let wallet: Wallet;
 
@@ -21,7 +22,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   // }
   console.log("request", request.method, request);
   switch (request.method) {
-    case "aptos_configure": {
+    case 'aptos_getBalance':
+      return await getBalance(wallet)
+    case "aptos_configure":
       // const state = (await wallet.request({
       //   method: "snap_manageState",
       //   params: ["get"],
@@ -33,7 +36,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       // }
       // set new configuration
       return await configure(wallet, "devnet", {});
-    }
     case "aptos_getAddress":
       console.log("-------aptos_getAddress- is requested--------");
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

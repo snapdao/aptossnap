@@ -47,7 +47,7 @@ export async function enableAptosSnap(
 
   if (!isInstalled) {
     console.log("snap does not installed");
-    const snapInstallationParams = { version: "latest" };
+    snapInstallationParams = { version: "latest" };
     // // enable snap
     await window.ethereum.request({
       method: "wallet_enable",
@@ -66,7 +66,8 @@ export async function enableAptosSnap(
   // create snap describer
   const snap = new MetamaskAptosSnap(snapOrigin || defaultSnapOrigin);
   // set initial configuration
-  await (await snap.getMetamaskSnapApi()).setConfiguration(config);
+  // await (await snap.getMetamaskSnapApi()).setConfiguration(config);
+  console.log('getMetamaskSnapApi')
   await snap.getMetamaskSnapApi();
   return snap;
 }

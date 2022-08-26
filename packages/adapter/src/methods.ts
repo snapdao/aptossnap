@@ -17,6 +17,7 @@ async function sendSnapMethod<T>(
 export async function getAddress(this: MetamaskAptosSnap): Promise<string> {
   return await sendSnapMethod({ method: "aptos_getAddress" }, this.snapId);
 }
+
 export async function setConfiguration(
   this: MetamaskAptosSnap,
   config: SnapConfig
@@ -25,6 +26,10 @@ export async function setConfiguration(
     { method: "aptos_configure", params: { configuration: config } },
     this.snapId
   );
+}
+
+export async function getBalance(this: MetamaskAptosSnap): Promise<string> {
+  return await sendSnapMethod({ method: 'aptos_getBalance' }, this.snapId)
 }
 
 // export async function configure(

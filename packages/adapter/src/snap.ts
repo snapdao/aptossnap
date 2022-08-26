@@ -1,5 +1,5 @@
 import { MetamaskSnapApi } from "./types";
-import { getAddress, setConfiguration } from "./methods";
+import { getAddress, getBalance, setConfiguration } from "./methods";
 
 export class MetamaskAptosSnap {
   // snap parameters
@@ -16,6 +16,7 @@ export class MetamaskAptosSnap {
     return {
       getAddress: getAddress.bind(this),
       setConfiguration: setConfiguration.bind(this),
+      getBalance: getBalance.bind(this)
     };
   };
 }

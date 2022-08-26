@@ -11,7 +11,11 @@ export interface ConfigureSnapRequest {
   };
 }
 
-export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest;
+export interface getBalanceRequest {
+  method: 'aptos_getBalance'
+}
+
+export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest | getBalanceRequest;
 
 type Method = MetamaskAptosRpcRequest["method"];
 

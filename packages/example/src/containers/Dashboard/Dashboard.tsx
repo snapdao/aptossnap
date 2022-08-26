@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -61,13 +62,17 @@ export const Dashboard = () => {
       if (api) {
         setAddress(await api.getAddress());
         // setPublicKey(await api.getPublicKey());
-        // setBalance(await api.getBalance());
+        setBalance(await api.getBalance());
         // setLatestBlock(await api.getLatestBlock());
         // setTransactions((await api.getAllTransactions()));
       }
     })();
   }, [api, network]);
 
+  async function getBalance() {
+    setBalance(await (api as any).getBalance());
+  }
+  
   // useEffect( () => {
   //   // periodically check balance
   //   const interval = setInterval(async () => {
@@ -110,6 +115,7 @@ export const Dashboard = () => {
             {/*<Box m="1rem" />*/}
             <Grid container spacing={3} alignItems="stretch">
               <Grid item xs={12}>
+                <span onClick={getBalance}>getBalance</span>
                 <Account network={network} address={address} balance={balance} publicKey={publicKey} />
               </Grid>
             </Grid>

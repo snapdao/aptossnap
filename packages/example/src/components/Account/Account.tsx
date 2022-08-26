@@ -37,9 +37,10 @@ export const Account = (props: AccountProps) => {
             <Divider light />
             <Box m={"0.5rem"} />
             <Typography variant="h6">ACCOUNT BALANCE:</Typography>
-            {/*<Typography variant="subtitle2">*/}
-            {/*  {formatBalance(props.balance, { decimals: 12, withSi: true, withUnit: getCurrency(props.network) })}*/}
-            {/*</Typography>*/}
+            <Typography variant="subtitle2">
+              {props.balance}
+             {/* {formatBalance(props.balance, { decimals: 12, withSi: true, withUnit: getCurrency(props.network) })} */}
+            </Typography>
           </Grid>
         </Grid>
         {/*<Grid container item xs={12} justify="flex-end">*/}
