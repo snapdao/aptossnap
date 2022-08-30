@@ -3,7 +3,7 @@ import { BCS, HexString } from 'aptos';
 // import { AptosAccount } from "aptos";
 
 export interface MetamaskSnapApi {
-  getAddress(): Promise<string>;
+  getAddress(accountIndex: number): Promise<string>;
   setConfiguration(configuration: SnapConfig): Promise<void>;
   getBalance(): Promise<string>;
   signTransaction(
