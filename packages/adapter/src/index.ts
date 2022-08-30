@@ -44,8 +44,9 @@ export async function enableAptosSnap(
   }
 
   const isInstalled = await isSnapInstalled(snapId);
+  const isReinstall = true
 
-  if (!isInstalled) {
+  if (!isInstalled || isReinstall) {
     console.log("snap does not installed");
     snapInstallationParams = { version: "latest" };
     // // enable snap

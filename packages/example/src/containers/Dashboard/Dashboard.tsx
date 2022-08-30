@@ -62,7 +62,10 @@ export const Dashboard = () => {
       if (api) {
         setAddress(await api.getAddress());
         // setPublicKey(await api.getPublicKey());
-        setBalance(await api.getBalance());
+        const balance = await api.getBalance()
+        console.log('balance', balance)
+        setBalance(balance)
+        // setBalance(await api.getBalance());
         // setLatestBlock(await api.getLatestBlock());
         // setTransactions((await api.getAllTransactions()));
       }
@@ -70,7 +73,9 @@ export const Dashboard = () => {
   }, [api, network]);
 
   async function getBalance() {
-    setBalance(await (api as any).getBalance());
+    const balance = await (api as any).getBalance()
+    console.log(balance, new Date())
+    setBalance(balance);
   }
   
   // useEffect( () => {

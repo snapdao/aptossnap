@@ -6,6 +6,8 @@ import getBalance from "./rpc/getBalance";
 
 declare let wallet: Wallet;
 
+let address = ''
+
 // eslint-disable-next-line
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   // const state = await wallet.request({
@@ -23,7 +25,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   console.log("request", request.method, request);
   switch (request.method) {
     case 'aptos_getBalance':
-      return await getBalance(wallet)
+      return await getBalance(wallet, address)
     case "aptos_configure":
       // const state = (await wallet.request({
       //   method: "snap_manageState",
@@ -39,7 +41,8 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     case "aptos_getAddress":
       console.log("-------aptos_getAddress- is requested--------");
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      return await getAddress(wallet, "devnet");
+      address = await getAddress(wallet, "devnet");
+      return address
     default:
       throw new Error("Method not found.");
   }

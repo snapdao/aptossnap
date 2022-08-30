@@ -7,7 +7,7 @@
     "url": "https://github.com/keystoneHQ/aptos.git"
   },
   "source": {
-    "shasum": "9MiQIyI5JDEc+xOiZX1Rz+vTuWz9vr+CzP8CcBktDAI=",
+    "shasum": "Xj7z3CoDahSUC1EK7FXGeieiUrvGDpSpRRw8xWA6hUQ=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -18,7 +18,8 @@
   },
   "initialPermissions": {
     "snap_confirm": {},
-    "snap_getBip44Entropy_637": {}
+    "snap_getBip44Entropy_637": {},
+    "endowment:network-access": {}
   },
   "manifestVersion": "0.1"
 }
