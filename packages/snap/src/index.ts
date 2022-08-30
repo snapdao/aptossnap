@@ -43,10 +43,11 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       return await configure(wallet, "devnet", {});
     case "aptos_getAddress":
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      return await getAddress(
+      address = await getAddress(
         wallet,
         (request.params as { accountIndex: number }).accountIndex
       );
+      return address
     default:
       throw new Error("Method not found.");
   }
