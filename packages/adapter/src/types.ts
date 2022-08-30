@@ -2,7 +2,7 @@ import { SnapConfig, SnapRpcMethodRequest } from "@keystonehq/aptossnap-types";
 // import { AptosAccount } from "aptos";
 
 export interface MetamaskSnapApi {
-  getAddress(): Promise<string>;
+  getAddress(accountIndex: number): Promise<string>;
   setConfiguration(configuration: SnapConfig): Promise<void>;
 }
 

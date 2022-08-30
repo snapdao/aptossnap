@@ -1,7 +1,10 @@
 import { AptosAccount } from "aptos";
 
 export interface getAddressRequest {
-  method: "aptos_getAddress";
+  method: "aptos_getAddress",
+  params: {
+    accountIndex: number
+  };
 }
 
 export interface ConfigureSnapRequest {

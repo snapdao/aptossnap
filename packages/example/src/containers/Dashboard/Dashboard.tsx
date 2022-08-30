@@ -59,7 +59,7 @@ export const Dashboard = () => {
   useEffect(() => {
     (async () => {
       if (api) {
-        setAddress(await api.getAddress());
+        setAddress(await api.getAddress(0));
         // setPublicKey(await api.getPublicKey());
         // setBalance(await api.getBalance());
         // setLatestBlock(await api.getLatestBlock());
