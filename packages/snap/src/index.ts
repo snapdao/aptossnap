@@ -19,7 +19,6 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   //     params: ["update", EmptyMetamaskState()],
   //   });
   // }
-  console.log("request", request.method, request);
   switch (request.method) {
     case "aptos_configure": {
       // const state = (await wallet.request({
@@ -35,9 +34,11 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       return await configure(wallet, "devnet", {});
     }
     case "aptos_getAddress":
-      console.log("-------aptos_getAddress- is requested--------");
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      return await getAddress(wallet, "devnet");
+      return await getAddress(
+        wallet,
+        (request.params as { accountIndex: number }).accountIndex
+      );
     default:
       throw new Error("Method not found.");
   }

@@ -3,7 +3,7 @@ import { SnapConfig } from "@keystonehq/aptossnap-types";
 export type AptosNetwork = "devnet" | "mainnet";
 
 export interface Wallet {
-  request(options: { method: string; params?: unknown[] }): unknown;
+  request(options: { method: string; params?: unknown[] | unknown}): unknown;
 }
 
 export type MetamaskState = {
