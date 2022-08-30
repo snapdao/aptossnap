@@ -1,18 +1,14 @@
 import { Wallet } from "../interfaces"
 import { AptosClient, AptosAccount, FaucetClient, CoinClient, APTOS_COIN } from "aptos"
-
-const NODE_URL = 'https://fullnode.devnet.aptoslabs.com'
-const FAUCET_URL = 'https://faucet.devnet.aptoslabs.com'
+import { getClient } from '../aptos/client'
+import { getCoinClient } from '../aptos/coinClient'
 
 export default async function getBalance (wallet: Wallet, address: string) {
-  const client = new AptosClient(NODE_URL);
-  (client.client.accounts.httpRequest as any).request = (conf: any) => {
-    global.fetch(`${NODE_URL}${client.client.accounts.httpRequest.config.BASE}${conf.url}`, conf).then(res => res.json())
-  }
-  const coinClient = new CoinClient(client)
+  const client = await getClient()
+  const coinClient = getCoinClient(client)
   const account = new AptosAccount(null, address)
   const balance = await coinClient.checkBalance(account)
-  return balance
+  return balance.toString()
 
   // const coinType = APTOS_COIN
   // const typeTag = `0x1::coin::CoinStore<${coinType}>`
