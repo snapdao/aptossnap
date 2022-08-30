@@ -77,6 +77,10 @@ export const Dashboard = () => {
     console.log(balance, new Date())
     setBalance(balance);
   }
+
+  async function signTransaction () {
+    console.log(await api?.signTransaction(address as any, '0x4e77895d0265257cfa482104d337c58257674ff6f012ba04760c9cec99149a1f' as any, 10))
+  }
   
   // useEffect( () => {
   //   // periodically check balance
@@ -120,7 +124,7 @@ export const Dashboard = () => {
             {/*<Box m="1rem" />*/}
             <Grid container spacing={3} alignItems="stretch">
               <Grid item xs={12}>
-                <span onClick={getBalance}>getBalance</span>
+                <span onClick={signTransaction}>signTransaction</span>
                 <Account network={network} address={address} balance={balance} publicKey={publicKey} />
               </Grid>
             </Grid>

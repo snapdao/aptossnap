@@ -1,10 +1,22 @@
 import { SnapConfig, SnapRpcMethodRequest } from "@keystonehq/aptossnap-types";
+import { BCS, HexString } from 'aptos';
 // import { AptosAccount } from "aptos";
 
 export interface MetamaskSnapApi {
   getAddress(): Promise<string>;
   setConfiguration(configuration: SnapConfig): Promise<void>;
   getBalance(): Promise<string>;
+  signTransaction(
+    from: HexString,
+    to: HexString,
+    amount: number | BigInt,
+    extraArgs?: {
+      coinType?: string
+      maxGasAmount?: BCS.Uint64
+      gasUnitPrice?: BCS.Uint64
+      expireTimestamp?: BCS.Uint64
+    }
+  ): Promise<string>
 }
 
 declare global {

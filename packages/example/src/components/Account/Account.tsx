@@ -31,11 +31,11 @@ export const Account = (props: AccountProps) => {
             <Typography variant="h6">ADDRESS:</Typography>
             <Typography variant="subtitle2">{props.address}</Typography>
             <Divider light />
-            <Box m={"0.5rem"} />
+            {/* <Box m={"0.5rem"} /> */}
             <Typography variant="h6">PUBLIC KEY:</Typography>
             <Typography variant="subtitle2">{props.publicKey}</Typography>
             <Divider light />
-            <Box m={"0.5rem"} />
+            {/* <Box m={"0.5rem"} /> */}
             <Typography variant="h6">ACCOUNT BALANCE:</Typography>
             <Typography variant="subtitle2">
               {props.balance}
