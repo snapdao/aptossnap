@@ -4,7 +4,7 @@ import { SnapConfig, SnapRpcMethodRequest } from "@keystonehq/aptossnap-types";
 export interface MetamaskSnapApi {
   getAddress(): Promise<string>;
   setConfiguration(configuration: SnapConfig): Promise<void>;
-  getBalance(): Promise<string>
+  getBalance(): Promise<string>;
 }
 
 declare global {

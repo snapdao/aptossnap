@@ -91,7 +91,7 @@ export const Dashboard = () => {
 
   return (
     <Container maxWidth="lg">
-      <Grid direction="column" alignItems="center" justify="center" container spacing={3}>
+      <Grid direction="column" alignItems="center" justifyContent="center" container spacing={3}>
         <Box m="2rem">
           <Typography variant="h2">
             Aptos snap demo

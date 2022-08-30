@@ -4968,11 +4968,12 @@ __metadata:
     "@types/mocha": ^9.1.1
     "@types/sinon": ^7.5.2
     "@types/sinon-chai": ^3.2.3
-    aptos: ^1.3.6
+    aptos: ^1.3.10
     babelify: ^10.0.0
     bn.js: ^5.1.2
     chai: ^4.2.0
     concurrently: ^5.1.0
+    cross-fetch: ^3.1.5
     deepmerge: ^4.2.2
     eslint: ^7
     mocha: ^10.0.0
@@ -6318,6 +6319,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@noble/hashes@npm:~1.1.1":
+  version: 1.1.2
+  resolution: "@noble/hashes@npm:1.1.2"
+  checksum: 452a197522dabd163cf5297fe7b768fabba73072a198752074da6fce7c1438c7f614b27891391e9f6b118842656a4da4c0fc04e464ba1e15f306291d05dd106a
+  languageName: node
+  linkType: hard
+
 "@noble/secp256k1@npm:^1.5.5":
   version: 1.5.5
   resolution: "@noble/secp256k1@npm:1.5.5"
@@ -6793,6 +6801,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@scure/base@npm:~1.1.0":
+  version: 1.1.1
+  resolution: "@scure/base@npm:1.1.1"
+  checksum: 97d200da8915ca18a4eceb73c23dda7fc3a4b8509f620c9b7756ee451d7c9ebbc828c6662f9ffa047806fbe41f37bf236c6ef75692690688b7659196cb2dc804
+  languageName: node
+  linkType: hard
+
 "@scure/bip39@npm:^1.0.0":
   version: 1.0.0
   resolution: "@scure/bip39@npm:1.0.0"
@@ -6800,6 +6815,16 @@ __metadata:
     "@noble/hashes": ~1.0.0
     "@scure/base": ~1.0.0
   checksum: 2d0e984c152e5864aa59e2e8181a1bfbefba4399d52a0332fa71b5f794818bc9fa0d8dd859944b4c88e7ff31d9480f3f56f290bb7895e7026cf309a62d364357
+  languageName: node
+  linkType: hard
+
+"@scure/bip39@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@scure/bip39@npm:1.1.0"
+  dependencies:
+    "@noble/hashes": ~1.1.1
+    "@scure/base": ~1.1.0
+  checksum: f6fc291b03155742daf9861482a13d9108ee6e9a32cb4cec34f7e424b8bf2a21cee73e4e4ef464911c4c0fa3906fefcf1bf0208127a878b5f02b6e50647fbbe8
   languageName: node
   linkType: hard
 
@@ -8597,6 +8622,22 @@ __metadata:
   version: 1.2.0
   resolution: "aproba@npm:1.2.0"
   checksum: 2d34f008c9edfa991f42fe4b667d541d38a474a39ae0e24805350486d76744cd91ee45313283c1d39a055b14026dd0fc4d0cbfc13f210855d59d7e8b5a61dc51
+  languageName: node
+  linkType: hard
+
+"aptos@npm:^1.3.10":
+  version: 1.3.10
+  resolution: "aptos@npm:1.3.10"
+  dependencies:
+    "@scure/bip39": ^1.1.0
+    axios: ^0.27.2
+    buffer: ^6.0.3
+    ed25519-hd-key: ^1.2.0
+    js-sha3: ^0.8.0
+    tweetnacl: ^1.0.3
+    typescript-memoize: ^1.1.0
+    yarn: ^1.22.19
+  checksum: fb46a8cb30718b5669e9ff123c1595327f70cf47965b6568e1fc7aed4a9ce78842d938c1e6e4554078e9def676f2df66f6d07e34b719d52e859c166643a8b7f0
   languageName: node
   linkType: hard
 
@@ -11432,7 +11473,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"create-hmac@npm:^1.1.0, create-hmac@npm:^1.1.4, create-hmac@npm:^1.1.7":
+"create-hmac@npm:1.1.7, create-hmac@npm:^1.1.0, create-hmac@npm:^1.1.4, create-hmac@npm:^1.1.7":
   version: 1.1.7
   resolution: "create-hmac@npm:1.1.7"
   dependencies:
@@ -11460,6 +11501,15 @@ __metadata:
     node-fetch: ^2.6.7
     whatwg-fetch: ^2.0.4
   checksum: 073d160a4d5d7ce7f88b01a18f425e31f60da4563e41f1c4f130c52c302f1f202f1a1999f39bb86daa39ca077b80b4985259c19f13fcfafdde3968d49ae94da5
+  languageName: node
+  linkType: hard
+
+"cross-fetch@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "cross-fetch@npm:3.1.5"
+  dependencies:
+    node-fetch: 2.6.7
+  checksum: 29b457f8df11b46b8388a53c947de80bfe04e6466a59c1628c9870b48505b90ec1d28a05b543a0247416a99f1cfe147d1efe373afdeb46a192334ba5fe91b871
   languageName: node
   linkType: hard
 
@@ -12617,6 +12667,16 @@ __metadata:
     jsbn: ~0.1.0
     safer-buffer: ^2.1.0
   checksum: 6cf168bae1e2dad2e46561d9af9cbabfbf5ff592176ad4e9f0f41eaaf5fe5e10bb58147fe0a804de62b1ee9dad42c28810c88d652b21b6013c47ba8efa274ca1
+  languageName: node
+  linkType: hard
+
+"ed25519-hd-key@npm:^1.2.0":
+  version: 1.3.0
+  resolution: "ed25519-hd-key@npm:1.3.0"
+  dependencies:
+    create-hmac: 1.1.7
+    tweetnacl: 1.0.3
+  checksum: 8fb2fa9a9cb90bfbd0261b1f14f2f6367c98c51d0d5b9045df6e95634372493c59fc162dd1c584f569717fc18c23067a570edc3f48506d644c81eb8fde90c1b2
   languageName: node
   linkType: hard
 
@@ -19566,7 +19626,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
+"node-fetch@npm:2.6.7, node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
   dependencies:
@@ -25634,17 +25694,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tweetnacl@npm:1.0.3, tweetnacl@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tweetnacl@npm:1.0.3"
+  checksum: 069d9df51e8ad4a89fbe6f9806c68e06c65be3c7d42f0701cc43dba5f0d6064686b238bbff206c5addef8854e3ce00c643bff59432ea2f2c639feab0ee1a93f9
+  languageName: node
+  linkType: hard
+
 "tweetnacl@npm:^0.14.3, tweetnacl@npm:~0.14.0":
   version: 0.14.5
   resolution: "tweetnacl@npm:0.14.5"
   checksum: 4612772653512c7bc19e61923fbf42903f5e0389ec76a4a1f17195859d114671ea4aa3b734c2029ce7e1fa7e5cc8b80580f67b071ecf0b46b5636d030a0102a2
-  languageName: node
-  linkType: hard
-
-"tweetnacl@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "tweetnacl@npm:1.0.3"
-  checksum: 069d9df51e8ad4a89fbe6f9806c68e06c65be3c7d42f0701cc43dba5f0d6064686b238bbff206c5addef8854e3ce00c643bff59432ea2f2c639feab0ee1a93f9
   languageName: node
   linkType: hard
 
