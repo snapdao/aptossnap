@@ -4,4 +4,4 @@ build
 *.log
 node_modules
 lerna-debug.log
-.yarn
+.yarn/install-state.gz
