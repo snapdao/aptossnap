@@ -5837,15 +5837,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/core@npm:4.12.4":
-  version: 4.12.4
-  resolution: "@material-ui/core@npm:4.12.4"
+"@material-ui/core@npm:4.12.3":
+  version: 4.12.3
+  resolution: "@material-ui/core@npm:4.12.3"
   dependencies:
     "@babel/runtime": ^7.4.4
-    "@material-ui/styles": ^4.11.5
-    "@material-ui/system": ^4.12.2
+    "@material-ui/styles": ^4.11.4
+    "@material-ui/system": ^4.12.1
     "@material-ui/types": 5.1.0
-    "@material-ui/utils": ^4.11.3
+    "@material-ui/utils": ^4.11.2
     "@types/react-transition-group": ^4.2.0
     clsx: ^1.0.4
     hoist-non-react-statics: ^3.3.2
@@ -5860,7 +5860,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 4a6544d4a535f0b5bf4a900509391640f490cef9022f7667cf5dceb75d5bec7df1e9b68bc44bbfa4e5d47d0093ac2477e77d76d8a6d241791753c6e8e7bd6603
+  checksum: b75c95663969b64857aacf16939ea0c132eb7b058dce86e3f9e172e21fe3994436a7f33a90183b41d8b13617bba52faab738d4531139706ff0867720d4987272
   languageName: node
   linkType: hard
 
@@ -5902,7 +5902,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/styles@npm:4.11.5, @material-ui/styles@npm:^4.11.5":
+"@material-ui/styles@npm:4.11.5, @material-ui/styles@npm:^4.11.4":
   version: 4.11.5
   resolution: "@material-ui/styles@npm:4.11.5"
   dependencies:
@@ -5933,7 +5933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/system@npm:^4.12.2":
+"@material-ui/system@npm:^4.12.1":
   version: 4.12.2
   resolution: "@material-ui/system@npm:4.12.2"
   dependencies:
@@ -5978,7 +5978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@material-ui/utils@npm:^4.11.3":
+"@material-ui/utils@npm:^4.11.2, @material-ui/utils@npm:^4.11.3":
   version: 4.11.3
   resolution: "@material-ui/utils@npm:4.11.3"
   dependencies:
@@ -14116,7 +14116,7 @@ __metadata:
   dependencies:
     "@keystonehq/aptossnap-adapter": "*"
     "@keystonehq/aptossnap-types": "*"
-    "@material-ui/core": 4.12.4
+    "@material-ui/core": 4.12.3
     "@material-ui/icons": 4.11.3
     "@material-ui/lab": latest
     "@material-ui/styles": 4.11.5
