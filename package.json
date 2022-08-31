@@ -1,7 +1,6 @@
 {
-  "name": "root",
+  "name": "aptossnap",
   "private": true,
-  "packageManager": "yarn@3.2.2",
   "workspaces": [
     "packages/*"
   ],
@@ -33,7 +32,7 @@
     "eslint-plugin-n": "^15.2.5",
     "eslint-plugin-promise": "^6.0.1",
     "eslint-plugin-react": "^7.31.1",
-    "lerna": "^5.4.1",
+    "lerna": "^5.4.3",
     "mocha": "^10.0.0",
     "ts-node": "^10.8.0",
     "typescript": "4.6.4"
