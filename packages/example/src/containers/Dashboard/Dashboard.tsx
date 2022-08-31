@@ -44,7 +44,8 @@ export const Dashboard = () => {
   useEffect(() => {
     (async () => {
       if (api) {
-        setAddress(await api.getAddress(0));
+        const account = await api.account(0);
+        setAddress(account.address);
         const balance = await api.getBalance()
         console.log('balance', balance)
         setBalance(balance)

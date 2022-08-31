@@ -11,13 +11,15 @@
     "build:snap": "yarn workspace @keystonehq/aptossnap build",
     "build:adapter": "yarn workspace @keystonehq/aptossnap-adapter build",
     "start:snap": "yarn workspace @keystonehq/aptossnap watch",
+    "start:demo": "REACT_APP_SNAP=local yarn workspace demo start",
     "start:example": "REACT_APP_SNAP=local yarn workspace example start",
     "predemo": "yarn run build:snap && yarn run build:adapter",
     "build": "yarn workspaces foreach -vpt run build",
     "test": "yarn workspaces foreach -vp run test",
     "lint": "yarn workspaces foreach -vp run lint",
     "lint:style:fix": "yarn workspaces foreach -vp run lint:style:fix",
-    "demo": "concurrently  --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\""
+    "demo": "concurrently  --raw --kill-others \"yarn run start:snap\" \"yarn run start:demo\"",
+    "example": "concurrently  --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\""
   },
   "devDependencies": {
     "@types/eslint": "^7",

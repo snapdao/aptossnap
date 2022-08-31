@@ -1,5 +1,5 @@
 import { MetamaskSnapApi } from './types'
-import { getAddress, getBalance, setConfiguration, signTransaction, submitTransaction } from './methods'
+import { getAccount, getBalance, setConfiguration, signTransaction, submitTransaction } from './methods'
 
 export class MetamaskAptosSnap {
   // snap parameters
@@ -14,7 +14,8 @@ export class MetamaskAptosSnap {
   // eslint-disable-next-line @typescript-eslint/require-await
   public getMetamaskSnapApi = async (): Promise<MetamaskSnapApi> => {
     return {
-      getAddress: getAddress.bind(this),
+      connect: getAccount.bind(this),
+      account: getAccount.bind(this),
       setConfiguration: setConfiguration.bind(this),
       getBalance: getBalance.bind(this),
       signTransaction: signTransaction.bind(this),

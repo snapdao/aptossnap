@@ -1,8 +1,7 @@
 import {
-  MetamaskAptosRpcRequest,
+  MetamaskAptosRpcRequest, PublicAccount,
   SnapConfig
 } from '@keystonehq/aptossnap-types'
-import { BCS, HexString } from 'aptos'
 import { MetamaskAptosSnap } from './snap'
 
 async function sendSnapMethod<T> (
@@ -15,12 +14,12 @@ async function sendSnapMethod<T> (
   })
 }
 
-export async function getAddress (
+export async function getAccount (
   this: MetamaskAptosSnap,
   accountIndex: number
-): Promise<string> {
+): Promise<PublicAccount> {
   return await sendSnapMethod(
-    { method: 'aptos_getAddress', params: { accountIndex } },
+    { method: 'aptos_getAccount', params: { accountIndex } },
     this.snapId
   )
 }
@@ -39,24 +38,16 @@ export async function getBalance (this: MetamaskAptosSnap): Promise<string> {
   return await sendSnapMethod({ method: 'aptos_getBalance' }, this.snapId)
 }
 
-export async function signTransaction (this: MetamaskAptosSnap, from: HexString, to: HexString, amount: number | BigInt, extraArgs?: {
-  coinType?: string
-  maxGasAmount?: BCS.Uint64
-  gasUnitPrice?: BCS.Uint64
-  expireTimestamp?: BCS.Uint64
-}): Promise<string> {
+export async function signTransaction (this: MetamaskAptosSnap, rawTransaction: Uint8Array): Promise<Uint8Array> {
   return await sendSnapMethod({
     method: 'aptos_signTransaction',
     params: {
-      from,
-      to,
-      amount,
-      extraArgs
+      rawTransaction
     }
   }, this.snapId)
 }
 
-export async function submitTransaction (this: MetamaskAptosSnap, bcsTxn: Uint8Array): Promise<string> {
+export async function submitTransaction (this: MetamaskAptosSnap, bcsTxn: Uint8Array): Promise<Uint8Array> {
   return await sendSnapMethod({ method: 'aptos_submitTransaction', params: { bcsTxn } }, this.snapId)
 }
 

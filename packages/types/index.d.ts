@@ -1,15 +1,19 @@
-import { signTransaction } from '@keystonehq/aptossnap-adapter/src/methods';
-import { AptosAccount, BCS, HexString } from "aptos";
+import { AptosAccount } from 'aptos'
+
+export interface SnapConfig {
+  accountIndex?: number;
+  network: AptosNetwork;
+}
 
 export interface getAddressRequest {
-  method: "aptos_getAddress",
+  method: 'aptos_getAccount',
   params: {
     accountIndex: number
   };
 }
 
 export interface ConfigureSnapRequest {
-  method: "aptos_configure";
+  method: 'aptos_configure';
   params: {
     configuration: SnapConfig;
   };
@@ -22,15 +26,7 @@ export interface getBalanceRequest {
 export interface signTransactionRequest {
   method: 'aptos_signTransaction',
   params: {
-    from: HexString
-    to: HexString
-    amount: number | BigInt
-    extraArgs?: {
-      coinType?: string
-      maxGasAmount?: BCS.Uint64
-      gasUnitPrice?: BCS.Uint64
-      expireTimestamp?: BCS.Uint64
-    }
+   rawTransaction: Uint8Array
   }
 }
 
@@ -43,15 +39,15 @@ export interface submitTransactionRequest {
 
 export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest | getBalanceRequest | signTransactionRequest | submitTransactionRequest;
 
-type Method = MetamaskAptosRpcRequest["method"];
+type Method = MetamaskAptosRpcRequest['method'];
 
 export interface WalletEnableRequest {
-  method: "wallet_enable";
+  method: 'wallet_enable';
   params: object[];
 }
 
 export interface GetSnapsRequest {
-  method: "wallet_getSnaps";
+  method: 'wallet_getSnaps';
 }
 
 export interface SnapRpcMethodRequest {
@@ -64,18 +60,10 @@ export type MetamaskRpcRequest =
   | GetSnapsRequest
   | SnapRpcMethodRequest;
 
-export interface SnapConfig {
-  derivationPath?: string;
-  network: AptosNetwork;
-  rpc?: {
-    node: string;
-    faucet: string;
-  };
-}
 
 export type Callback<T> = (arg: T) => void;
 
-export type AptosNetwork = "mainnet" | "devnet";
+export type AptosNetwork = 'mainnet' | 'devnet';
 
 export interface AptosSnapApi {
   connect(): Promise<AptosAccount>;
@@ -94,4 +82,9 @@ export interface Transaction {
   destination: string;
   amount: string | number;
   fee: string;
+}
+
+export interface PublicAccount {
+  address: string,
+  publicKey: string,
 }

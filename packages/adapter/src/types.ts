@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import { SnapConfig, SnapRpcMethodRequest } from '@keystonehq/aptossnap-types'
+import {PublicAccount, SnapConfig, SnapRpcMethodRequest} from '@keystonehq/aptossnap-types'
 import { BCS, HexString } from 'aptos'
 // import { AptosAccount } from "aptos";
 
 export interface MetamaskSnapApi {
-  getAddress(accountIndex: number): Promise<string>;
+  connect(accountIndex: number): Promise<PublicAccount>;
+  account(accountIndex: number): Promise<PublicAccount>;
   setConfiguration(configuration: SnapConfig): Promise<void>;
   getBalance(): Promise<string>;
   signTransaction(
