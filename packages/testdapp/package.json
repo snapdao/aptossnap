@@ -1,0 +1,40 @@
+{
+  "name": "@keystonehq/aptossnap-testdapp",
+  "version": "5.2.0",
+  "description": "A simple dapp used in MetaMask e2e tests.",
+  "engines": {
+    "node": ">= 12.0.0"
+  },
+  "scripts": {
+    "setup": "yarn install && yarn allow-scripts",
+    "deploy": "./deploy.sh",
+    "lint": "yarn run lint:style && yarn run lint:types",
+    "lint:types": "tsc --noEmit --pretty",
+    "lint:style": "eslint --color 'src/**/*.{js,ts,tsx}'",
+    "lint:style:fix": "yarn run lint:style --fix",
+    "start": "webpack-dev-server",
+    "build": "webpack --mode production",
+    "test": "yarn lint",
+    "prepublishOnly": "yarn test && yarn build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MetaMask/test-dapp.git"
+  },
+  "files": [
+    "dist/"
+  ],
+  "homepage": "https://metamask.github.io/test-dapp",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.0.2",
+    "gh-pages": "^3.1.0",
+    "prettier": "^2.3.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
