@@ -1,6 +1,6 @@
-import { SnapConfig } from "@keystonehq/aptossnap-types";
+import { SnapConfig } from '@keystonehq/aptossnap-types'
 
-export type AptosNetwork = "devnet" | "mainnet";
+export type AptosNetwork = 'devnet' | 'mainnet';
 
 export interface Wallet {
   request(options: { method: string; params?: unknown[] | unknown}): unknown;
@@ -12,5 +12,5 @@ export type MetamaskState = {
   };
 };
 export const EmptyMetamaskState: () => MetamaskState = () => ({
-  aptos: { config: null },
-});
+  aptos: { config: null }
+})

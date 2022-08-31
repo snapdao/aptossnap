@@ -1,11 +1,11 @@
-import { OnRpcRequestHandler } from "@metamask/snap-types";
-import { getAddress } from "./rpc/getAddress";
-import { Wallet } from "./interfaces";
-import { configure } from "./rpc/configure";
-import getBalance from "./rpc/getBalance";
-import { signTransaction, submitTransaction } from './rpc/transaction';
+import { OnRpcRequestHandler } from '@metamask/snap-types'
+import { getAddress } from './rpc/getAddress'
+import { Wallet } from './interfaces'
+import { configure } from './rpc/configure'
+import getBalance from './rpc/getBalance'
+import { signTransaction, submitTransaction } from './rpc/transaction'
 
-declare let wallet: Wallet;
+declare let wallet: Wallet
 
 let address = ''
 
@@ -30,7 +30,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       return await signTransaction(wallet, (request.params as any).from, (request.params as any).to, (request.params as any).amount)
     case 'aptos_submitTransaction':
       return await submitTransaction(wallet, (request.params as any).bcsTxn)
-    case "aptos_configure":
+    case 'aptos_configure':
       // const state = (await wallet.request({
       //   method: "snap_manageState",
       //   params: ["get"],
@@ -41,15 +41,15 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       //   resetApi();
       // }
       // set new configuration
-      return await configure(wallet, "devnet", {});
-    case "aptos_getAddress":
+      return await configure(wallet, 'devnet', {})
+    case 'aptos_getAddress':
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       address = await getAddress(
         wallet,
         (request.params as { accountIndex: number }).accountIndex
-      );
+      )
       return address
     default:
-      throw new Error("Method not found.");
+      throw new Error('Method not found.')
   }
-};
+}

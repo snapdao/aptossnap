@@ -1,5 +1,5 @@
-import { Wallet } from "../interfaces"
-import { AptosClient, AptosAccount, FaucetClient, CoinClient, APTOS_COIN } from "aptos"
+import { Wallet } from '../interfaces'
+import { AptosClient, AptosAccount, FaucetClient, CoinClient, APTOS_COIN } from 'aptos'
 import { getClient } from '../aptos/client'
 import { getCoinClient } from '../aptos/coinClient'
 

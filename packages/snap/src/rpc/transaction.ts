@@ -1,7 +1,7 @@
-import { Wallet } from '../interfaces';
-import { getClient } from '../aptos/client';
-import { AptosAccount, APTOS_COIN, BCS, HexString, TransactionBuilder } from 'aptos';
-import { getCoinClient } from '../aptos/coinClient';
+import { Wallet } from '../interfaces'
+import { getClient } from '../aptos/client'
+import { AptosAccount, APTOS_COIN, BCS, HexString, TransactionBuilder } from 'aptos'
+import { getCoinClient } from '../aptos/coinClient'
 
 export async function signTransaction (wallet: Wallet, address: HexString, toAddress: HexString, amount: number | BigInt, extraArgs?: {
   coinType?: string

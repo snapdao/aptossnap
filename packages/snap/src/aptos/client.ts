@@ -12,12 +12,12 @@ export function genClient (nodeUrl: string) {
   })
   const client = aptos.client as any
   client.request = request
-  client.accounts = new AccountsService(client.request);
-  client.blocks = new BlocksService(client.request);
-  client.events = new EventsService(client.request);
-  client.general = new GeneralService(client.request);
-  client.tables = new TablesService(client.request);
-  client.transactions = new TransactionsService(client.request);
+  client.accounts = new AccountsService(client.request)
+  client.blocks = new BlocksService(client.request)
+  client.events = new EventsService(client.request)
+  client.general = new GeneralService(client.request)
+  client.tables = new TablesService(client.request)
+  client.transactions = new TransactionsService(client.request)
   return aptos
 }
 

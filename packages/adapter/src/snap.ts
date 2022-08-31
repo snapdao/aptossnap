@@ -1,14 +1,14 @@
-import { MetamaskSnapApi } from "./types";
-import { getAddress, getBalance, setConfiguration, signTransaction, submitTransaction } from "./methods";
+import { MetamaskSnapApi } from './types'
+import { getAddress, getBalance, setConfiguration, signTransaction, submitTransaction } from './methods'
 
 export class MetamaskAptosSnap {
   // snap parameters
   protected readonly snapOrigin: string;
   protected readonly snapId: string;
 
-  public constructor(snapOrigin: string) {
-    this.snapOrigin = snapOrigin;
-    this.snapId = `wallet_snap_${this.snapOrigin}`;
+  public constructor (snapOrigin: string) {
+    this.snapOrigin = snapOrigin
+    this.snapId = `wallet_snap_${this.snapOrigin}`
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -19,6 +19,6 @@ export class MetamaskAptosSnap {
       getBalance: getBalance.bind(this),
       signTransaction: signTransaction.bind(this),
       submitTransaction: submitTransaction.bind(this)
-    };
+    }
   };
 }
