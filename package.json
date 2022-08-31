@@ -26,7 +26,6 @@
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "concurrently": "^7.1.0",
-    "eslint": "^8.23.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.5",
@@ -40,5 +39,6 @@
   "resolutions": {
     "web3/bignumber.js": "2.0.8",
     "ethereumjs-abi": "0.6.8"
-  }
+  },
+  "packageManager": "yarn@3.2.3"
 }
