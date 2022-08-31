@@ -28,6 +28,12 @@
     "dist/"
   ],
   "homepage": "https://metamask.github.io/test-dapp",
+  "dependencies": {
+    "@keystonehq/aptossnap-adapter": "*",
+    "@keystonehq/aptossnap-types": "*",
+    "@metamask/onboarding": "^1.0.1",
+    "aptos": "^1.3.10"
+  },
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.2",

@@ -15,12 +15,12 @@ async function sendSnapMethod<T> (
   })
 }
 
-export async function getAddress (
+export async function getAccount (
   this: MetamaskAptosSnap,
   accountIndex: number
-): Promise<string> {
+): Promise<PublicAccount> {
   return await sendSnapMethod(
-    { method: 'aptos_getAddress', params: { accountIndex } },
+    { method: 'aptos_getAccount', params: { accountIndex } },
     this.snapId
   )
 }

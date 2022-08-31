@@ -1,5 +1,5 @@
 import { OnRpcRequestHandler } from '@metamask/snap-types'
-import { getAddress } from './rpc/getAddress'
+import { getAccount } from './rpc/getAccount'
 import { Wallet } from './interfaces'
 import { configure } from './rpc/configure'
 import getBalance from './rpc/getBalance'
@@ -42,9 +42,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       // }
       // set new configuration
       return await configure(wallet, 'devnet', {})
-    case 'aptos_getAddress':
+    case 'aptos_getAccount':
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      address = await getAddress(
+      address = await getAccount(
         wallet,
         (request.params as { accountIndex: number }).accountIndex
       )

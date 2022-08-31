@@ -1,12 +1,15 @@
 import { AptosAccount } from 'aptos'
 import { Wallet } from '../interfaces'
 import { getPrivKey } from '../aptos/account'
-
-export async function getAddress (
+import { PublicAccount } from '@keystonehq/aptossnap-types'
+export async function getPubKey (
   wallet: Wallet,
   accountIndex: number
-): Promise<string> {
+): Promise<PublicAccount> {
   const privateKey = await getPrivKey(wallet, accountIndex)
   const account = new AptosAccount(privateKey)
-  return account.address().hex()
+  return {
+    address: account.address().hex(),
+    publicKey: account.signingKey.publicKey.toString()
+  }
 }

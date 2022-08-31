@@ -156,7 +156,7 @@
         response = await ethereum.request({
           method: snapId,
           params: [{
-            method: 'aptos_getAddress',
+            method: 'aptos_getAccount',
             params: {
               accountIndex: 0
             }
@@ -201,7 +201,7 @@
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
           params: [snapId, {
-            method: 'aptos_getAddress',
+            method: 'aptos_getAccount',
             params: {
               network: "devnet"
             }

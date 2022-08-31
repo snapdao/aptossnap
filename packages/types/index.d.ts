@@ -2,7 +2,7 @@ import { signTransaction } from '@keystonehq/aptossnap-adapter/src/methods';
 import { AptosAccount, BCS, HexString } from "aptos";
 
 export interface getAddressRequest {
-  method: "aptos_getAddress",
+  method: "aptos_getAccount",
   params: {
     accountIndex: number
   };
@@ -94,4 +94,9 @@ export interface Transaction {
   destination: string;
   amount: string | number;
   fee: string;
+}
+
+export interface PublicAccount {
+  address: string,
+  publicKey: string,
 }
