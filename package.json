@@ -23,7 +23,8 @@
     "lint": "yarn workspaces foreach -vp run lint",
     "lint:style:fix": "yarn workspaces foreach -vp run lint:style:fix",
     "demo": "yarn run demo:local",
-    "demo:local": "concurrently --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\""
+    "demo:local": "concurrently --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\"",
+    "wallet:local": "concurrently --raw --kill-others \"yarn run start:snap\" \"yarn run start:wallet\""
   },
   "devDependencies": {
     "@chainsafe/eslint-config": "^1.0.0",
