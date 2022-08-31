@@ -1,8 +1,6 @@
 {
   "name": "root",
   "private": true,
-  "author": "ChainSafe <info@chainsafe.io>",
-  "license": "(Apache-2.0 AND MIT)",
   "packageManager": "yarn@3.2.2",
   "workspaces": [
     "packages/*"
@@ -11,7 +9,6 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "manifest": "yarn workspace @keystonehq/aptossnap manifest",
     "build:snap": "yarn workspace @keystonehq/aptossnap build",
     "build:adapter": "yarn workspace @keystonehq/aptossnap-adapter build",
     "start:snap": "yarn workspace @keystonehq/aptossnap watch",
@@ -21,17 +18,21 @@
     "test": "yarn workspaces foreach -vp run test",
     "lint": "yarn workspaces foreach -vp run lint",
     "lint:style:fix": "yarn workspaces foreach -vp run lint:style:fix",
-    "demo": "yarn run demo:local",
-    "demo:local": "concurrently  --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\""
+    "demo": "concurrently  --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\""
   },
   "devDependencies": {
-    "@chainsafe/eslint-config": "^1.0.0",
-    "@rushstack/eslint-patch": "^1.1.4",
     "@types/eslint": "^7",
     "@types/mocha": "^9.1.1",
     "@types/node": "^12.12.35",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
     "concurrently": "^7.1.0",
-    "eslint": "7",
+    "eslint": "^8.23.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-react": "^7.31.1",
     "lerna": "^5.4.1",
     "mocha": "^10.0.0",
     "ts-node": "^10.8.0",
