@@ -16,13 +16,14 @@
     "build:adapter": "yarn workspace @keystonehq/aptossnap-adapter build",
     "start:snap": "yarn workspace @keystonehq/aptossnap watch",
     "start:example": "REACT_APP_SNAP=local yarn workspace example start",
+    "start:wallet": "REACT_APP_SNAP=local && cd packages/wallet && yarn run dev",
     "predemo": "yarn run build:snap && yarn run build:adapter",
     "build": "yarn workspaces foreach -vpt run build",
     "test": "yarn workspaces foreach -vp run test",
     "lint": "yarn workspaces foreach -vp run lint",
     "lint:style:fix": "yarn workspaces foreach -vp run lint:style:fix",
     "demo": "yarn run demo:local",
-    "demo:local": "concurrently  --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\""
+    "demo:local": "concurrently --raw --kill-others \"yarn run start:snap\" \"yarn run start:example\""
   },
   "devDependencies": {
     "@chainsafe/eslint-config": "^1.0.0",
