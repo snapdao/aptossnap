@@ -73,9 +73,11 @@ export const Dashboard = () => {
   }, [api, network]);
 
   async function getBalance() {
-    const balance = await (api as any).getBalance()
+    const balance = await api?.getBalance()
     console.log(balance, new Date())
-    setBalance(balance);
+    if (balance) {
+      setBalance(balance);
+    }
   }
 
   async function signTransaction () {
