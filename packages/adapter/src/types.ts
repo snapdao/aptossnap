@@ -17,6 +17,7 @@ export interface MetamaskSnapApi {
       expireTimestamp?: BCS.Uint64
     }
   ): Promise<string>
+  submitTransaction(bcsTxn: Uint8Array): Promise<string>
 }
 
 declare global {

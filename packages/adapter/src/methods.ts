@@ -45,12 +45,16 @@ export async function signTransaction(this: MetamaskAptosSnap, from: HexString, 
   gasUnitPrice?: BCS.Uint64
   expireTimestamp?: BCS.Uint64
 }): Promise<string> {
-  return await sendSnapMethod({ method: 'aptos_signTransation', params: {
+  return await sendSnapMethod({ method: 'aptos_signTransaction', params: {
     from,
     to,
     amount,
     extraArgs
   } }, this.snapId)
+}
+
+export async function submitTransaction(this: MetamaskAptosSnap, bcsTxn: Uint8Array): Promise<string> {
+  return await sendSnapMethod({ method: 'aptos_submitTransaction', params: { bcsTxn }}, this.snapId)
 }
 
 // export async function configure(

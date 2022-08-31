@@ -14,6 +14,12 @@ export async function signTransaction (wallet: Wallet, address: HexString, toAdd
   const account = new AptosAccount(null, address)
   const payload = coinClient.transactionBuilder.buildTransactionPayload('0x1::coin::transfer', [APTOS_COIN], [toAddress, amount])
   const rawTransaction = await client.generateRawTransaction(address, payload, extraArgs)
-  // client.signTransaction(account, rawTransaction)
-  return rawTransaction
+  const signData = client.signTransaction(account, rawTransaction)
+  return signData
+}
+
+export async function submitTransaction (wallet: Wallet, bcsTxn: Uint8Array) {
+  const client = await getClient()
+  const pendingTransaction = await client.submitSignedBCSTransaction(bcsTxn)
+  return pendingTransaction
 }

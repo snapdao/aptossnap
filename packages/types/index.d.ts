@@ -20,7 +20,7 @@ export interface getBalanceRequest {
 }
 
 export interface signTransactionRequest {
-  method: 'aptos_signTransation',
+  method: 'aptos_signTransaction',
   params: {
     from: HexString
     to: HexString
@@ -34,7 +34,14 @@ export interface signTransactionRequest {
   }
 }
 
-export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest | getBalanceRequest | signTransactionRequest;
+export interface submitTransactionRequest {
+  method: 'aptos_submitTransaction',
+  params: {
+    bcsTxn: Uint8Array
+  }
+}
+
+export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest | getBalanceRequest | signTransactionRequest | submitTransactionRequest;
 
 type Method = MetamaskAptosRpcRequest["method"];
 
