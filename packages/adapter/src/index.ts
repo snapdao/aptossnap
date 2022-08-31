@@ -28,7 +28,9 @@ export type SnapInstallationParamNames = "version" | string;
 export async function enableAptosSnap(
   config: SnapConfig,
   snapOrigin?: string,
-  snapInstallationParams: Record<SnapInstallationParamNames, unknown> = {}
+  snapInstallationParams: Record<SnapInstallationParamNames, unknown> = {
+    version: "latest",
+  }
 ): Promise<MetamaskAptosSnap> {
   const snapId = snapOrigin ?? defaultSnapOrigin;
 
@@ -44,6 +46,7 @@ export async function enableAptosSnap(
   }
 
   const isInstalled = await isSnapInstalled(snapId);
+  const isReinstall = true;
 
   if (!isInstalled) {
     console.log("snap does not installed");
@@ -59,6 +62,15 @@ export async function enableAptosSnap(
         },
       ],
     });
+  } else if (isReinstall) {
+    await window.ethereum.request({
+      method: 'wallet_installSnaps',
+      params: [{
+        [`wallet_snap_${snapId}`]: {
+          ...snapInstallationParams,
+        },
+      }]
+    })
   }
 
   //await unlockMetamask();

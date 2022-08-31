@@ -1,4 +1,5 @@
-import { AptosAccount } from "aptos";
+import { signTransaction } from '@keystonehq/aptossnap-adapter/src/methods';
+import { AptosAccount, BCS, HexString } from "aptos";
 
 export interface getAddressRequest {
   method: "aptos_getAddress",
@@ -14,7 +15,33 @@ export interface ConfigureSnapRequest {
   };
 }
 
-export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest;
+export interface getBalanceRequest {
+  method: 'aptos_getBalance'
+}
+
+export interface signTransactionRequest {
+  method: 'aptos_signTransaction',
+  params: {
+    from: HexString
+    to: HexString
+    amount: number | BigInt
+    extraArgs?: {
+      coinType?: string
+      maxGasAmount?: BCS.Uint64
+      gasUnitPrice?: BCS.Uint64
+      expireTimestamp?: BCS.Uint64
+    }
+  }
+}
+
+export interface submitTransactionRequest {
+  method: 'aptos_submitTransaction',
+  params: {
+    bcsTxn: Uint8Array
+  }
+}
+
+export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest | getBalanceRequest | signTransactionRequest | submitTransactionRequest;
 
 type Method = MetamaskAptosRpcRequest["method"];
 

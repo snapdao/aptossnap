@@ -46,6 +46,10 @@
       <div style="display: inline">Snap connected:</div>
       <div class="connected-snap" style="display: inline"></div>
     </div>
+
+    <div>
+      <button class="banlance">Get banlance</button>
+    </div>
     <br/>
     <div>
       <!-- Seed export button -->
@@ -87,6 +91,7 @@
     snapConnectButton.addEventListener('click', connectSnap);
     snapConnectButton.disabled = false; // until keypair is fetched
     snapConnectedLabel.innerHTML = FALSE;
+    document.querySelector('.banlance').addEventListener('click', getBalance)
     // configuration
     const configureButton = document.querySelector('button.configure');
     configureButton.addEventListener('click', loadConfiguration);
@@ -228,6 +233,18 @@
       publicKeyLabel.innerHTML = "In progress...";
       addressLabel.innerHTML = "In progress...";
       // await fetchAddress();
+    }
+
+    async function getBalance () {
+      try {
+        const res = await ethereum.request({
+          method: snapId,
+          params: [{ method: 'aptos_getBalance' }]
+        })
+        console.log(res)
+      } catch (err) {
+        console.error(err)
+      }
     }
 
   </script>

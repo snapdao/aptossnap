@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -61,6 +62,9 @@ export const Dashboard = () => {
       if (api) {
         setAddress(await api.getAddress(0));
         // setPublicKey(await api.getPublicKey());
+        const balance = await api.getBalance()
+        console.log('balance', balance)
+        setBalance(balance)
         // setBalance(await api.getBalance());
         // setLatestBlock(await api.getLatestBlock());
         // setTransactions((await api.getAllTransactions()));
@@ -68,6 +72,16 @@ export const Dashboard = () => {
     })();
   }, [api, network]);
 
+  async function getBalance() {
+    const balance = await (api as any).getBalance()
+    console.log(balance, new Date())
+    setBalance(balance);
+  }
+
+  async function signTransaction () {
+    console.log(await api?.signTransaction(address as any, '0x4e77895d0265257cfa482104d337c58257674ff6f012ba04760c9cec99149a1f' as any, 10))
+  }
+  
   // useEffect( () => {
   //   // periodically check balance
   //   const interval = setInterval(async () => {
@@ -81,7 +95,7 @@ export const Dashboard = () => {
 
   return (
     <Container maxWidth="lg">
-      <Grid direction="column" alignItems="center" justify="center" container spacing={3}>
+      <Grid direction="column" alignItems="center" justifyContent="center" container spacing={3}>
         <Box m="2rem">
           <Typography variant="h2">
             Aptos snap demo
@@ -110,6 +124,7 @@ export const Dashboard = () => {
             {/*<Box m="1rem" />*/}
             <Grid container spacing={3} alignItems="stretch">
               <Grid item xs={12}>
+                <span onClick={signTransaction}>signTransaction</span>
                 <Account network={network} address={address} balance={balance} publicKey={publicKey} />
               </Grid>
             </Grid>
