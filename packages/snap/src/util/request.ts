@@ -38,7 +38,7 @@ export default class Req {
     this.config = Object.assign({}, baseConfig, config)
   }
 
-  request(options: RequestOptions) {
+  request (options: RequestOptions) {
     (options.headers as any) = Object.assign({}, baseConfig.headers, options.headers)
     if (options.path) {
       Object.keys(options.path).forEach(k => {

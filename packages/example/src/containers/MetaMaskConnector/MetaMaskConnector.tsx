@@ -1,4 +1,4 @@
-import { Box, Button, Snackbar, IconButton } from "@material-ui/core";
+import { Button, Snackbar, IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 import React, { useCallback, useContext, useEffect, Fragment } from "react";
 import Alert from "@material-ui/lab/Alert";
@@ -69,7 +69,6 @@ export const MetaMaskConnector = () => {
       {state.hasMetaMask &&
         <Fragment>
           <Alert severity="warning">Ensure that MetaMask is installed!</Alert>
-          <Box mt={"1rem"} />
         </Fragment>
       }
       <Button

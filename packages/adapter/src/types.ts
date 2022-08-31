@@ -1,5 +1,6 @@
-import { SnapConfig, SnapRpcMethodRequest } from "@keystonehq/aptossnap-types";
-import { BCS, HexString } from 'aptos';
+// eslint-disable-next-line no-unused-vars
+import { SnapConfig, SnapRpcMethodRequest } from '@keystonehq/aptossnap-types'
+import { BCS, HexString } from 'aptos'
 // import { AptosAccount } from "aptos";
 
 export interface MetamaskSnapApi {
@@ -21,6 +22,7 @@ export interface MetamaskSnapApi {
 }
 
 declare global {
+    // eslint-disable-next-line no-unused-vars
   interface Window {
     ethereum: {
       isMetaMask: boolean;

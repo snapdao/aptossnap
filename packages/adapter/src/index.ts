@@ -1,22 +1,22 @@
-import { SnapConfig } from "@keystonehq/aptossnap-types";
+import { SnapConfig } from '@keystonehq/aptossnap-types'
 import {
   hasMetaMask,
   isMetamaskSnapsSupported,
-  isSnapInstalled,
-} from "./utils";
-import { MetamaskAptosSnap } from "./snap";
+  isSnapInstalled
+} from './utils'
+import { MetamaskAptosSnap } from './snap'
 
 const defaultSnapOrigin =
-  "https://bafybeih426v3jpdwnltjfmeefyt4isrogvgzg2wxvryu6itodvb4vzvuma.ipfs.infura-ipfs.io/";
+  'https://bafybeih426v3jpdwnltjfmeefyt4isrogvgzg2wxvryu6itodvb4vzvuma.ipfs.infura-ipfs.io/'
 
-export { MetamaskAptosSnap } from "./snap";
+export { MetamaskAptosSnap } from './snap'
 export {
   hasMetaMask,
   isMetamaskSnapsSupported,
-  isSnapInstalled,
-} from "./utils";
+  isSnapInstalled
+} from './utils'
 
-export type SnapInstallationParamNames = "version" | string;
+export type SnapInstallationParamNames = 'version' | string;
 
 /**
  * Install and enable Aptos snap
@@ -25,59 +25,59 @@ export type SnapInstallationParamNames = "version" | string;
  *
  * @return MetamaskAptosSnap - adapter object that exposes snap API
  */
-export async function enableAptosSnap(
+export async function enableAptosSnap (
   config: SnapConfig,
   snapOrigin?: string,
   snapInstallationParams: Record<SnapInstallationParamNames, unknown> = {
-    version: "latest",
+    version: 'latest'
   }
 ): Promise<MetamaskAptosSnap> {
-  const snapId = snapOrigin ?? defaultSnapOrigin;
+  const snapId = snapOrigin ?? defaultSnapOrigin
 
   // check all conditions
   if (!hasMetaMask()) {
-    throw new Error("Metamask is not installed");
+    throw new Error('Metamask is not installed')
   }
   if (!(await isMetamaskSnapsSupported())) {
-    throw new Error("Current Metamask version doesn't support snaps");
+    throw new Error("Current Metamask version doesn't support snaps")
   }
   if (!config.network) {
-    throw new Error("Configuration must at least define network type");
+    throw new Error('Configuration must at least define network type')
   }
 
-  const isInstalled = await isSnapInstalled(snapId);
-  const isReinstall = true;
+  const isInstalled = await isSnapInstalled(snapId)
+  const isReinstall = true
 
   if (!isInstalled) {
-    console.log("snap does not installed");
-    snapInstallationParams = { version: "latest" };
+    console.log('snap does not installed')
+    snapInstallationParams = { version: 'latest' }
     // // enable snap
     await window.ethereum.request({
-      method: "wallet_enable",
+      method: 'wallet_enable',
       params: [
         {
           [`wallet_snap_${snapId}`]: {
-            ...snapInstallationParams,
-          },
-        },
-      ],
-    });
+            ...snapInstallationParams
+          }
+        }
+      ]
+    })
   } else if (isReinstall) {
     await window.ethereum.request({
       method: 'wallet_installSnaps',
       params: [{
         [`wallet_snap_${snapId}`]: {
-          ...snapInstallationParams,
-        },
+          ...snapInstallationParams
+        }
       }]
     })
   }
 
-  //await unlockMetamask();
+  // await unlockMetamask();
 
   // create snap describer
-  const snap = new MetamaskAptosSnap(snapOrigin || defaultSnapOrigin);
+  const snap = new MetamaskAptosSnap(snapOrigin || defaultSnapOrigin)
   // set initial configuration
-  await snap.getMetamaskSnapApi();
-  return snap;
+  await snap.getMetamaskSnapApi()
+  return snap
 }

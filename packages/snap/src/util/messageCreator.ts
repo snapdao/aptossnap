@@ -5,5 +5,5 @@ interface Message {
 
 export const messageCreator = (messages: Message[]): string =>
   messages
-    .map(({ message, value }) => message + " " + String(value))
-    .join("\n");
+    .map(({ message, value }) => message + ' ' + String(value))
+    .join('\n')
