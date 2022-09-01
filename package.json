@@ -43,6 +43,8 @@
     "ethereumjs-abi": "0.6.8"
   },
   "dependencies": {
-    "@babel/runtime": "^7.18.9"
+    "@babel/runtime": "^7.18.9",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.1.3"
   }
 }
