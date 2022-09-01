@@ -19817,6 +19817,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mobx-state-tree@npm:^5.1.6":
+  version: 5.1.6
+  resolution: "mobx-state-tree@npm:5.1.6"
+  peerDependencies:
+    mobx: ^6.3.0
+  checksum: 1986f90708d298da23fd72252b6984aa475c3953056683b9cc97dd67ed7047ec8a98e66ed899164110de4f5a0fa5efb30226d27c6c84e33caf4ad3bd57909cec
+  languageName: node
+  linkType: hard
+
 "mocha@npm:^10.0.0":
   version: 10.0.0
   resolution: "mocha@npm:10.0.0"
@@ -27047,6 +27056,9 @@ __metadata:
     "@types/react": ^18.0.17
     "@types/react-dom": ^18.0.6
     "@vitejs/plugin-react": ^2.0.1
+    eslint: ^8.23.0
+    history: ^5.3.0
+    mobx-state-tree: ^5.1.6
     react: ^18.2.0
     react-dom: ^18.2.0
     typescript: ^4.6.4
