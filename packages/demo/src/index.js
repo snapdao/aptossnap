@@ -1,24 +1,29 @@
-import { enableAptosSnap, MetamaskAptosSnap } from '@keystonehq/aptossnap-adapter'
+import { enableAptosSnap } from '@keystonehq/aptossnap-adapter'
 import { AptosClient, TransactionBuilder, TxnBuilderTypes } from 'aptos'
-import { getAccount } from '@keystonehq/aptossnap-adapter/build/methods'
 const { BCS } = TransactionBuilder
 
-let snap
 let aptosApi
 
 // Dapp Status Section
 // const networkDiv = document.getElementById('network');
 // const chainIdDiv = document.getElementById('chainId');
 const accountDiv = document.getElementById('account')
-const warningDiv = document.getElementById('warning')
 const defaultSnapId = 'local:http://localhost:8081'
 
 const snapId = defaultSnapId
+const downloadUrl = 'https://chrome.google.com/webstore/detail/metamask-flask-developmen/ljfoeinjpaedjfecbmggjgodbgkmjkjk'
+
 // Basic Actions Section
+const onboardButton = document.getElementById('connectButton')
 const getaccountButton = document.getElementById('getAccount')
 const getaccountResults = document.getElementById('getAccountResult')
 const isMetaMaskInstalled = () => window.ethereum && window.ethereum.isMetaMask
 const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
+
+// onBoarding
+const startOnboarding = () => {
+  window.open(downloadUrl, '_blank')
+}
 // Send form section
 const fromDiv = document.getElementById('fromInput')
 
@@ -33,6 +38,12 @@ const initialize = async () => {
     let accountButtonsInitialized = false
     const accountButtons = [sendButton]
     const isMetaMaskConnected = () => account && account.length > 0
+
+    const onClickInstall = () => {
+      onboardButton.innerText = 'Onboarding in progress'
+      onboardButton.disabled = true
+      startOnboarding()
+    }
 
     const initializeAccountButtons = () => {
       if (accountButtonsInitialized) {
@@ -100,16 +111,20 @@ const initialize = async () => {
       } else {
         sendButton.disabled = false
       }
-      if (isMetaMaskInstalled()) {
-        getaccountButton.innerText = 'Connect'
-        getaccountButton.onclick = onClickConnect
-        getaccountButton.disabled = false
-        // addEthereumChain.disabled = false;
-        // switchEthereumChain.disabled = false;
+      // window.ethereum exist
+      if (!isMetaMaskInstalled()) {
+        onboardButton.innerText = 'Click here to install MetaMask!'
+        onboardButton.onclick = onClickInstall
+        onboardButton.disabled = false
+      }
+      // already getAccount
+      if (isMetaMaskConnected()) {
+        onboardButton.innerText = 'Connected'
+        onboardButton.disabled = true
       } else {
-        getaccountButton.innerText = 'Click here to install MetaMask!'
-        getaccountButton.onclick = onClickConnect
-        getaccountButton.disabled = false
+        onboardButton.innerText = 'Connect'
+        onboardButton.onclick = onClickConnect
+        onboardButton.disabled = false
       }
     }
 

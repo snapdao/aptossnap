@@ -2035,16 +2035,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@glif/filecoin-number@npm:^2.0.0-beta.0":
-  version: 2.0.0-beta.16
-  resolution: "@glif/filecoin-number@npm:2.0.0-beta.16"
-  dependencies:
-    bent: 7.3.12
-    bignumber.js: 9.0.1
-  checksum: 0587066730b9b097871635907aad0dc5c2c77b528a8f3b18a5440675a9e2104cac0f6c1d0b76a3f9860a3b56ab9a7a4db04b777a179c98f6ef89e9fdd5f75677
-  languageName: node
-  linkType: hard
-
 "@hapi/address@npm:2.x.x":
   version: 2.1.4
   resolution: "@hapi/address@npm:2.1.4"
@@ -2453,7 +2443,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@keystonehq/aptossnap@workspace:packages/snap"
   dependencies:
-    "@glif/filecoin-number": ^2.0.0-beta.0
     "@keystonehq/aptossnap-types": "*"
     "@metamask/key-tree": ^4.0.0
     "@metamask/providers": ^9.0.0
@@ -6765,17 +6754,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bent@npm:7.3.12":
-  version: 7.3.12
-  resolution: "bent@npm:7.3.12"
-  dependencies:
-    bytesish: ^0.4.1
-    caseless: ~0.12.0
-    is-stream: ^2.0.0
-  checksum: 20f77364bcb462a6eb0ea7322442a1125ca6181ea6b94ad498b8348c678a2adf56c231a653bcac016c5d017aee91ff55b2169b69d8263a4b3c710f4121cbe615
-  languageName: node
-  linkType: hard
-
 "bfj@npm:^7.0.2":
   version: 7.0.2
   resolution: "bfj@npm:7.0.2"
@@ -6806,13 +6784,6 @@ __metadata:
   version: 9.0.0
   resolution: "bignumber.js@npm:9.0.0"
   checksum: a760979ca822533ad7a437a45bcac66c191554a407092baa4991e068fd4af7344ff52d9e82e0574946c831690de706cf86fbc80775b5ebc6e59c2eef7325172c
-  languageName: node
-  linkType: hard
-
-"bignumber.js@npm:9.0.1":
-  version: 9.0.1
-  resolution: "bignumber.js@npm:9.0.1"
-  checksum: 1d1aade64dc5d6cf1ebd226ef3030ebdb505d40d74f20e35069150007d1e747c8f746601a3452330ac88105f4288644236d7f4925654777e8511d5ebb9fbf760
   languageName: node
   linkType: hard
 
@@ -7387,13 +7358,6 @@ __metadata:
   version: 3.1.2
   resolution: "bytes@npm:3.1.2"
   checksum: 76d1c43cbd602794ad8ad2ae94095cddeb1de78c5dddaa7005c51af10b0176c69971a6d88e805a90c2b6550d76636e43c40d8427a808b8645ede885de4a0358e
-  languageName: node
-  linkType: hard
-
-"bytesish@npm:^0.4.1":
-  version: 0.4.4
-  resolution: "bytesish@npm:0.4.4"
-  checksum: 469088f0020797dfbb61b6ce3972c91d95d79df8aacca55841ea93ac59ef3209bb04be8212b6265dfbafb7583a58dd73ca2f14e4feae36d3333a4f1509dd2eef
   languageName: node
   linkType: hard
 

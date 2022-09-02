@@ -1,25 +1,13 @@
 // eslint-disable-next-line no-unused-vars
-import {PublicAccount, SnapConfig, SnapRpcMethodRequest} from '@keystonehq/aptossnap-types'
-import { BCS, HexString } from 'aptos'
-// import { AptosAccount } from "aptos";
+import { PublicAccount, SnapConfig, SnapRpcMethodRequest } from '@keystonehq/aptossnap-types'
 
 export interface MetamaskSnapApi {
-  connect(accountIndex: number): Promise<PublicAccount>;
-  account(accountIndex: number): Promise<PublicAccount>;
-  setConfiguration(configuration: SnapConfig): Promise<void>;
+  connect(): Promise<PublicAccount>;
+  account(): Promise<PublicAccount>;
+  configure(configuration: SnapConfig): Promise<void>;
   getBalance(): Promise<string>;
-  signTransaction(
-    from: HexString,
-    to: HexString,
-    amount: number | BigInt,
-    extraArgs?: {
-      coinType?: string
-      maxGasAmount?: BCS.Uint64
-      gasUnitPrice?: BCS.Uint64
-      expireTimestamp?: BCS.Uint64
-    }
-  ): Promise<string>
-  submitTransaction(bcsTxn: Uint8Array): Promise<string>
+  signTransaction(rawTransaction: Uint8Array): Promise<Uint8Array>
+  submitTransaction(bcsTxn: Uint8Array): Promise<Uint8Array>
 }
 
 declare global {

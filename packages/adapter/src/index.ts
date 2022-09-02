@@ -78,6 +78,6 @@ export async function enableAptosSnap (
   // create snap describer
   const snap = new MetamaskAptosSnap(snapOrigin || defaultSnapOrigin)
   // set initial configuration
-  await snap.getMetamaskSnapApi()
+  await (await snap.getMetamaskSnapApi()).configure(config)
   return snap
 }

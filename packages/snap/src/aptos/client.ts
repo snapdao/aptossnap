@@ -1,11 +1,11 @@
 import { AptosClient } from 'aptos'
 import { AccountsService, BlocksService, EventsService, GeneralService, TablesService, TransactionsService } from 'aptos/dist/generated'
-import { defaultConfiguration } from '../configuration/predefined'
 import Req from '../util/request'
+import { SnapConfig } from '@keystonehq/aptossnap-types'
 
 let client: AptosClient
 
-export function genClient (nodeUrl: string) {
+export function genClient (nodeUrl: string): AptosClient {
   const aptos = new AptosClient(nodeUrl)
   const request = new Req({
     host: nodeUrl
@@ -21,9 +21,9 @@ export function genClient (nodeUrl: string) {
   return aptos
 }
 
-export async function getClient () {
+export function getClientFromConfig (configuration: SnapConfig): AptosClient {
   if (!client) {
-    client = genClient(defaultConfiguration.rpc.node)
+    client = genClient(configuration.rpc.node)
   }
   return client
 }

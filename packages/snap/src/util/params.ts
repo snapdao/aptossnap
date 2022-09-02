@@ -13,9 +13,7 @@ export function isValidConfigureRequest (
     !(
       params != null &&
             typeof params === 'object' &&
-            'configuration' in params &&
-            // @ts-expect-error
-            'network' in params.configuration
+            'configuration' in params
     )
   ) {
     throw new Error('Invalid configure request')

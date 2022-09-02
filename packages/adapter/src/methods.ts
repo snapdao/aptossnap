@@ -15,21 +15,20 @@ async function sendSnapMethod<T> (
 }
 
 export async function getAccount (
-  this: MetamaskAptosSnap,
-  accountIndex: number
+  this: MetamaskAptosSnap
 ): Promise<PublicAccount> {
   return await sendSnapMethod(
-    { method: 'aptos_getAccount', params: { accountIndex } },
+    { method: 'aptos_getAccount'},
     this.snapId
   )
 }
 
-export async function setConfiguration (
+export async function configure (
   this: MetamaskAptosSnap,
-  config: SnapConfig
+  configuration: SnapConfig
 ): Promise<void> {
   await sendSnapMethod(
-    { method: 'aptos_configure', params: { configuration: config } },
+    { method: 'aptos_configure', params: { configuration } },
     this.snapId
   )
 }
@@ -50,13 +49,3 @@ export async function signTransaction (this: MetamaskAptosSnap, rawTransaction: 
 export async function submitTransaction (this: MetamaskAptosSnap, bcsTxn: Uint8Array): Promise<Uint8Array> {
   return await sendSnapMethod({ method: 'aptos_submitTransaction', params: { bcsTxn } }, this.snapId)
 }
-
-// export async function configure(
-//   this: MetamaskAptosSnap,
-//   configuration: SnapConfig
-// ): Promise<void> {
-//   return await sendSnapMethod(
-//     { method: "aptos_configure", params: { configuration: configuration } },
-//     this.snapId
-//   );
-// }

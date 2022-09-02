@@ -1,15 +1,18 @@
 import { AptosAccount } from 'aptos'
 
+export type AptosNetwork = 'mainnet' | 'devnet';
+
 export interface SnapConfig {
-  accountIndex?: number;
   network: AptosNetwork;
+  account?: AptosAccount
+  rpc: {
+    node: string,
+    faucet: string,
+  }
 }
 
 export interface getAddressRequest {
-  method: 'aptos_getAccount',
-  params: {
-    accountIndex: number
-  };
+  method: 'aptos_getAccount'
 }
 
 export interface ConfigureSnapRequest {
@@ -62,8 +65,6 @@ export type MetamaskRpcRequest =
 
 
 export type Callback<T> = (arg: T) => void;
-
-export type AptosNetwork = 'mainnet' | 'devnet';
 
 export interface AptosSnapApi {
   connect(): Promise<AptosAccount>;

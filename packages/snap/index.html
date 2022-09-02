@@ -156,10 +156,7 @@
         response = await ethereum.request({
           method: snapId,
           params: [{
-            method: 'aptos_getAccount',
-            params: {
-              accountIndex: 0
-            }
+            method: 'aptos_getAccount'
           }]
         });
       } catch (e) {
@@ -201,10 +198,7 @@
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
           params: [snapId, {
-            method: 'aptos_getAccount',
-            params: {
-              network: "devnet"
-            }
+            method: 'aptos_getAccount'
           }]
         })
       } catch (e) {
