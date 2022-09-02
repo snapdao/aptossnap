@@ -1,6 +1,5 @@
 import { AptosAccount } from 'aptos'
 import { Wallet } from '../interfaces'
-import { PublicAccount } from '@keystonehq/aptossnap-types'
 import { getBIP44AddressKeyDeriver, JsonBIP44CoinTypeNode } from '@metamask/key-tree'
 
 export async function getPrivKey (

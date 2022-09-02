@@ -19,17 +19,18 @@ export async function configure (
   const configuration = overrides
     ? deepmerge(defaultConfig, overrides)
     : defaultConfig
-  await wallet.request({
-    method: 'snap_manageState',
-    params: ['update', configuration]
-  })
   const state = (await wallet.request({
     method: 'snap_manageState',
     params: ['get']
   })) as MetamaskState
+  state.aptos.configuration = configuration
+  await wallet.request({
+    method: 'snap_manageState',
+    params: ['update', state]
+  })
   const client = getClientFromConfig(configuration)
   return {
     client,
-    snapConfig: state.aptos.configuration
+    snapConfig: configuration
   }
 }

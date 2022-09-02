@@ -5,7 +5,7 @@ export type AptosNetwork = 'mainnet' | 'devnet';
 export interface SnapConfig {
   network: AptosNetwork;
   account?: AptosAccount
-  rpc: {
+  rpc?: {
     node: string,
     faucet: string,
   }

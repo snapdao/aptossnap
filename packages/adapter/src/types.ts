@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import { PublicAccount, SnapConfig, SnapRpcMethodRequest } from '@keystonehq/aptossnap-types'
+import {PublicAccount, SnapConfig, SnapRpcMethodRequest} from '@keystonehq/aptossnap-types'
 
 export interface MetamaskSnapApi {
   connect(): Promise<PublicAccount>;

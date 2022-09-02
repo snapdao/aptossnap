@@ -2,8 +2,15 @@ import { AptosClient } from 'aptos'
 import { AccountsService, BlocksService, EventsService, GeneralService, TablesService, TransactionsService } from 'aptos/dist/generated'
 import Req from '../util/request'
 import { SnapConfig } from '@keystonehq/aptossnap-types'
+import { Wallet } from '../interfaces'
+import { getConfiguration } from '../configuration'
 
 let client: AptosClient
+
+export async function getClient (wallet: Wallet): Promise<AptosClient> {
+  const configuration = await getConfiguration(wallet)
+  return getClientFromConfig(configuration)
+}
 
 export function genClient (nodeUrl: string): AptosClient {
   const aptos = new AptosClient(nodeUrl)
