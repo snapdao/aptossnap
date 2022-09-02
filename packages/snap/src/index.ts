@@ -35,8 +35,17 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     case 'aptos_getBalance': {
       return await getBalance(wallet, account.address(), client)
     }
-    case 'aptos_signTransaction':
-      return await signTransaction(wallet, (request.params as {rawTransaction: Uint8Array}).rawTransaction, account, client)
+    case 'aptos_signTransaction': {
+      let rawTransaction
+      rawTransaction = (request.params as any).rawTransaction
+      console.log('rawTransaction', rawTransaction)
+      if (typeof rawTransaction === 'object') {
+        rawTransaction = Object.values(rawTransaction)
+      }
+      console.log('rawTransaction-------', rawTransaction)
+      return await signTransaction(wallet, rawTransaction, account, client)
+    }
+
     case 'aptos_submitTransaction':
       return await submitTransaction(wallet, (request.params as any).bcsTxn, account, client)
     case 'aptos_getAccount': {

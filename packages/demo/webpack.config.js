@@ -18,6 +18,12 @@ module.exports = {
     port: 9011,
     writeToDisk: true
   },
+  resolve: {
+    fallback: {
+      buffer: require.resolve('buffer'),
+      stream: require.resolve('stream-browserify')
+    }
+  },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
 

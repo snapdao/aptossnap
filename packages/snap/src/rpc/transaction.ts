@@ -10,7 +10,7 @@ export async function signTransaction (wallet: Wallet, rawTransaction: Uint8Arra
       {
         prompt: 'Sign Aptos Transaction?',
         description: 'Please verify this ongoing Transaction Detail',
-        textAreaContent: rawTransaction
+        textAreaContent: "transaction"
       }
     ]
   })

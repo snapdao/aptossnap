@@ -38,6 +38,7 @@ export async function getBalance (this: MetamaskAptosSnap): Promise<string> {
 }
 
 export async function signTransaction (this: MetamaskAptosSnap, rawTransaction: Uint8Array): Promise<Uint8Array> {
+  console.log("adapter, signTransaction", rawTransaction);
   return await sendSnapMethod({
     method: 'aptos_signTransaction',
     params: {

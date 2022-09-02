@@ -1,6 +1,5 @@
 import { enableAptosSnap } from '@keystonehq/aptossnap-adapter'
-// import { AptosClient, TransactionBuilder, TxnBuilderTypes } from 'aptos'
-// const { BCS } = TransactionBuilder
+import { AptosClient, TransactionBuilder, TxnBuilderTypes, BCS } from 'aptos'
 
 let aptosApi
 
@@ -20,16 +19,15 @@ const getaccountResults = document.getElementById('getAccountResult')
 const getBalanceButton = document.getElementById('getBalance')
 const getBalanceResult = document.getElementById('getBalanceResult')
 
-
 const isMetaMaskInstalled = () => window.ethereum && window.ethereum.isMetaMask
-// const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
+const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
 
 // onBoarding
 const startOnboarding = () => {
   window.open(downloadUrl, '_blank')
 }
 // Send form section
-const fromDiv = document.getElementById('fromInput')
+// const fromDiv = document.getElementById('fromInput')
 
 // Send Aptos Section
 const sendButton = document.getElementById('sendButton')
@@ -73,34 +71,34 @@ const initialize = async () => {
       }
 
       sendButton.onclick = async () => {
-        // const recipient = '0xf5fcc4ae6e4f6209ae1d641fe5de04f0c413f012ac0d5629893e901591e05a3f'
-        // const token = new TxnBuilderTypes.TypeTagStruct(TxnBuilderTypes.StructTag.fromString('0x1::aptos_coin::AptosCoin'))
-        // const amount = 1000
-        // const sender = await aptosApi.account(0)
-        // const scriptFunctionPayload = new TxnBuilderTypes.TransactionPayloadScriptFunction(
-        //   TxnBuilderTypes.ScriptFunction.natural(
-        //     '0x1::coin',
-        //     'transfer',
-        //     [token],
-        //     [BCS.bcsToBytes(TxnBuilderTypes.AccountAddress.fromHex(recipient)), BCS.bcsSerializeUint64(amount)]
-        //   ))
-        // const [{ sequence_number: sequenceNumber }, chainId] = await Promise.all([
-        //   client.getAccount(sender.address),
-        //   client.getChainId()
-        // ])
-        // const rawTxn = new TxnBuilderTypes.RawTransaction(
-        //   TxnBuilderTypes.AccountAddress.fromHex(sender.address),
-        //   BigInt(sequenceNumber),
-        //   scriptFunctionPayload,
-        //   1000n,
-        //   1n,
-        //   BigInt(Math.floor(Date.now() / 1000) + 10),
-        //   new TxnBuilderTypes.ChainId(chainId)
-        // )
-        // console.log('----rawTxn------------', rawTxn)
-        // const signingMessage = TransactionBuilder.getSigningMessage(rawTxn)
-        // const result = await aptosApi.signTransaction(signingMessage)
-        // console.log(result)
+        const recipient = '0xf5fcc4ae6e4f6209ae1d641fe5de04f0c413f012ac0d5629893e901591e05a3f'
+        const token = new TxnBuilderTypes.TypeTagStruct(TxnBuilderTypes.StructTag.fromString('0x1::aptos_coin::AptosCoin'))
+        const amount = 1000
+        const sender = await aptosApi.account(0)
+        const scriptFunctionPayload = new TxnBuilderTypes.TransactionPayloadEntryFunction(
+          TxnBuilderTypes.EntryFunction.natural(
+            '0x1::coin',
+            'transfer',
+            [token],
+            [BCS.bcsToBytes(TxnBuilderTypes.AccountAddress.fromHex(recipient)), BCS.bcsSerializeUint64(amount)]
+          ))
+        const [{ sequence_number: sequenceNumber }, chainId] = await Promise.all([
+          client.getAccount(sender.address),
+          client.getChainId()
+        ])
+        const rawTxn = new TxnBuilderTypes.RawTransaction(
+          TxnBuilderTypes.AccountAddress.fromHex(sender.address),
+          BigInt(sequenceNumber),
+          scriptFunctionPayload,
+          1000n,
+          1n,
+          BigInt(Math.floor(Date.now() / 1000) + 10),
+          new TxnBuilderTypes.ChainId(chainId)
+        )
+        const signingMessage = TransactionBuilder.getSigningMessage(rawTxn)
+        console.log("signingMessage", signingMessage);
+        const result = await aptosApi.signTransaction(signingMessage)
+        console.log(result)
       }
     }
 
