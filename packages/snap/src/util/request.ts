@@ -15,9 +15,10 @@ export interface RequestConfig {
 
 export interface RequestOptions extends Request {
     url: string
-    path: {
+    path?: {
         [propName: string]: string
     }
+    mediaType?: string,
 }
 const headers = {
   'Content-Type': 'application/json'
@@ -36,6 +37,9 @@ export default class Req {
     }
 
     request (options: RequestOptions) {
+      if (options.mediaType) {
+        headers['Content-Type'] = options.mediaType
+      }
       (options.headers as any) = Object.assign({}, headers, options.headers)
       if (options.path) {
         Object.keys(options.path).forEach(k => {
