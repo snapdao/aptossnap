@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@keystonehq/aptossnap-types": "*",
-    "aptos": "^1.3.6"
+    "aptos": "^1.3.10"
   },
   "devDependencies": {
     "@types/node": "^12.12.35",

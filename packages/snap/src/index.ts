@@ -3,7 +3,7 @@ import { getAccount } from './rpc/getAccount'
 import { EmptyMetamaskState, Wallet } from './interfaces'
 import { configure, ConfigureResponse } from './rpc/configure'
 import getBalance from './rpc/getBalance'
-import { signTransaction, submitTransaction } from './rpc/transaction'
+import { signAndSubmitTransaction, signTransaction, submitTransaction } from './rpc/transaction'
 import { isValidConfigureRequest } from './util/params'
 import { getClient } from './aptos/client'
 
@@ -45,7 +45,8 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       console.log('rawTransaction-------', rawTransaction)
       return await signTransaction(wallet, rawTransaction, account, client)
     }
-
+    case 'aptos_signAndSubmitTransaction':
+      return await signAndSubmitTransaction(wallet, (request.params as any).transactionPayload, account, client)
     case 'aptos_submitTransaction':
       return await submitTransaction(wallet, (request.params as any).bcsTxn, account, client)
     case 'aptos_getAccount': {

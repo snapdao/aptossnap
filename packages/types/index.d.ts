@@ -1,4 +1,5 @@
 import { AptosAccount } from 'aptos'
+import { EntryFunctionPayload } from 'aptos/dist/generated'
 
 export type AptosNetwork = 'mainnet' | 'devnet';
 
@@ -29,7 +30,13 @@ export interface getBalanceRequest {
 export interface signTransactionRequest {
   method: 'aptos_signTransaction',
   params: {
-   rawTransaction: Uint8Array
+    rawTransaction: Uint8Array
+  }
+}
+export interface signAndSubmitTransactionRequest {
+  method: 'aptos_signAndSubmitTransaction',
+  params: {
+    transactionPayload: EntryFunctionPayload
   }
 }
 
@@ -40,7 +47,13 @@ export interface submitTransactionRequest {
   }
 }
 
-export type MetamaskAptosRpcRequest = getAddressRequest | ConfigureSnapRequest | getBalanceRequest | signTransactionRequest | submitTransactionRequest;
+export type MetamaskAptosRpcRequest =
+  getAddressRequest
+  | ConfigureSnapRequest
+  | getBalanceRequest
+  | signTransactionRequest
+  | signAndSubmitTransactionRequest
+  | submitTransactionRequest;
 
 type Method = MetamaskAptosRpcRequest['method'];
 
@@ -63,12 +76,12 @@ export type MetamaskRpcRequest =
   | GetSnapsRequest
   | SnapRpcMethodRequest;
 
-
 export type Callback<T> = (arg: T) => void;
 
 export interface AptosSnapApi {
-  connect(): Promise<AptosAccount>;
-  configure(configuration: Partial<SnapConfig>): Promise<void>;
+  connect (): Promise<AptosAccount>;
+
+  configure (configuration: Partial<SnapConfig>): Promise<void>;
 }
 
 export interface BlockInfo {

@@ -1,5 +1,12 @@
 import { MetamaskSnapApi } from './types'
-import { getAccount, getBalance, configure, signTransaction, submitTransaction } from './methods'
+import {
+  getAccount,
+  getBalance,
+  configure,
+  signTransaction,
+  submitTransaction,
+  signAndSubmitTransaction
+} from './methods'
 
 export class MetamaskAptosSnap {
   // snap parameters
@@ -19,7 +26,8 @@ export class MetamaskAptosSnap {
       configure: configure.bind(this),
       getBalance: getBalance.bind(this),
       signTransaction: signTransaction.bind(this),
-      submitTransaction: submitTransaction.bind(this)
+      submitTransaction: submitTransaction.bind(this),
+      signAndSubmitTransaction: signAndSubmitTransaction.bind(this)
     }
   };
 }

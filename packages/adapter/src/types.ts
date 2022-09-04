@@ -1,4 +1,5 @@
-import {PublicAccount, SnapConfig, SnapRpcMethodRequest} from '@keystonehq/aptossnap-types'
+import { PublicAccount, SnapConfig, SnapRpcMethodRequest } from '@keystonehq/aptossnap-types'
+import { EntryFunctionPayload, HexEncodedBytes } from 'aptos/dist/generated'
 
 export interface MetamaskSnapApi {
   connect(): Promise<PublicAccount>;
@@ -7,6 +8,9 @@ export interface MetamaskSnapApi {
   getBalance(): Promise<string>;
   signTransaction(rawTransaction: Uint8Array): Promise<Uint8Array>
   submitTransaction(bcsTxn: Uint8Array): Promise<Uint8Array>
+  signAndSubmitTransaction(
+    transactionPayload: EntryFunctionPayload
+  ): Promise<HexEncodedBytes>
 }
 
 declare global {

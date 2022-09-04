@@ -1,5 +1,5 @@
 import { enableAptosSnap } from '@keystonehq/aptossnap-adapter'
-import { AptosClient, TransactionBuilder, TxnBuilderTypes, BCS } from 'aptos'
+import { AptosClient } from 'aptos'
 
 let aptosApi
 
@@ -14,13 +14,12 @@ const downloadUrl = 'https://chrome.google.com/webstore/detail/metamask-flask-de
 
 // Basic Actions Section
 const onboardButton = document.getElementById('connectButton')
-const getaccountButton = document.getElementById('getAccount')
-const getaccountResults = document.getElementById('getAccountResult')
+const getAccountButton = document.getElementById('getAccount')
+const getAccountResults = document.getElementById('getAccountResult')
 const getBalanceButton = document.getElementById('getBalance')
 const getBalanceResult = document.getElementById('getBalanceResult')
 
 const isMetaMaskInstalled = () => window.ethereum && window.ethereum.isMetaMask
-const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
 
 // onBoarding
 const startOnboarding = () => {
@@ -31,6 +30,7 @@ const startOnboarding = () => {
 
 // Send Aptos Section
 const sendButton = document.getElementById('sendButton')
+const sendResult = document.getElementById('sendResult')
 
 const initialize = async () => {
   try {
@@ -51,13 +51,13 @@ const initialize = async () => {
         return
       }
       accountButtonsInitialized = true
-      getaccountButton.onclick = async () => {
+      getAccountButton.onclick = async () => {
         try {
           const account = await aptosApi.account()
-          getaccountResults.innerHTML = account.address
+          getAccountResults.innerHTML = account.address
         } catch (err) {
           console.error(err)
-          getaccountResults.innerHTML = `Error: ${err.message}`
+          getAccountResults.innerHTML = `Error: ${err.message}`
         }
       }
 
@@ -71,34 +71,22 @@ const initialize = async () => {
       }
 
       sendButton.onclick = async () => {
-        const recipient = '0xf5fcc4ae6e4f6209ae1d641fe5de04f0c413f012ac0d5629893e901591e05a3f'
-        const token = new TxnBuilderTypes.TypeTagStruct(TxnBuilderTypes.StructTag.fromString('0x1::aptos_coin::AptosCoin'))
-        const amount = 1000
-        const sender = await aptosApi.account(0)
-        const scriptFunctionPayload = new TxnBuilderTypes.TransactionPayloadEntryFunction(
-          TxnBuilderTypes.EntryFunction.natural(
-            '0x1::coin',
-            'transfer',
-            [token],
-            [BCS.bcsToBytes(TxnBuilderTypes.AccountAddress.fromHex(recipient)), BCS.bcsSerializeUint64(amount)]
-          ))
-        const [{ sequence_number: sequenceNumber }, chainId] = await Promise.all([
-          client.getAccount(sender.address),
-          client.getChainId()
-        ])
-        const rawTxn = new TxnBuilderTypes.RawTransaction(
-          TxnBuilderTypes.AccountAddress.fromHex(sender.address),
-          BigInt(sequenceNumber),
-          scriptFunctionPayload,
-          1000n,
-          1n,
-          BigInt(Math.floor(Date.now() / 1000) + 10),
-          new TxnBuilderTypes.ChainId(chainId)
-        )
-        const signingMessage = TransactionBuilder.getSigningMessage(rawTxn)
-        console.log("signingMessage", signingMessage);
-        const result = await aptosApi.signTransaction(signingMessage)
-        console.log(result)
+        try {
+          const transactionPayload = {
+            arguments: ['0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd', 8],
+            function: '0x1::coin::transfer',
+            type: 'entry_function_payload',
+            type_arguments: ['0x1::aptos_coin::AptosCoin']
+          }
+          console.log('sendTransaction', transactionPayload)
+          const response = await aptosApi.signAndSubmitTransaction(transactionPayload)
+          const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
+          const signedTx = new Uint8Array(Object.values(response))
+          const pendingTransaction = await client.submitTransaction(signedTx)
+          sendResult.innerHTML = JSON.stringify(pendingTransaction.hash)
+        } catch (e) {
+          sendResult.innerHTML = JSON.stringify(e)
+        }
       }
     }
 
@@ -147,7 +135,7 @@ const initialize = async () => {
         initializeAccountButtons()
       }
       updateButtons()
-    };
+    }
     updateButtons()
     if (isMetaMaskInstalled()) {
       try {

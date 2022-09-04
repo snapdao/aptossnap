@@ -3,6 +3,7 @@ import {
   SnapConfig
 } from '@keystonehq/aptossnap-types'
 import { MetamaskAptosSnap } from './snap'
+import { EntryFunctionPayload, HexEncodedBytes } from 'aptos/dist/generated'
 
 async function sendSnapMethod<T> (
   request: MetamaskAptosRpcRequest,
@@ -18,7 +19,7 @@ export async function getAccount (
   this: MetamaskAptosSnap
 ): Promise<PublicAccount> {
   return await sendSnapMethod(
-    { method: 'aptos_getAccount'},
+    { method: 'aptos_getAccount' },
     this.snapId
   )
 }
@@ -38,7 +39,7 @@ export async function getBalance (this: MetamaskAptosSnap): Promise<string> {
 }
 
 export async function signTransaction (this: MetamaskAptosSnap, rawTransaction: Uint8Array): Promise<Uint8Array> {
-  console.log("adapter, signTransaction", rawTransaction);
+  console.log('adapter, signTransaction', rawTransaction)
   return await sendSnapMethod({
     method: 'aptos_signTransaction',
     params: {
@@ -49,4 +50,8 @@ export async function signTransaction (this: MetamaskAptosSnap, rawTransaction: 
 
 export async function submitTransaction (this: MetamaskAptosSnap, bcsTxn: Uint8Array): Promise<Uint8Array> {
   return await sendSnapMethod({ method: 'aptos_submitTransaction', params: { bcsTxn } }, this.snapId)
+}
+
+export async function signAndSubmitTransaction (this: MetamaskAptosSnap, transactionPayload: EntryFunctionPayload): Promise<HexEncodedBytes> {
+  return await sendSnapMethod({ method: 'aptos_signAndSubmitTransaction', params: { transactionPayload } }, this.snapId)
 }
