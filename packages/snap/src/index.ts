@@ -26,11 +26,10 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
   switch (request.method) {
     case 'aptos_configure': {
       isValidConfigureRequest(request.params)
-      const resp: ConfigureResponse = await configure(
+      return await configure(
         wallet,
         (request.params as any).configuration
       )
-      return resp
     }
     case 'aptos_getBalance': {
       return await getBalance(wallet, account.address(), client)
@@ -38,11 +37,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     case 'aptos_signTransaction': {
       let rawTransaction
       rawTransaction = (request.params as any).rawTransaction
-      console.log('rawTransaction', rawTransaction)
       if (typeof rawTransaction === 'object') {
         rawTransaction = Object.values(rawTransaction)
       }
-      console.log('rawTransaction-------', rawTransaction)
       return await signTransaction(wallet, rawTransaction, account, client)
     }
     case 'aptos_signAndSubmitTransaction':
@@ -54,6 +51,13 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
         address: account.address().hex(),
         publicKey: account.signingKey.publicKey.toString()
       }
+    }
+    case 'aptos_disconnect': {
+      console.log("disconnect is called")
+      return await wallet.request({
+        method: 'snap_manageState',
+        params: ['update', EmptyMetamaskState()]
+      })
     }
     default:
       throw new Error('Method not found.')

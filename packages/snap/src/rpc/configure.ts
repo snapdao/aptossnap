@@ -1,5 +1,5 @@
-import { SnapConfig } from '@keystonehq/aptossnap-types'
-import { AptosNetwork, MetamaskState, Wallet } from '../interfaces'
+import {AptosNetwork, SnapConfig} from '@keystonehq/aptossnap-types'
+import { MetamaskState, Wallet } from '../interfaces'
 import deepmerge from 'deepmerge'
 import { getDefaultConfiguration } from '../configuration'
 import { getClientFromConfig } from '../aptos/client'

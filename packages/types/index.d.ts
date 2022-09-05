@@ -12,8 +12,11 @@ export interface SnapConfig {
   }
 }
 
-export interface getAddressRequest {
+export interface GetAccountRequest {
   method: 'aptos_getAccount'
+}
+export interface DisconnectRequest {
+  method: 'aptos_disconnect'
 }
 
 export interface ConfigureSnapRequest {
@@ -23,39 +26,36 @@ export interface ConfigureSnapRequest {
   };
 }
 
-export interface getBalanceRequest {
+export interface GetBalanceRequest {
   method: 'aptos_getBalance'
 }
 
-export interface signTransactionRequest {
+export interface SignTransactionRequest {
   method: 'aptos_signTransaction',
   params: {
     rawTransaction: Uint8Array
   }
 }
-export interface signAndSubmitTransactionRequest {
+export interface SignAndSubmitTransactionRequest {
   method: 'aptos_signAndSubmitTransaction',
   params: {
     transactionPayload: EntryFunctionPayload
   }
 }
 
-export interface submitTransactionRequest {
+export interface SubmitTransactionRequest {
   method: 'aptos_submitTransaction',
   params: {
     bcsTxn: Uint8Array
   }
 }
 
-export type MetamaskAptosRpcRequest =
-  getAddressRequest
+export type MetamaskAptosRpcRequest = GetAccountRequest | DisconnectRequest
   | ConfigureSnapRequest
-  | getBalanceRequest
-  | signTransactionRequest
-  | signAndSubmitTransactionRequest
-  | submitTransactionRequest;
-
-type Method = MetamaskAptosRpcRequest['method'];
+  | GetBalanceRequest
+  | SignTransactionRequest
+  | SignAndSubmitTransactionRequest
+  | SubmitTransactionRequest;
 
 export interface WalletEnableRequest {
   method: 'wallet_enable';
@@ -82,20 +82,6 @@ export interface AptosSnapApi {
   connect (): Promise<AptosAccount>;
 
   configure (configuration: Partial<SnapConfig>): Promise<void>;
-}
-
-export interface BlockInfo {
-  hash: string;
-  number: string;
-}
-
-export interface Transaction {
-  hash: string;
-  block: string;
-  sender: string;
-  destination: string;
-  amount: string | number;
-  fee: string;
 }
 
 export interface PublicAccount {

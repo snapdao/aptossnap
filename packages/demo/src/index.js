@@ -1,5 +1,4 @@
 import { enableAptosSnap } from '@keystonehq/aptossnap-adapter'
-import { AptosClient } from 'aptos'
 
 let aptosApi
 
@@ -14,6 +13,7 @@ const downloadUrl = 'https://chrome.google.com/webstore/detail/metamask-flask-de
 
 // Basic Actions Section
 const onboardButton = document.getElementById('connectButton')
+const disconnectButton = document.getElementById('disconnectButton')
 const getAccountButton = document.getElementById('getAccount')
 const getAccountResults = document.getElementById('getAccountResult')
 const getBalanceButton = document.getElementById('getBalance')
@@ -73,13 +73,12 @@ const initialize = async () => {
       sendButton.onclick = async () => {
         try {
           const transactionPayload = {
-            arguments: ['0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd', 8],
+            arguments: ['0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd', 2],
             function: '0x1::coin::transfer',
             type: 'entry_function_payload',
             type_arguments: ['0x1::aptos_coin::AptosCoin']
           }
           const response = await aptosApi.signAndSubmitTransaction(transactionPayload)
-          console.log('sendTransaction', {transactionPayload, response})
           sendResult.innerHTML = JSON.stringify(response)
         } catch (e) {
           sendResult.innerHTML = JSON.stringify(e)
@@ -91,6 +90,14 @@ const initialize = async () => {
       try {
         const newAccount = await aptosApi.account()
         handleNewAccount(newAccount)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    const onClickDisconnect = async () => {
+      try {
+        await aptosApi.disconnect()
       } catch (error) {
         console.error(error)
       }
@@ -116,10 +123,13 @@ const initialize = async () => {
       if (isMetaMaskConnected()) {
         onboardButton.innerText = 'Connected'
         onboardButton.disabled = true
+        disconnectButton.disabled = false
+        disconnectButton.onclick = onClickDisconnect
       } else {
         onboardButton.innerText = 'Connect'
         onboardButton.onclick = onClickConnect
         onboardButton.disabled = false
+        disconnectButton.disabled = true
       }
     }
 

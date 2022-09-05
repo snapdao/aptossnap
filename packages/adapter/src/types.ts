@@ -2,7 +2,7 @@ import { PublicAccount, SnapConfig, SnapRpcMethodRequest } from '@keystonehq/apt
 import { EntryFunctionPayload, HexEncodedBytes } from 'aptos/dist/generated'
 
 export interface MetamaskSnapApi {
-  connect(): Promise<PublicAccount>;
+  disconnect(): Promise<void>;
   account(): Promise<PublicAccount>;
   configure(configuration: SnapConfig): Promise<void>;
   getBalance(): Promise<string>;

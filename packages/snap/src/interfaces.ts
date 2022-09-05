@@ -1,8 +1,6 @@
 import { SnapConfig } from '@keystonehq/aptossnap-types'
 import { defaultConfiguration } from './configuration/predefined'
 
-export type AptosNetwork = 'devnet' | 'mainnet';
-
 export interface Wallet {
   request(options: { method: string; params?: unknown[]}): unknown;
 }

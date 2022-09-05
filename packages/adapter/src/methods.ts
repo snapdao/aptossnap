@@ -15,6 +15,15 @@ async function sendSnapMethod<T> (
   })
 }
 
+export async function disconnect (
+  this: MetamaskAptosSnap
+): Promise<void> {
+  return await sendSnapMethod(
+    { method: 'aptos_disconnect' },
+    this.snapId
+  )
+}
+
 export async function getAccount (
   this: MetamaskAptosSnap
 ): Promise<PublicAccount> {
