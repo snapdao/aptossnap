@@ -6,8 +6,7 @@ import {
 } from './utils'
 import { MetamaskAptosSnap } from './snap'
 
-const defaultSnapOrigin =
-  'https://bafybeih426v3jpdwnltjfmeefyt4isrogvgzg2wxvryu6itodvb4vzvuma.ipfs.infura-ipfs.io/'
+const defaultSnapOrigin = "npm:@keystonehq/aptossnap";
 
 export { MetamaskAptosSnap } from './snap'
 export {
@@ -18,13 +17,6 @@ export {
 
 export type SnapInstallationParamNames = 'version' | string;
 
-/**
- * Install and enable Aptos snap
- * @param config - SnapConfig
- * @param snapOrigin
- *
- * @return MetamaskAptosSnap - adapter object that exposes snap API
- */
 export async function enableAptosSnap (
   config: SnapConfig,
   snapOrigin?: string,
@@ -49,7 +41,6 @@ export async function enableAptosSnap (
   const isReinstall = true
 
   if (!isInstalled) {
-    console.log('snap does not installed')
     snapInstallationParams = { version: 'latest' }
     // // enable snap
     await window.ethereum.request({
@@ -73,11 +64,7 @@ export async function enableAptosSnap (
     })
   }
 
-  // await unlockMetamask();
-
-  // create snap describer
   const snap = new MetamaskAptosSnap(snapOrigin || defaultSnapOrigin)
-  // set initial configuration
   await (await snap.getMetamaskSnapApi()).configure(config)
   return snap
 }

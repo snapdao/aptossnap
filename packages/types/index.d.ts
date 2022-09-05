@@ -1,11 +1,9 @@
-import { AptosAccount } from 'aptos'
 import { EntryFunctionPayload } from 'aptos/dist/generated'
 
 export type AptosNetwork = 'mainnet' | 'devnet';
 
 export interface SnapConfig {
   network: AptosNetwork;
-  account?: AptosAccount
   rpc?: {
     node: string,
     faucet: string,
@@ -57,31 +55,9 @@ export type MetamaskAptosRpcRequest = GetAccountRequest | DisconnectRequest
   | SignAndSubmitTransactionRequest
   | SubmitTransactionRequest;
 
-export interface WalletEnableRequest {
-  method: 'wallet_enable';
-  params: object[];
-}
-
-export interface GetSnapsRequest {
-  method: 'wallet_getSnaps';
-}
-
 export interface SnapRpcMethodRequest {
   method: string;
   params: [MetamaskAptosRpcRequest];
-}
-
-export type MetamaskRpcRequest =
-  | WalletEnableRequest
-  | GetSnapsRequest
-  | SnapRpcMethodRequest;
-
-export type Callback<T> = (arg: T) => void;
-
-export interface AptosSnapApi {
-  connect (): Promise<AptosAccount>;
-
-  configure (configuration: Partial<SnapConfig>): Promise<void>;
 }
 
 export interface PublicAccount {

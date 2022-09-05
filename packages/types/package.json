@@ -12,8 +12,5 @@
     "aptos",
     "metamask",
     "snap"
-  ],
-  "dependencies": {
-    "aptos": "^1.3.5"
-  }
+  ]
 }
