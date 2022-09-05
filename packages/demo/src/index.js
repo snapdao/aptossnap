@@ -78,12 +78,9 @@ const initialize = async () => {
             type: 'entry_function_payload',
             type_arguments: ['0x1::aptos_coin::AptosCoin']
           }
-          console.log('sendTransaction', transactionPayload)
           const response = await aptosApi.signAndSubmitTransaction(transactionPayload)
-          const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
-          const signedTx = new Uint8Array(Object.values(response))
-          const pendingTransaction = await client.submitTransaction(signedTx)
-          sendResult.innerHTML = JSON.stringify(pendingTransaction.hash)
+          console.log('sendTransaction', {transactionPayload, response})
+          sendResult.innerHTML = JSON.stringify(response)
         } catch (e) {
           sendResult.innerHTML = JSON.stringify(e)
         }

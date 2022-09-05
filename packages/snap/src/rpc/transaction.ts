@@ -33,10 +33,10 @@ export async function signAndSubmitTransaction (wallet: Wallet, transactionPaylo
   })
   if (result) {
     try {
-      const tx = await client.generateTransaction(account.address(), transactionPayload, {
-        expiration_timestamp_secs: (Math.floor(Date.now() / 1000) + 1000).toString()
-      })
-      return await client.signTransaction(account, tx)
+      const tx = await client.generateTransaction(account.address(), transactionPayload)
+      const signedTx = await client.signTransaction(account, tx)
+      const pendingTx = await client.submitTransaction(signedTx)
+      return pendingTx.hash
     } catch (e) {
       console.log('signAndSubmitTransaction error----------------', e)
       return 'error'
