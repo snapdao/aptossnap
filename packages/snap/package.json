@@ -20,7 +20,7 @@
     "build:snap:postprocess": "mm-snap manifest --fix",
     "build:snap:eval": "mm-snap eval -b dist/bundle.js --verboseErrors",
     "snapEval": "mm-snap eval",
-    "watch": "concurrently  --raw --kill-others \"yarn run watch:tsc\" \"yarn run watch:snap\" \"yarn run serve\"",
+    "watch": "concurrently  --raw --kill-others \"yarn run watch:tsc\" \"yarn run watch:snap\"",
     "watch:tsc": "yarn run build:tsc --watch",
     "watch:snap": "mm-snap watch -s src/index.ts --debug",
     "prepublish": "yarn run build && mkdir ipfs && cp package.json ipfs/package.json",

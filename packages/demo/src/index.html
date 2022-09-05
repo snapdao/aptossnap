@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Aptossnap Test Dapp</title>
+    <title>Aptossnap Demo</title>
     <link rel="icon" type="image/svg" href="aptos.svg" />
     <link
       rel="stylesheet"
@@ -23,34 +23,46 @@
       <header>
         <div id="logo-container">
           <h1 id="logo-text" class="text-center">
-            Aptosnap Demo
+            Apto Snap Demo
           </h1>
 
           <img id="mm-logo" src="aptos.svg" />
         </div>
       </header>
-
       <section>
-        <h3 class="card-title">
-          Status
-        </h3>
         <div class="row">
-          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-            <p class="info-text alert alert-primary">
-              Network: <span id="network"></span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="row d-flex justify-content-center">
-          <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12">
-            <div class="card">
+          <div
+                  class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch"
+          >
+            <div class="card full-width">
               <div class="card-body">
-                <h4 class="card-title">
-                  Basic Actions
+                <h4>
+                  Send Aptos
                 </h4>
+
+                <button
+                        class="btn btn-primary btn-lg btn-block mb-3"
+                        id="sendButton"
+                        disabled
+                >
+                  Transfer
+                </button>
+
+                <p class="info-text alert alert-warning">
+                  Result: <span id="sendResult"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+                  class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch"
+          >
+            <div class="card full-width">
+              <div class="card-body">
+                <h4>
+                  Basic Action
+                </h4>
+
                 <button
                         class="btn btn-primary btn-lg btn-block mb-3"
                         id="connectButton"
@@ -63,53 +75,29 @@
                         id="disconnectButton"
                         disabled
                 >
-                  Disconnect
-                </button>
-                <button
-                  class="btn btn-primary btn-lg btn-block mb-3"
-                  id="getAccount"
-                >
-                  aptos_account
+                  DisConnect
                 </button>
 
-                <p class="info-text alert alert-secondary">
-                  aptos_account result: <span id="getAccountResult"></span>
+                <button
+                        class="btn btn-primary btn-lg btn-block mb-3"
+                        id="getAccount"
+                >
+                  Get Account
+                </button>
+
+                <p class="info-text alert alert-warning">
+                  Get Account Result: <span id="getAccountResult"></span>
                 </p>
+
                 <button
                         class="btn btn-primary btn-lg btn-block mb-3"
                         id="getBalance"
                 >
-                  aptos_balance
+                  Get Balance
                 </button>
 
-                <p class="info-text alert alert-secondary">
-                  aptos_balance result: <span id="getBalanceResult"></span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="row">
-          <div
-                  class="col-xl-4 col-lg-6 col-md-12 col-sm-12 col-12 d-flex align-items-stretch"
-          >
-            <div class="card full-width">
-              <div class="card-body">
-                <h4 class="card-title">
-                  Send Aptos
-                </h4>
-
-                <button
-                        class="btn btn-primary btn-lg btn-block mb-3"
-                        id="sendButton"
-                        disabled
-                >
-                  Send
-                </button>
                 <p class="info-text alert alert-warning">
-                  Result: <span id="sendResult"></span>
+                  Get Balance Result: <span id="getBalanceResult"></span>
                 </p>
               </div>
             </div>

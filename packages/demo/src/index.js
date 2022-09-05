@@ -3,7 +3,7 @@ import { enableAptosSnap } from '@keystonehq/aptossnap-adapter'
 let aptosApi
 
 // Dapp Status Section
-const networkDiv = document.getElementById('network');
+// const networkDiv = document.getElementById('network')
 
 const defaultSnapId = 'local:http://localhost:8081'
 
@@ -134,14 +134,9 @@ const initialize = async () => {
     }
 
     async function handleStatus (newAccount) {
-      if(newAccount){
+      if (newAccount) {
         account = newAccount.address
       }
-      const state = (await window.ethereum.request({
-        method: 'snap_manageState',
-        params: ['get']
-      }))
-      networkDiv.innerHTML = state?.aptos?.configuration?.network;
       if (isMetaMaskConnected()) {
         initializeAccountButtons()
       }
