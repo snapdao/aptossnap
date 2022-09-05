@@ -9,13 +9,6 @@ import { MetamaskAptosSnap } from "./snap";
 const defaultSnapOrigin =
   "https://bafybeih426v3jpdwnltjfmeefyt4isrogvgzg2wxvryu6itodvb4vzvuma.ipfs.infura-ipfs.io/";
 
-export { MetamaskAptosSnap } from "./snap";
-export {
-  hasMetaMask,
-  isMetamaskSnapsSupported,
-  isSnapInstalled,
-} from "./utils";
-
 export type SnapInstallationParamNames = "version" | string;
 
 /**
@@ -64,13 +57,15 @@ export async function enableAptosSnap(
     });
   } else if (isReinstall) {
     await window.ethereum.request({
-      method: 'wallet_installSnaps',
-      params: [{
-        [`wallet_snap_${snapId}`]: {
-          ...snapInstallationParams,
+      method: "wallet_installSnaps",
+      params: [
+        {
+          [`wallet_snap_${snapId}`]: {
+            ...snapInstallationParams,
+          },
         },
-      }]
-    })
+      ],
+    });
   }
 
   //await unlockMetamask();

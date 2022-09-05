@@ -30,4 +30,8 @@ export default defineConfig({
       drop: ["console", "debugger"],
     },
   }),
+  optimizeDeps: {
+    include: ["@keystonehq/aptossnap-adapter"],
+    exclude: [],
+  },
 });

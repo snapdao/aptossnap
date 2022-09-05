@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.18.9",
-    "@keystonehq/aptossnap-adapter": "*",
+    "@keystonehq/aptossnap-adapter": "workspace:^",
     "@keystonehq/aptossnap-types": "*",
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.3",

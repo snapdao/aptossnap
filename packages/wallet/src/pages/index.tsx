@@ -1,11 +1,12 @@
-import { Card } from "semantic-ui-react";
 import { DashBoard } from "~/components/Dashboard";
+import { MetaMaskContextProvider } from "~/context/metamask";
 
 export function Index(): JSX.Element {
   return (
     <>
-      <Card className="text-lg">IndexPage</Card>
-      <DashBoard />
+      <MetaMaskContextProvider>
+        <DashBoard />
+      </MetaMaskContextProvider>
     </>
   );
 }

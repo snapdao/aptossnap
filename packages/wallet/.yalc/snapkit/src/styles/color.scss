@@ -1,0 +1,18 @@
+@each $k in n80, n60, n50, n40, n30, n20, n10, n02, n01, n00, ng40, ng20, ng10, pgd, ntd40, ntd04, ntl20, ntl80, "white", "black", pri60, pri50, pri02, pri01, pg006, g60, g50, b60, r60, y50 {
+  .c-#{$k} {
+    color: var(--color-#{$k})
+  }
+  .c-hover-#{$k}:hover {
+    color: var(--color-#{$k})
+  }
+  .bg-#{$k} {
+    background-color: var(--color-#{$k})
+  }
+  .bg-hover-#{$k}:hover {
+    background-color: var(--color-#{$k})
+  }
+}
+
+svg {
+  fill: currentColor;
+}
