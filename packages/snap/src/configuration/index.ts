@@ -5,10 +5,8 @@ import {aptosMainnetConfiguration, aptosTestnetConfiguration, defaultConfigurati
 export function getDefaultConfiguration (networkName?: string): SnapConfig {
   switch (networkName) {
     case 'mainnet':
-      console.log('Aptos mainnet network selected')
       return aptosMainnetConfiguration
     case 'devnet':
-      console.log('Aptos testnet network selected')
       return aptosTestnetConfiguration
     default:
       return defaultConfiguration

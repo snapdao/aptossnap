@@ -1,7 +1,7 @@
 import { OnRpcRequestHandler } from '@metamask/snap-types'
 import { getAccount } from './rpc/getAccount'
 import { EmptyMetamaskState, Wallet } from './interfaces'
-import { configure, ConfigureResponse } from './rpc/configure'
+import { configure } from './rpc/configure'
 import getBalance from './rpc/getBalance'
 import { signAndSubmitTransaction, signTransaction, submitTransaction } from './rpc/transaction'
 import { isValidConfigureRequest } from './util/params'

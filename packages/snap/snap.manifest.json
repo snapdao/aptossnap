@@ -4,10 +4,10 @@
   "description": "The Aptos snap.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/keystoneHQ/aptos.git"
+    "url": "https://github.com/keystoneHQ/aptossnap.git"
   },
   "source": {
-    "shasum": "dB8l7c94Y4wWi67madZY9a76jpXA2+ifyMUiK51W76g=",
+    "shasum": "2VzumKfevYBd2O1REIHP+64nFhCFNj/BdKzwuopU3BQ=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",

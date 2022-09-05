@@ -3,9 +3,8 @@ import { enableAptosSnap } from '@keystonehq/aptossnap-adapter'
 let aptosApi
 
 // Dapp Status Section
-// const networkDiv = document.getElementById('network');
-// const chainIdDiv = document.getElementById('chainId');
-const accountDiv = document.getElementById('account')
+const networkDiv = document.getElementById('network');
+
 const defaultSnapId = 'local:http://localhost:8081'
 
 const snapId = defaultSnapId
@@ -89,7 +88,7 @@ const initialize = async () => {
     const onClickConnect = async () => {
       try {
         const newAccount = await aptosApi.account()
-        handleNewAccount(newAccount)
+        await handleStatus(newAccount)
       } catch (error) {
         console.error(error)
       }
@@ -98,6 +97,7 @@ const initialize = async () => {
     const onClickDisconnect = async () => {
       try {
         await aptosApi.disconnect()
+        await handleStatus()
       } catch (error) {
         console.error(error)
       }
@@ -133,25 +133,21 @@ const initialize = async () => {
       }
     }
 
-    function handleNewAccount (newAccount) {
-      console.log(newAccount)
-      account = newAccount.address
-      accountDiv.innerHTML = account
-      // fromDiv.value = account
+    async function handleStatus (newAccount) {
+      if(newAccount){
+        account = newAccount.address
+      }
+      const state = (await window.ethereum.request({
+        method: 'snap_manageState',
+        params: ['get']
+      }))
+      networkDiv.innerHTML = state?.aptos?.configuration?.network;
       if (isMetaMaskConnected()) {
         initializeAccountButtons()
       }
       updateButtons()
     }
     updateButtons()
-    if (isMetaMaskInstalled()) {
-      try {
-        const newAccount = await aptosApi.account()
-        handleNewAccount(newAccount)
-      } catch (err) {
-        console.error('Error on init when getting account', err)
-      }
-    }
   } catch (error) {
     console.error(error)
   }
