@@ -48,9 +48,3 @@ export async function isSnapInstalled (
     return false
   }
 }
-
-export async function sleep (ms: number): Promise<void> {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms)
-  })
-}

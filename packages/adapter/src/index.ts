@@ -40,6 +40,13 @@ export default class WalletAdapter {
     return !!this._wallet?.isConnected
   }
 
+  get publicAccount (): PublicAccount {
+    return {
+      publicKey: this._wallet?.publicKey || null,
+      address: this._wallet?.address || null
+    }
+  }
+
   async connect (): Promise<void> {
     try {
       if (this.connected || this.connecting) return
@@ -101,13 +108,6 @@ export default class WalletAdapter {
     const wallet = this._wallet
     if (wallet) {
       this._wallet = null
-    }
-  }
-
-  publicAccount (): PublicAccount {
-    return {
-      publicKey: this._wallet?.publicKey || null,
-      address: this._wallet?.address || null
     }
   }
 

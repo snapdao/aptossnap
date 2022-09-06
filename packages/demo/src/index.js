@@ -66,8 +66,9 @@ const initialize = async () => {
       try {
         applyConnectingStatus()
         await walletAdapter.connect()
-        const newAccount = walletAdapter.publicAccount()
-        console.log(newAccount)
+        console.log('%c 🥑 walletAdapter', 'color:#2eafb0', walletAdapter)
+        const newAccount = walletAdapter.publicAccount
+        console.log('newAccount', newAccount)
         await handleStatus(newAccount)
       } catch (error) {
         console.error(error)
