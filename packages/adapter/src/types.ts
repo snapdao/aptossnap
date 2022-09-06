@@ -1,24 +1,80 @@
-// eslint-disable-next-line no-unused-vars
-import { SnapConfig, SnapRpcMethodRequest } from '@keystonehq/aptossnap-types'
-import { BCS, HexString } from 'aptos'
-// import { AptosAccount } from "aptos";
+import { HexEncodedBytes, TransactionPayload } from 'aptos/dist/generated'
+import { RawTransaction } from 'aptos/dist/transaction_builder/aptos_types'
 
+export type SnapConfig = {
+  network: AptosNetwork;
+  rpc?: {
+    node: string,
+    faucet: string,
+  }
+}
+
+
+export interface GetAccountRequest {
+  method: 'aptos_getAccount'
+}
+export interface DisconnectRequest {
+  method: 'aptos_disconnect'
+}
+
+export interface ConfigureSnapRequest {
+  method: 'aptos_configure';
+  params: {
+    configuration: SnapConfig;
+  };
+}
+
+export interface GetBalanceRequest {
+  method: 'aptos_getBalance'
+}
+
+export interface SignTransactionRequest {
+  method: 'aptos_signTransaction',
+  params: {
+    rawTransaction: RawTransaction
+  }
+}
+export interface SignAndSubmitTransactionRequest {
+  method: 'aptos_signAndSubmitTransaction',
+  params: {
+    transactionPayload: TransactionPayload
+  }
+}
+
+export interface SubmitTransactionRequest {
+  method: 'aptos_submitTransaction',
+  params: {
+    bcsTxn: Uint8Array
+  }
+}
+
+export type MetamaskAptosRpcRequest = GetAccountRequest | DisconnectRequest
+    | ConfigureSnapRequest
+    | GetBalanceRequest
+    | SignTransactionRequest
+    | SignAndSubmitTransactionRequest
+    | SubmitTransactionRequest;
+
+export interface SnapRpcMethodRequest {
+  method: string;
+  params: [MetamaskAptosRpcRequest];
+}
+export type AptosNetwork = 'mainnet' | 'devnet';
+
+export type PublicAccount = {
+  address: string;
+  publicKey: string;
+}
 export interface MetamaskSnapApi {
-  getAddress(accountIndex: number): Promise<string>;
-  setConfiguration(configuration: SnapConfig): Promise<void>;
+  disconnect(): Promise<void>;
+  account(): Promise<PublicAccount>;
+  configure(configuration: SnapConfig): Promise<void>;
   getBalance(): Promise<string>;
-  signTransaction(
-    from: HexString,
-    to: HexString,
-    amount: number | BigInt,
-    extraArgs?: {
-      coinType?: string
-      maxGasAmount?: BCS.Uint64
-      gasUnitPrice?: BCS.Uint64
-      expireTimestamp?: BCS.Uint64
-    }
-  ): Promise<string>
-  submitTransaction(bcsTxn: Uint8Array): Promise<string>
+  signTransaction(rawTransaction: TransactionPayload): Promise<Uint8Array>
+  submitTransaction(bcsTxn: Uint8Array): Promise<Uint8Array>
+  signAndSubmitTransaction(
+    transactionPayload: TransactionPayload
+  ): Promise<HexEncodedBytes>
 }
 
 declare global {

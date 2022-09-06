@@ -1,54 +1,54 @@
 import { OnRpcRequestHandler } from '@metamask/snap-types'
-import { getAddress } from './rpc/getAddress'
-import { Wallet } from './interfaces'
+import { getAccount } from './rpc/getAccount'
+import { EmptyMetamaskState, Wallet } from './interfaces'
 import { configure } from './rpc/configure'
-import getBalance from './rpc/getBalance'
-import { signTransaction, submitTransaction } from './rpc/transaction'
+import { signTransaction } from './rpc/transaction'
+import { isValidConfigureRequest } from './util/params'
 
 declare let wallet: Wallet
 
-let address = ''
-
 // eslint-disable-next-line
 export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
-  // const state = await wallet.request({
-  //   method: "snap_manageState",
-  //   params: ["get"],
-  // });
-  //
-  // if (!state) {
-  //   // initialize state if empty and set default config
-  //   await wallet.request({
-  //     method: "snap_manageState",
-  //     params: ["update", EmptyMetamaskState()],
-  //   });
-  // }
+  const state = await wallet.request({
+    method: 'snap_manageState',
+    params: ['get']
+  })
+  if (!state) {
+    await wallet.request({
+      method: 'snap_manageState',
+      params: ['update', EmptyMetamaskState()]
+    })
+  }
+
   switch (request.method) {
-    case 'aptos_getBalance':
-      return await getBalance(wallet, address)
-    case 'aptos_signTransaction':
-      return await signTransaction(wallet, (request.params as any).from, (request.params as any).to, (request.params as any).amount)
-    case 'aptos_submitTransaction':
-      return await submitTransaction(wallet, (request.params as any).bcsTxn)
-    case 'aptos_configure':
-      // const state = (await wallet.request({
-      //   method: "snap_manageState",
-      //   params: ["get"],
-      // })) as MetamaskState;
-      // const isInitialConfiguration = state.aptos.config === null;
-      // reset api and remove asset only if already configured
-      // if (!isInitialConfiguration) {
-      //   resetApi();
-      // }
-      // set new configuration
-      return await configure(wallet, 'devnet', {})
-    case 'aptos_getAddress':
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      address = await getAddress(
+    case 'aptos_configure': {
+      isValidConfigureRequest(request.params)
+      return await configure(
         wallet,
-        (request.params as { accountIndex: number }).accountIndex
+        (request.params as any).configuration
       )
-      return address
+    }
+
+    case 'aptos_signTransaction': {
+      console.log('signTransaction called-----')
+      const result = await signTransaction(wallet, (request.params as any).rawTransaction)
+      console.log('signTransaction', result)
+      return result
+    }
+    case 'aptos_getAccount': {
+      console.log('aptos_getAccount called-----')
+      const account = await getAccount(wallet)
+      return {
+        address: account.address().hex(),
+        publicKey: account.signingKey.publicKey.toString()
+      }
+    }
+    case 'aptos_disconnect': {
+      return await wallet.request({
+        method: 'snap_manageState',
+        params: ['update', EmptyMetamaskState()]
+      })
+    }
     default:
       throw new Error('Method not found.')
   }

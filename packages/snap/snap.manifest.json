@@ -4,10 +4,10 @@
   "description": "The Aptos snap.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/keystoneHQ/aptos.git"
+    "url": "https://github.com/keystoneHQ/aptossnap.git"
   },
   "source": {
-    "shasum": "A3M9dM6VNnRBTf2ktMPLke4ovXSATFr0q2PQSRFh9dg=",
+    "shasum": "lzbKLejZglx7i83Mtm+vhKrhjUbvXWrtBzL24Ok4I1U=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -18,31 +18,9 @@
   },
   "initialPermissions": {
     "snap_confirm": {},
-    "snap_getBip32Entropy": [
-      {
-        "path": [
-          "m",
-          "44'",
-          "637'",
-          "0'",
-          "0'",
-          "0'"
-        ],
-        "curve": "ed25519"
-      },
-      {
-        "path": [
-          "m",
-          "44'",
-          "637'",
-          "1'",
-          "0'",
-          "0'"
-        ],
-        "curve": "ed25519"
-      }
-    ],
-    "endowment:network-access": {}
+    "snap_getBip44Entropy_637": {},
+    "endowment:network-access": {},
+    "snap_manageState": {}
   },
   "manifestVersion": "0.1"
 }

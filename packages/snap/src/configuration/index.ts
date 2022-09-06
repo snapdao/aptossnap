@@ -1,19 +1,12 @@
-import { SnapConfig } from '@keystonehq/aptossnap-types'
-import { MetamaskState, Wallet } from '../interfaces'
-import {
-  defaultConfiguration,
-  devnetConfiguartion,
-  mainnetConfiguartion
-} from './predefined'
+import {MetamaskState, SnapConfig, Wallet} from '../interfaces'
+import {aptosMainnetConfiguration, aptosTestnetConfiguration, defaultConfiguration} from './predefined'
 
-export function getDefaultConfiguration (networkName: string): SnapConfig {
+export function getDefaultConfiguration (networkName?: string): SnapConfig {
   switch (networkName) {
-    case 'devnet':
-      console.log('devnet configuration selected')
-      return devnetConfiguartion
     case 'mainnet':
-      console.log('mainnet configuration selected')
-      return mainnetConfiguartion
+      return aptosMainnetConfiguration
+    case 'devnet':
+      return aptosTestnetConfiguration
     default:
       return defaultConfiguration
   }
@@ -24,8 +17,8 @@ export async function getConfiguration (wallet: Wallet): Promise<SnapConfig> {
     method: 'snap_manageState',
     params: ['get']
   })) as MetamaskState
-  if (!state || !state.aptos.config) {
+  if (!state || !state.aptos.configuration) {
     return defaultConfiguration
   }
-  return state.aptos.config
+  return state.aptos.configuration
 }

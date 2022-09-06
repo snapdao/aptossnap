@@ -3,43 +3,25 @@
 <html>
 
   </head>
-    <title>Hello Plugins!</title>
+    <title>Hello Aptos Snap!</title>
   </head>
 
   <body>
-    <img src="https://blog.coinfabrik.com/wp-content/uploads/2019/04/polkadot-substrate.png" height="60"/>
+    <img src="https://cdn-images-1.medium.com/max/1200/1*Gf747eyRywU8Img0tK5wvw.png" height="60"/>
     <h2>Aptos metamask snap</h2>
-    <details>
-      <summary>Instructions</summary>
-      <ul>
-        <li>First, click "Connect aptos". Then, try out the other buttons!</li>
-        <li>Please note that:</li>
-        <ul>
-          <li>
-            The Snap <b>package.json</b> must be located in located in the server root directory
-          </li>
-          <li>
-            The Snap bundle must be hosted at the location specified by <b>package.json:web3Wallet:bundle:url</b>
-          </li>
-        </ul>
-      </ul>
-    </details>
     <br/>
     <div>
       <!-- Snap connect button -->
       <div style="margin-bottom: 10px">
         <button class="connect-snap">Connect Aptos snap</button>
-        <button class="configure">Set configuration</button>
+        <button class="configure">Config Network</button>
       </div>
 
-      <!-- Public Key -->
-      <div style="display: inline">Public key:</div>
-      <div class="publicKey" style="display: inline; font-weight: bold"></div>
+      <!-- Network -->
+      <div style="display: inline">Network:</div>
+      <div class="network" style="display: inline; font-weight: bold"></div>
       <!-- separator -->
       <div style="margin-top: 10px" ></div>
-      <!-- Address -->
-      <div style="display: inline">Address:</div>
-      <div class="address" style="display: inline; font-weight: bold"></div>
       <!-- separator -->
       <div style="margin-top: 10px" ></div>
       <!-- Snap connection status -->
@@ -47,37 +29,30 @@
       <div class="connected-snap" style="display: inline"></div>
     </div>
 
-    <div>
-      <button class="banlance">Get banlance</button>
-    </div>
     <br/>
     <div>
-      <!-- Seed export button -->
-      <div style="margin-bottom: 10px">
-        <button class="export-seed">Export seed</button>
-      </div>
-      <!-- Seed -->
-      <div>
-        <div style="display: inline">Seed:</div>
-        <div class="seed" style="display: inline; font-weight: bold"></div>
-      </div>
-    </div>
-    <br/>
-    <div>
-      <!-- Seed export button -->
       <div style="margin-bottom: 10px">
         <button class="get-address">Get Address</button>
       </div>
-      <!-- Seed -->
       <div>
         <div style="display: inline">Address:</div>
         <div class="address" style="display: inline; font-weight: bold"></div>
       </div>
     </div>
+    <br/>
+    <div>
+      <div style="margin-bottom: 10px">
+        <button class="get-balance">Get Balance</button>
+      </div>
+      <div>
+        <div style="display: inline">Balance:</div>
+        <div class="balance" style="display: inline; font-weight: bold"></div>
+      </div>
+    </div>
   </body>
 
   <script>
-    const snapId = `wallet_snap_local:${window.location.href}`;
+    const snapId = `local:${window.location.href}`;
 
     // spans for status
     const FALSE = "<span style='color: darkred'>FALSE</span>";
@@ -85,136 +60,62 @@
 
     // snap connection
     const snapConnectButton = document.querySelector('button.connect-snap');
-    const publicKeyLabel = document.querySelector('div.publicKey');
     const snapConnectedLabel = document.querySelector('div.connected-snap');
-    const addressLabel = document.querySelector('div.address');
     snapConnectButton.addEventListener('click', connectSnap);
-    snapConnectButton.disabled = false; // until keypair is fetched
+    snapConnectButton.disabled = false;
     snapConnectedLabel.innerHTML = FALSE;
-    document.querySelector('.banlance').addEventListener('click', getBalance)
+
+    // balance
+    const balanceButton = document.querySelector('button.get-balance');
+    balanceButton.addEventListener('click', getBalance)
+    const balanceLabel = document.querySelector('div.balance');
+
     // configuration
     const configureButton = document.querySelector('button.configure');
-    configureButton.addEventListener('click', loadConfiguration);
-    // export seed
-    const exportButton = document.querySelector('button.export-seed');
-    const seedLabel = document.querySelector('div.seed');
-    exportButton.addEventListener('click', exportSeed);
+    configureButton.addEventListener('click', configure);
+    const networkLabel = document.querySelector('div.network')
 
     // getAddress
     const addressButton = document.querySelector('button.get-address');
-    const addressLable = document.querySelector('div.address');
-    addressButton.addEventListener('click', getAddress);
+    const addressLabel = document.querySelector('div.address');
+    addressButton.addEventListener('click', fetchAddress);
 
-    async function loadConfiguration() {
+    async function configure() {
       try {
-        const c = await ethereum.request({
-          method: snapId,
-          params: [{
-            method: 'configure',
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [snapId, {
+            method: 'aptos_configure',
             params: {
               configuration: {
-                network: {
-                  wsRpcUrl: "wss://kusama-rpc.polkadot.io/",
-                  unit: {
-                    image: "",
-                    symbol: "KSM",
-                  },
-                  addressPrefix: 1
-                }
+                network: 'devnet'
               }
             }
           }]
-        });
-        console.log(c);
+        })
+        networkLabel.innerHTML=response["snapConfig"]["network"]
       } catch (e) {
-        console.log("Keys not generated", e);
+        console.log("configure error", e);
       }
-    }
-
-    async function exportSeed() {
-      let response = null;
-      try {
-        response = await ethereum.request({
-          method: snapId,
-          params: [{
-            method: 'exportSeed'
-          }]
-        });
-      } catch (e) {
-        console.log("Keys not generated", e);
-      }
-      if (response != null) {
-        seedLabel.innerHTML = response;
-        return true;
-      }
-      return false;
-    }
-
-    async function getAddress() {
-      let response = null;
-      try {
-        response = await ethereum.request({
-          method: snapId,
-          params: [{
-            method: 'aptos_getAddress',
-            params: {
-              accountIndex: 0
-            }
-          }]
-        });
-      } catch (e) {
-        console.log("Keys not generated", e);
-      }
-      if (response != null) {
-        addressLable.innerHTML = response;
-        return true;
-      }
-      return false;
     }
 
     // snap functions
 
-    async function fetchPublicKey() {
-      let response = null;
-      try {
-        response = await ethereum.request({
-          method: snapId,
-          params: [{
-            method: 'getPublicKey'
-          }]
-        });
-      } catch (e) {
-        console.log("Keys not generated", e);
-        publicKeyLabel.innerHTML = "Error on key generation"
-      }
-      if (response != null) {
-        publicKeyLabel.innerHTML = response;
-        return true;
-      }
-      return false;
-    }
-
     async function fetchAddress() {
-      console.log("fetchAddress", snapId)
       let response = null;
       try {
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
           params: [snapId, {
-            method: 'aptos_getAddress',
-            params: {
-              network: "devnet"
-            }
+            method: 'aptos_getAccount'
           }]
         })
+        if (response) {
+          addressLabel.innerHTML = response.address;
+        }
       } catch (e) {
         console.log("Keys not generated", e);
       }
-      if (response != null) {
-        addressLabel.innerHTML = response;
-        return true;
-      }
-      return false;
     }
 
     async function connectSnap () {
@@ -223,25 +124,26 @@
         await ethereum.request({
           method: 'wallet_enable',
           params: [{
-            [snapId]: {}
+            wallet_snap: { [snapId]: {} },
           }]
-        });
+        })
       } catch (e) {
         console.error(e)
       }
       snapConnectedLabel.innerHTML = TRUE;
-      publicKeyLabel.innerHTML = "In progress...";
       addressLabel.innerHTML = "In progress...";
-      // await fetchAddress();
+      balanceLabel.innerHTML = "In progress...";
     }
 
     async function getBalance () {
       try {
-        const res = await ethereum.request({
-          method: snapId,
-          params: [{ method: 'aptos_getBalance' }]
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [snapId, {
+            method: 'aptos_getBalance'
+          }]
         })
-        console.log(res)
+        balanceLabel.innerHTML = response
       } catch (err) {
         console.error(err)
       }

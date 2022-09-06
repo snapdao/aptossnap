@@ -22,7 +22,7 @@
     "snapEval": "mm-snap eval",
     "watch": "concurrently  --raw --kill-others \"yarn run watch:tsc\" \"yarn run watch:snap\"",
     "watch:tsc": "yarn run build:tsc --watch",
-    "watch:snap": "mm-snap watch -s src/index.ts",
+    "watch:snap": "mm-snap watch -s src/index.ts --debug",
     "prepublish": "yarn run build && mkdir ipfs && cp package.json ipfs/package.json",
     "publish": "export BUNDLE_URL=`ipd --no-clipboard -O -p infura dist/bundle.js` && sed -i 's/http:\\/\\/localhost:8081\\/dist\\/bundle.js/https:\\/\\/ipfs.infura.io\\/ipfs\\/'\"$BUNDLE_URL\"'/g' ipfs/package.json && ipd --no-clipboard -O -p infura ipfs/package.json",
     "postpublish": "rm -rf ipfs",
@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/keystoneHQ/aptos.git"
+    "url": "https://github.com/keystoneHQ/aptossnap.git"
   },
   "keywords": [
     "aptos",
@@ -45,7 +45,6 @@
   },
   "homepage": "https://github.com/keystoneHQ/aptossnap#readme",
   "devDependencies": {
-    "@keystonehq/aptossnap-types": "*",
     "@metamask/providers": "^9.0.0",
     "@metamask/snaps-cli": "^0.18.1",
     "@types/bn.js": "^4.11.6",
@@ -64,7 +63,6 @@
     "typescript": "4.3.5"
   },
   "dependencies": {
-    "@glif/filecoin-number": "^2.0.0-beta.0",
     "@metamask/key-tree": "^4.0.0",
     "@metamask/snap-types": "^0.18.1",
     "aptos": "^1.3.10",

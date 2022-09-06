@@ -1,33 +1,19 @@
-import { SnapConfig } from '@keystonehq/aptossnap-types'
+import {SnapConfig} from "../interfaces";
 
-export const devnetConfiguartion: SnapConfig = {
-  // derivationPath: "",
-  network: 'devnet',
-  // unit: {
-  //   decimals: 12,
-  //   image: "https://svgshare.com/i/L3o.svg",
-  //   symbol: "KSM",
-  // },
-  rpc: {
-    node: 'https://devnet.aptoslabs.com',
-    faucet: 'https://faucet.devnet.aptoslabs.com'
-  }
-  // wsRpcUrl: "wss://kusama-rpc.polkadot.io/",
-}
-
-export const mainnetConfiguartion: SnapConfig = {
-  // derivationPath: "",
+export const aptosMainnetConfiguration: SnapConfig = {
   network: 'mainnet',
-  // unit: {
-  //   decimals: 12,
-  //   image: "https://svgshare.com/i/L3o.svg",
-  //   symbol: "KSM",
-  // },
   rpc: {
-    node: 'https://devnet.aptoslabs.com',
-    faucet: 'https://faucet.devnet.aptoslabs.com'
+    node: 'https://fullnode.devnet.aptoslabs.com',
+    faucet: 'https://faucet.devnet.aptoslabs.com/'
   }
-  // wsRpcUrl: "wss://kusama-rpc.polkadot.io/",
 }
 
-export const defaultConfiguration: SnapConfig = devnetConfiguartion
+export const aptosTestnetConfiguration: SnapConfig = {
+  network: 'devnet',
+  rpc: {
+    node: 'https://fullnode.devnet.aptoslabs.com',
+    faucet: 'https://faucet.devnet.aptoslabs.com/'
+  }
+}
+
+export const defaultConfiguration: SnapConfig = aptosTestnetConfiguration
