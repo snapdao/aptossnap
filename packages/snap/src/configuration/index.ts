@@ -1,5 +1,4 @@
-import { SnapConfig } from '@keystonehq/aptossnap-types'
-import {MetamaskState, Wallet} from '../interfaces'
+import {MetamaskState, SnapConfig, Wallet} from '../interfaces'
 import {aptosMainnetConfiguration, aptosTestnetConfiguration, defaultConfiguration} from './predefined'
 
 export function getDefaultConfiguration (networkName?: string): SnapConfig {

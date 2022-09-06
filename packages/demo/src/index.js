@@ -13,10 +13,6 @@ const downloadUrl = 'https://chrome.google.com/webstore/detail/metamask-flask-de
 // Basic Actions Section
 const onboardButton = document.getElementById('connectButton')
 const disconnectButton = document.getElementById('disconnectButton')
-const getAccountButton = document.getElementById('getAccount')
-const getAccountResults = document.getElementById('getAccountResult')
-const getBalanceButton = document.getElementById('getBalance')
-const getBalanceResult = document.getElementById('getBalanceResult')
 
 const isMetaMaskInstalled = () => window.ethereum && window.ethereum.isMetaMask
 
@@ -33,10 +29,12 @@ const sendResult = document.getElementById('sendResult')
 
 const initialize = async () => {
   try {
-    const metamaskAptosSnap = await enableAptosSnap({ network: 'devnet' }, snapId, { version: 'latest' })
-    aptosApi = await metamaskAptosSnap.getMetamaskSnapApi()
     let account
     let accountButtonsInitialized = false
+    if (isMetaMaskInstalled()) {
+      const metamaskAptosSnap = await enableAptosSnap({ network: 'devnet' }, snapId, { version: 'latest' })
+      aptosApi = await metamaskAptosSnap.getMetamaskSnapApi()
+    }
     const accountButtons = [sendButton]
     const isMetaMaskConnected = () => account && account.length > 0
     const onClickInstall = () => {
@@ -50,24 +48,15 @@ const initialize = async () => {
         return
       }
       accountButtonsInitialized = true
-      getAccountButton.onclick = async () => {
-        try {
-          const account = await aptosApi.account()
-          getAccountResults.innerHTML = account.address
-        } catch (err) {
-          console.error(err)
-          getAccountResults.innerHTML = `Error: ${err.message}`
-        }
-      }
-
-      getBalanceButton.onclick = async () => {
-        try {
-          getBalanceResult.innerHTML = await aptosApi.getBalance()
-        } catch (err) {
-          console.error(err)
-          getBalanceResult.innerHTML = `Error: ${err.message}`
-        }
-      }
+      // getAccountButton.onclick = async () => {
+      //   try {
+      //     const account = await aptosApi.account()
+      //     getAccountResults.innerHTML = account.address
+      //   } catch (err) {
+      //     console.error(err)
+      //     getAccountResults.innerHTML = `Error: ${err.message}`
+      //   }
+      // }
 
       sendButton.onclick = async () => {
         try {
@@ -78,7 +67,7 @@ const initialize = async () => {
             type_arguments: ['0x1::aptos_coin::AptosCoin']
           }
           const response = await aptosApi.signAndSubmitTransaction(transactionPayload)
-          sendResult.innerHTML = JSON.stringify(response)
+          sendResult.innerHTML = response
         } catch (e) {
           sendResult.innerHTML = JSON.stringify(e)
         }
@@ -118,24 +107,26 @@ const initialize = async () => {
         onboardButton.innerText = 'Click here to install MetaMask!'
         onboardButton.onclick = onClickInstall
         onboardButton.disabled = false
-      }
-      // already getAccount
-      if (isMetaMaskConnected()) {
-        onboardButton.innerText = 'Connected'
-        onboardButton.disabled = true
-        disconnectButton.disabled = false
-        disconnectButton.onclick = onClickDisconnect
       } else {
-        onboardButton.innerText = 'Connect'
-        onboardButton.onclick = onClickConnect
-        onboardButton.disabled = false
-        disconnectButton.disabled = true
+        if (isMetaMaskConnected()) {
+          onboardButton.innerText = 'Connected'
+          onboardButton.disabled = true
+          disconnectButton.disabled = false
+          disconnectButton.onclick = onClickDisconnect
+        } else {
+          onboardButton.innerText = 'Connect'
+          onboardButton.onclick = onClickConnect
+          onboardButton.disabled = false
+          disconnectButton.disabled = true
+        }
       }
     }
 
     async function handleStatus (newAccount) {
       if (newAccount) {
         account = newAccount.address
+      } else {
+        account = undefined
       }
       if (isMetaMaskConnected()) {
         initializeAccountButtons()

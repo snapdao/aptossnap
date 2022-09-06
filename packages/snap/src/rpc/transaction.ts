@@ -1,52 +1,25 @@
 import { Wallet } from '../interfaces'
-import { AptosAccount, AptosClient, HexString } from 'aptos'
-import { EntryFunctionPayload } from 'aptos/dist/generated'
+import { EntryFunctionPayload, TransactionPayload } from 'aptos/dist/generated'
+import { AptosClient } from 'aptos'
+import { getAccount } from './getAccount'
 
-export async function signTransaction (wallet: Wallet, rawTransaction: Uint8Array, account: AptosAccount, client: AptosClient) {
+export async function signTransaction (wallet: Wallet, transactionPayload: TransactionPayload) {
   const result = await wallet.request({
     method: 'snap_confirm',
     params: [
       {
         prompt: 'Sign Aptos Transaction?',
         description: 'Please verify this ongoing Transaction Detail',
-        textAreaContent: 'transaction'
+        textAreaContent: (transactionPayload as EntryFunctionPayload).function
       }
     ]
   })
   if (result) {
-    return account.signHexString(HexString.fromUint8Array(rawTransaction))
+    const account = await getAccount(wallet)
+    const client = await new AptosClient('https://fullnode.devnet.aptoslabs.com')
+    const tx = await client.generateTransaction(account.address(), transactionPayload as EntryFunctionPayload)
+    return client.signTransaction(account, tx)
   } else {
     throw new Error('user reject the sign request')
   }
-}
-
-export async function signAndSubmitTransaction (wallet: Wallet, transactionPayload: EntryFunctionPayload, account: AptosAccount, client: AptosClient) {
-  const result = await wallet.request({
-    method: 'snap_confirm',
-    params: [
-      {
-        prompt: 'Sign Aptos Transaction?',
-        description: 'Please verify this ongoing Transaction Detail',
-        textAreaContent: transactionPayload.function
-      }
-    ]
-  })
-  if (result) {
-    try {
-      const tx = await client.generateTransaction(account.address(), transactionPayload)
-      const signedTx = await client.signTransaction(account, tx)
-      const pendingTx = await client.submitTransaction(signedTx)
-      return pendingTx.hash
-    } catch (e) {
-      console.log('signAndSubmitTransaction error----------------', e)
-      return 'error'
-    }
-  } else {
-    throw new Error('user reject the sign request')
-  }
-}
-
-export async function submitTransaction (wallet: Wallet, bcsTxn: Uint8Array, account: AptosAccount, client: AptosClient) {
-  const pendingTransaction = await client.submitSignedBCSTransaction(bcsTxn)
-  return pendingTransaction
 }

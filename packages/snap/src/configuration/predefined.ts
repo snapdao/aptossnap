@@ -1,4 +1,4 @@
-import { SnapConfig } from '@keystonehq/aptossnap-types'
+import {SnapConfig} from "../interfaces";
 
 export const aptosMainnetConfiguration: SnapConfig = {
   network: 'mainnet',

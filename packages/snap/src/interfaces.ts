@@ -1,5 +1,13 @@
-import { SnapConfig } from '@keystonehq/aptossnap-types'
 import { defaultConfiguration } from './configuration/predefined'
+import {AptosClient} from "aptos";
+
+export interface SnapConfig {
+  network: AptosNetwork;
+  rpc?: {
+    node: string,
+    faucet: string,
+  }
+}
 
 export interface Wallet {
   request(options: { method: string; params?: unknown[]}): unknown;
@@ -15,3 +23,5 @@ export const EmptyMetamaskState: () => MetamaskState = () => ({
     configuration: defaultConfiguration
   }
 })
+
+export type AptosNetwork = 'mainnet' | 'devnet';

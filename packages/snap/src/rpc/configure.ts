@@ -1,20 +1,12 @@
-import {AptosNetwork, SnapConfig} from '@keystonehq/aptossnap-types'
-import { MetamaskState, Wallet } from '../interfaces'
+import {AptosNetwork, MetamaskState, SnapConfig, Wallet} from '../interfaces'
 import deepmerge from 'deepmerge'
 import { getDefaultConfiguration } from '../configuration'
-import { getClientFromConfig } from '../aptos/client'
-import { AptosClient } from 'aptos'
-
-export interface ConfigureResponse {
-  client: AptosClient;
-  snapConfig: SnapConfig;
-}
 
 export async function configure (
   wallet: Wallet,
   networkName?: AptosNetwork,
   overrides?: unknown
-): Promise<ConfigureResponse> {
+): Promise<SnapConfig> {
   const defaultConfig = getDefaultConfiguration(networkName)
   const configuration = overrides
     ? deepmerge(defaultConfig, overrides)
@@ -28,9 +20,5 @@ export async function configure (
     method: 'snap_manageState',
     params: ['update', state]
   })
-  const client = getClientFromConfig(configuration)
-  return {
-    client,
-    snapConfig: configuration
-  }
+  return configuration
 }
