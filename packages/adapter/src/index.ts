@@ -5,19 +5,15 @@ import {
 } from './utils'
 import { EntryFunctionPayload, HexEncodedBytes, TransactionPayload } from 'aptos/dist/generated'
 import { AptosClient } from 'aptos'
-import { sendSnapMethod } from './methods'
+import { PublicAccount, SnapConfig } from './types'
 
 const defaultSnapOrigin = 'npm:@keystonehq/aptossnap'
 
-export {
-  hasMetaMask,
-  isMetamaskSnapsSupported,
-  isSnapInstalled
-} from './utils'
+export * from './utils'
 
 export type SnapInstallationParamNames = 'version' | string;
 
-export class WalletAdapter {
+export default class WalletAdapter {
   protected readonly snapId: string;
   protected readonly config: SnapConfig;
   protected snapInstallationParams: Record<SnapInstallationParamNames, unknown>;
@@ -30,7 +26,6 @@ export class WalletAdapter {
     }) {
     this.config = config
     this.snapId = snapOrigin ?? defaultSnapOrigin
-    this.snapId = `wallet_snap_${snapOrigin}`
     this.snapInstallationParams = snapInstallationParams
   }
 
@@ -39,58 +34,78 @@ export class WalletAdapter {
   }
 
   async connect (): Promise<void> {
-    // check all conditions
-    if (!hasMetaMask()) {
-      throw new Error('Metamask is not installed')
-    }
-    if (!(await isMetamaskSnapsSupported())) {
-      throw new Error("Current Metamask version doesn't support snaps")
-    }
-    if (!this.config.network) {
-      throw new Error('Configuration must at least define network type')
-    }
+    try {
+      // check all conditions
+      if (!hasMetaMask()) {
+        throw new Error('Metamask is not installed')
+      }
+      if (!(await isMetamaskSnapsSupported())) {
+        throw new Error("Current Metamask version doesn't support snaps")
+      }
+      if (!this.config.network) {
+        throw new Error('Configuration must at least define network type')
+      }
 
-    const isInstalled = await isSnapInstalled(this.snapId)
-    const isReinstall = true
-    if (!isInstalled) {
-      this.snapInstallationParams = { version: 'latest' }
-      // // enable snap
-      await window.ethereum.request({
-        method: 'wallet_enable',
-        params: [
-          {
-            [`wallet_snap_${this.snapId}`]: {
-              ...this.snapInstallationParams
+      const isInstalled = await isSnapInstalled(this.snapId)
+      // const isReinstall = true
+      if (!isInstalled) {
+        await window.ethereum.request({
+          method: 'wallet_enable',
+          params: [
+            {
+              wallet_snap: {
+                [this.snapId]: this.snapInstallationParams
+              }
             }
+          ]
+        })
+      }
+      const result: PublicAccount = await window.ethereum.request({
+        method: 'wallet_invokeSnap',
+        params: [
+          this.snapId,
+          {
+            method: 'aptos_getAccount'
           }
         ]
       })
-    } else if (isReinstall) {
-      await window.ethereum.request({
-        method: 'wallet_installSnaps',
-        params: [{
-          [`wallet_snap_${this.snapId}`]: {
-            ...this.snapInstallationParams
-          }
-        }]
-      })
+      this._wallet = {
+        address: result.address,
+        publicKey: result.publicKey,
+        isConnected: true
+      }
+    } catch (e) {
+      console.log('connect failed', e)
     }
-    const response = await sendSnapMethod(
-      { method: 'aptos_getAccount' },
-      this.snapId
-    ) as PublicAccount
-    this._wallet = {
-      address: response.address,
-      publicKey: response.publicKey,
-      isConnected: true
+  }
+
+  publicAccount (): PublicAccount {
+    return {
+      publicKey: this._wallet?.publicKey || null,
+      address: this._wallet?.address || null
     }
   }
 
   async signAndSubmitTransaction (transactionPayload: TransactionPayload): Promise<HexEncodedBytes> {
-    const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
-    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload as EntryFunctionPayload)
-    const signedTx: Uint8Array = await sendSnapMethod({ method: 'aptos_signTransaction', params: { rawTransaction } }, this.snapId)
-    const pendingTx = await client.submitTransaction(signedTx)
-    return pendingTx.hash
+    try {
+      const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
+      const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload as EntryFunctionPayload)
+      console.log({rawTransaction})
+      const signedTx: Uint8Array = await window.ethereum.request({
+        method: 'wallet_invokeSnap',
+        params: [
+          this.snapId,
+          {
+            method: 'aptos_signTransaction',
+            params: { rawTransaction }
+          }
+        ]
+      })
+      const pendingTx = await client.submitTransaction(signedTx)
+      return pendingTx.hash
+    } catch (e) {
+      console.log('signAndSubmitTransaction', e)
+      return '0x'
+    }
   }
 }

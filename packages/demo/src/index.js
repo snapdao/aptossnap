@@ -1,7 +1,6 @@
-import { enableAptosSnap } from '@keystonehq/aptossnap-adapter'
+import WalletAdapter from '@keystonehq/aptossnap-adapter'
 
-let aptosApi
-
+let walletAdapter
 // Dapp Status Section
 // const networkDiv = document.getElementById('network')
 
@@ -13,7 +12,7 @@ const downloadUrl = 'https://chrome.google.com/webstore/detail/metamask-flask-de
 // Basic Actions Section
 const onboardButton = document.getElementById('connectButton')
 const disconnectButton = document.getElementById('disconnectButton')
-
+const getAccountResult = document.getElementById('getAccountResult')
 const isMetaMaskInstalled = () => window.ethereum && window.ethereum.isMetaMask
 
 // onBoarding
@@ -29,12 +28,9 @@ const sendResult = document.getElementById('sendResult')
 
 const initialize = async () => {
   try {
-    let account
+    let account = ''
     let accountButtonsInitialized = false
-    if (isMetaMaskInstalled()) {
-      const metamaskAptosSnap = await enableAptosSnap({ network: 'devnet' }, snapId, { version: 'latest' })
-      aptosApi = await metamaskAptosSnap.getMetamaskSnapApi()
-    }
+    walletAdapter = new WalletAdapter({ network: 'devnet' }, snapId)
     const accountButtons = [sendButton]
     const isMetaMaskConnected = () => account && account.length > 0
     const onClickInstall = () => {
@@ -48,17 +44,8 @@ const initialize = async () => {
         return
       }
       accountButtonsInitialized = true
-      // getAccountButton.onclick = async () => {
-      //   try {
-      //     const account = await aptosApi.account()
-      //     getAccountResults.innerHTML = account.address
-      //   } catch (err) {
-      //     console.error(err)
-      //     getAccountResults.innerHTML = `Error: ${err.message}`
-      //   }
-      // }
-
       sendButton.onclick = async () => {
+        console.log("sendButton is clicked")
         try {
           const transactionPayload = {
             arguments: ['0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd', 2],
@@ -66,7 +53,7 @@ const initialize = async () => {
             type: 'entry_function_payload',
             type_arguments: ['0x1::aptos_coin::AptosCoin']
           }
-          const response = await aptosApi.signAndSubmitTransaction(transactionPayload)
+          const response = await walletAdapter.signAndSubmitTransaction(transactionPayload)
           sendResult.innerHTML = response
         } catch (e) {
           sendResult.innerHTML = JSON.stringify(e)
@@ -76,7 +63,9 @@ const initialize = async () => {
 
     const onClickConnect = async () => {
       try {
-        const newAccount = await aptosApi.account()
+        await walletAdapter.connect()
+        const newAccount = walletAdapter.publicAccount()
+        console.log(newAccount)
         await handleStatus(newAccount)
       } catch (error) {
         console.error(error)
@@ -85,7 +74,7 @@ const initialize = async () => {
 
     const onClickDisconnect = async () => {
       try {
-        await aptosApi.disconnect()
+        await walletAdapter.disconnect()
         await handleStatus()
       } catch (error) {
         console.error(error)
@@ -93,6 +82,7 @@ const initialize = async () => {
     }
 
     const updateButtons = () => {
+      getAccountResult.innerHTML = account
       const accountButtonsDisabled =
           !isMetaMaskInstalled() || !isMetaMaskConnected()
       if (accountButtonsDisabled) {
@@ -126,7 +116,7 @@ const initialize = async () => {
       if (newAccount) {
         account = newAccount.address
       } else {
-        account = undefined
+        account = ''
       }
       if (isMetaMaskConnected()) {
         initializeAccountButtons()

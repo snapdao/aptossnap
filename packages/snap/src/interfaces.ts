@@ -1,5 +1,6 @@
 import { defaultConfiguration } from './configuration/predefined'
-import {AptosClient} from "aptos";
+
+export type AptosNetwork = 'mainnet' | 'devnet';
 
 export interface SnapConfig {
   network: AptosNetwork;
@@ -23,5 +24,3 @@ export const EmptyMetamaskState: () => MetamaskState = () => ({
     configuration: defaultConfiguration
   }
 })
-
-export type AptosNetwork = 'mainnet' | 'devnet';

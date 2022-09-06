@@ -30,11 +30,13 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     }
 
     case 'aptos_signTransaction': {
+      console.log('signTransaction called-----')
       const result = await signTransaction(wallet, (request.params as any).rawTransaction)
       console.log('signTransaction', result)
       return result
     }
     case 'aptos_getAccount': {
+      console.log('aptos_getAccount called-----')
       const account = await getAccount(wallet)
       return {
         address: account.address().hex(),

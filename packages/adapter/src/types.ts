@@ -1,6 +1,15 @@
 import { HexEncodedBytes, TransactionPayload } from 'aptos/dist/generated'
 import { RawTransaction } from 'aptos/dist/transaction_builder/aptos_types'
 
+export type SnapConfig = {
+  network: AptosNetwork;
+  rpc?: {
+    node: string,
+    faucet: string,
+  }
+}
+
+
 export interface GetAccountRequest {
   method: 'aptos_getAccount'
 }
@@ -50,12 +59,12 @@ export interface SnapRpcMethodRequest {
   method: string;
   params: [MetamaskAptosRpcRequest];
 }
+export type AptosNetwork = 'mainnet' | 'devnet';
 
-export interface PublicAccount {
-  address: string,
-  publicKey: string,
+export type PublicAccount = {
+  address: string;
+  publicKey: string;
 }
-
 export interface MetamaskSnapApi {
   disconnect(): Promise<void>;
   account(): Promise<PublicAccount>;
