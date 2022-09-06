@@ -4,7 +4,7 @@ import {
   isSnapInstalled
 } from './utils'
 import { EntryFunctionPayload, HexEncodedBytes, TransactionPayload } from 'aptos/dist/generated'
-import { AptosClient } from 'aptos'
+import { AptosClient, BCS } from 'aptos'
 import { PublicAccount, SnapConfig } from './types'
 
 const defaultSnapOrigin = 'npm:@keystonehq/aptossnap'
@@ -87,25 +87,22 @@ export default class WalletAdapter {
   }
 
   async signAndSubmitTransaction (transactionPayload: TransactionPayload): Promise<HexEncodedBytes> {
-    try {
-      const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
-      const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload as EntryFunctionPayload)
-      console.log({rawTransaction})
-      const signedTx: Uint8Array = await window.ethereum.request({
-        method: 'wallet_invokeSnap',
-        params: [
-          this.snapId,
-          {
-            method: 'aptos_signTransaction',
-            params: { rawTransaction }
-          }
-        ]
-      })
-      const pendingTx = await client.submitTransaction(signedTx)
-      return pendingTx.hash
-    } catch (e) {
-      console.log('signAndSubmitTransaction', e)
-      return '0x'
-    }
+    const client = new AptosClient('https://fullnode.devnet.aptoslabs.com')
+    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload as EntryFunctionPayload)
+    const s = new BCS.Serializer()
+    rawTransaction.serialize(s)
+    console.log({ rawTransaction })
+    const signedTx: unknown = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: [
+        this.snapId,
+        {
+          method: 'aptos_signTransaction',
+          params: { rawTransaction: s.getBytes() }
+        }
+      ]
+    })
+    const pendingTx = await client.submitTransaction(new Uint8Array(Object.values(signedTx as Object)))
+    return pendingTx.hash
   }
 }
