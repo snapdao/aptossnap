@@ -31,6 +31,7 @@ const initialize = async () => {
     let account = ''
     let accountButtonsInitialized = false
     walletAdapter = new WalletAdapter({ network: 'devnet' }, snapId)
+
     const accountButtons = [sendButton]
     const isMetaMaskConnected = () => account && account.length > 0
     const onClickInstall = () => {
@@ -45,7 +46,7 @@ const initialize = async () => {
       }
       accountButtonsInitialized = true
       sendButton.onclick = async () => {
-        console.log("sendButton is clicked")
+        console.log('sendButton is clicked')
         try {
           const transactionPayload = {
             arguments: ['0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd', 2],
@@ -63,13 +64,27 @@ const initialize = async () => {
 
     const onClickConnect = async () => {
       try {
+        applyConnectingStatus()
         await walletAdapter.connect()
         const newAccount = walletAdapter.publicAccount()
         console.log(newAccount)
         await handleStatus(newAccount)
       } catch (error) {
         console.error(error)
+        applyConnectInitialStatus()
       }
+    }
+
+    function applyConnectingStatus () {
+      onboardButton.innerText = 'Connecting!'
+      onboardButton.disabled = true
+    }
+
+    function applyConnectInitialStatus () {
+      onboardButton.innerText = 'Connect'
+      onboardButton.onclick = onClickConnect
+      onboardButton.disabled = false
+      disconnectButton.disabled = true
     }
 
     const onClickDisconnect = async () => {
