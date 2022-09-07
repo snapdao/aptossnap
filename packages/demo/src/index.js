@@ -1,8 +1,6 @@
 import WalletAdapter from '@keystonehq/aptossnap-adapter'
 
 let walletAdapter
-// Dapp Status Section
-// const networkDiv = document.getElementById('network')
 
 const defaultSnapId = 'local:http://localhost:8081'
 
@@ -19,8 +17,6 @@ const isMetaMaskInstalled = () => window.ethereum && window.ethereum.isMetaMask
 const startOnboarding = () => {
   window.open(downloadUrl, '_blank')
 }
-// Send form section
-// const fromDiv = document.getElementById('fromInput')
 
 // Send Aptos Section
 const sendButton = document.getElementById('sendButton')

@@ -1,4 +1,4 @@
-import {SnapConfig} from "../interfaces";
+import { SnapConfig } from '../interfaces'
 
 type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 
