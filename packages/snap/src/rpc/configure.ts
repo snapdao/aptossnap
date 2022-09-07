@@ -1,4 +1,4 @@
-import {AptosNetwork, MetamaskState, SnapConfig, Wallet} from '../interfaces'
+import { AptosNetwork, MetamaskState, SnapConfig, Wallet } from '../interfaces'
 import deepmerge from 'deepmerge'
 import { getDefaultConfiguration } from '../configuration'
 
