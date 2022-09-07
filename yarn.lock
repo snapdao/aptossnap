@@ -1898,7 +1898,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@keystonehq/aptossnap-adapter@^0.1.0, @keystonehq/aptossnap-adapter@workspace:packages/adapter":
+"@keystonehq/aptossnap-adapter@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@keystonehq/aptossnap-adapter@npm:0.1.0"
+  dependencies:
+    aptos: ^1.3.10
+  checksum: fc5729b3f588931635b6a612dd469f743b0dbe65deb316d5409d9cb613cfaeb4124ffb064a21e099280dfa736ddc611e6fdde44e0eb5684cabcfd634c2193085
+  languageName: node
+  linkType: hard
+
+"@keystonehq/aptossnap-adapter@workspace:packages/adapter":
   version: 0.0.0-use.local
   resolution: "@keystonehq/aptossnap-adapter@workspace:packages/adapter"
   dependencies:
@@ -6889,7 +6898,6 @@ __metadata:
     clean-webpack-plugin: ^3.0.0
     compression-webpack-plugin: ^10.0.0
     copy-webpack-plugin: ^6.0.2
-    dotenv: ^16.0.2
     dotenv-webpack: ^8.0.1
     eslint: ^7.29.0
     eslint-config-prettier: ^8.3.0
@@ -7143,13 +7151,6 @@ __metadata:
   peerDependencies:
     webpack: ^4 || ^5
   checksum: ddd12406e7b27a9f324110d34ddf6efdf386f8f6dbbf903cb74b63ed582c28262197eadca4e20cdee55d1e427cc4acd47c9dadd38bfc49219ae215d0b688c2e8
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^16.0.2":
-  version: 16.0.2
-  resolution: "dotenv@npm:16.0.2"
-  checksum: e9b64fa45f0b693875db50f1876c1202be8e936500aa664478247ab06b2fe8096cc1ab238919771dbdd1f65490b7efe65b61401d3cd61bcea88eab7c2bf06964
   languageName: node
   linkType: hard
 
