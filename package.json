@@ -10,7 +10,7 @@
     "build:snap": "yarn workspace @keystonehq/aptossnap build",
     "build:adapter": "yarn workspace @keystonehq/aptossnap-adapter build",
     "start:snap": "yarn workspace @keystonehq/aptossnap watch",
-    "start:demo": "REACT_APP_SNAP=local yarn workspace demo start",
+    "start:demo": "yarn workspace demo start",
     "predemo": "yarn run build:snap && yarn run build:adapter",
     "build": "yarn workspaces foreach -vpt run build",
     "test": "yarn workspaces foreach -vp run test",

@@ -4,9 +4,12 @@ let walletAdapter;
 let account = '';
 let accountButtonsInitialized = false;
 
-const defaultSnapId = 'local:http://localhost:8081';
+const defaultSnapId = 'npm:@keystonehq/aptossnap';
 
-const snapId = defaultSnapId;
+const snapId = process.env.SNAP_ID || defaultSnapId;
+
+console.log("snapId", snapId);
+
 const downloadUrl =
   'https://chrome.google.com/webstore/detail/metamask-flask-developmen/ljfoeinjpaedjfecbmggjgodbgkmjkjk';
 
