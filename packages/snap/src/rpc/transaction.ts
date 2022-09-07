@@ -11,8 +11,7 @@ export async function signTransaction (wallet: Wallet, rawTransaction: Uint8Arra
     method: 'snap_confirm',
     params: [
       {
-        prompt: 'Sign Aptos Transaction?',
-        description: 'Please verify this ongoing Transaction Detail'
+        prompt: 'Sign Aptos Transaction?'
       }
     ]
   })
