@@ -1,3 +1,5 @@
+import { AptosNetwork } from './types'
+
 export function hasMetaMask (): boolean {
   if (!window.ethereum) {
     return false
@@ -28,10 +30,6 @@ export async function isMetamaskSnapsSupported (): Promise<boolean> {
   }
 }
 
-/**
- *
- * @returns
- */
 export async function isSnapInstalled (
   snapOrigin: string,
   version?: string
@@ -47,4 +45,21 @@ export async function isSnapInstalled (
     console.log('Failed to obtain installed snaps', e)
     return false
   }
+}
+
+export function getConfigurationByNetwork (network: AptosNetwork) {
+  return {
+    mainnet: {
+      rpc: {
+        node: 'https://fullnode.devnet.aptoslabs.com',
+        faucet: 'https://faucet.devnet.aptoslabs.com/'
+      }
+    },
+    devnet: {
+      rpc: {
+        node: 'https://fullnode.devnet.aptoslabs.com',
+        faucet: 'https://faucet.devnet.aptoslabs.com/'
+      }
+    }
+  }[network]
 }

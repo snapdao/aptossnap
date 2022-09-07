@@ -1,4 +1,4 @@
-import {SnapConfig} from "../interfaces";
+import { SnapConfig } from '../interfaces'
 
 export const aptosMainnetConfiguration: SnapConfig = {
   network: 'mainnet',
