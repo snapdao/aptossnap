@@ -1,9 +1,9 @@
-const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
-const CompressionPlugin = require('compression-webpack-plugin')
+const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
-const DIST = path.resolve(__dirname, 'dist')
+const DIST = path.resolve(__dirname, 'dist');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -12,17 +12,17 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: DIST,
-    publicPath: DIST
+    publicPath: DIST,
   },
   devServer: {
     contentBase: DIST,
     port: 9011,
-    writeToDisk: true
+    writeToDisk: true,
   },
   resolve: {
     fallback: {
-      stream: require.resolve('stream-browserify')
-    }
+      stream: require.resolve('stream-browserify'),
+    },
   },
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
@@ -34,10 +34,10 @@ module.exports = {
           flatten: true,
           from: './src/*',
           globOptions: {
-            ignore: ['**/*.js']
-          }
-        }
-      ]
-    })
-  ]
-}
+            ignore: ['**/*.js'],
+          },
+        },
+      ],
+    }),
+  ],
+};
