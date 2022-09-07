@@ -11,7 +11,7 @@ export interface SnapConfig {
 }
 
 export interface Wallet {
-  request(options: { method: string; params?: unknown[]}): unknown;
+  request(options: { method: string; params?: unknown[] | unknown}): unknown;
 }
 
 export type MetamaskState = {

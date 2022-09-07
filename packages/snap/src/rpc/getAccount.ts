@@ -1,18 +1,24 @@
 import { AptosAccount } from 'aptos'
 import { Wallet } from '../interfaces'
-import { getBIP44AddressKeyDeriver, JsonBIP44CoinTypeNode } from '@metamask/key-tree'
+import { JsonSLIP10Node } from '@metamask/key-tree'
+
+type GetBip32EntropyParameters = {
+  path: ['m', ...(`${number}` | `${number}'`)[]];
+  curve: 'secp256k1' | 'ed25519';
+};
 
 export async function getPrivKey (
   wallet: Wallet
 ): Promise<Buffer> {
-  const bip44Node = (await wallet.request({
-    method: 'snap_getBip44Entropy_637',
-    params: []
-  })) as JsonBIP44CoinTypeNode
-
-  const addressKeyDeriver = await getBIP44AddressKeyDeriver(bip44Node)
-  const extendedPrivateKey = await addressKeyDeriver(Number(0))
-  return extendedPrivateKey.privateKeyBuffer.slice(0, 32)
+  const params: GetBip32EntropyParameters = {
+    path: ['m', "44'", "637'", "0'", "0'", "0'"],
+    curve: 'ed25519'
+  }
+  const node = (await wallet.request({
+    method: 'snap_getBip32Entropy',
+    params
+  })) as JsonSLIP10Node
+  return Buffer.from(node.privateKey, 'hex')
 }
 
 export async function getAccount (

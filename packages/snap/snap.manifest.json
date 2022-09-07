@@ -7,7 +7,7 @@
     "url": "https://github.com/keystoneHQ/aptossnap.git"
   },
   "source": {
-    "shasum": "7ttBTr9yolXnTWQA1gwB37exMBo2K0x0KLuaXu5LYaM=",
+    "shasum": "C+GQ8Nyh6Pe8xTjKbV6KiKJDeiAps4n3VEKgKdh8NNs=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -18,9 +18,21 @@
   },
   "initialPermissions": {
     "snap_confirm": {},
-    "snap_getBip44Entropy_637": {},
     "endowment:network-access": {},
-    "snap_manageState": {}
+    "snap_manageState": {},
+    "snap_getBip32Entropy": [
+      {
+        "path": [
+          "m",
+          "44'",
+          "637'",
+          "0'",
+          "0'",
+          "0'"
+        ],
+        "curve": "ed25519"
+      }
+    ]
   },
   "manifestVersion": "0.1"
 }
