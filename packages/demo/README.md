@@ -1,53 +1,78 @@
-# Aptossnap Test Dapp
+# `Aptos Snap`
 
-This is a simple test dapp for use in Aptossnap e2e tests and manual QA.
+[![npm version](https://badge.fury.io/js/@keystonehq%2Faptossnap.svg)](https://badge.fury.io/js/@keystonehq%2Faptossnap)
 
-Currently hosted [here](https://metamask.github.io/test-dapp/).
+Aptos Snap is the application allowing users to directly manage Aptos within the MetaMask interface. Since Snaps is
+pre-release software, the alpha version of Aptos Snap is currently live on [Metamask Flask](https://metamask.io/flask/)
+only, a canary distribution for developers that provides access to upcoming features.
 
-## Usage
+*Note: MetaMask Flask is an experimental playground for developers and is not to be confused with the
+normal [MetaMask wallet app](https://metamask.io/).
 
-If you wish to use this dapp in your e2e tests, install this package and set up a script of e.g. the following form:
+## MetaMask Snaps Introduction
+
+Snaps is a system that allows developers to safely build and expand the capabilities of MetaMask. It is a program that
+is run in an isolated environment with a limited set of capabilities, that can customize and modify MetaMask's wallet
+experience for end users. For example, a snap can add new APIs to MetaMask thus adding support for different blockchains
+or modify existing functionalities using internal APIs.
+
+Additional information can be found [here](https://docs.metamask.io/guide/snaps.html).
+
+### Usage
+
+1. Enable `Aptos Snap` in your dapp
+
+```ts
+const result: boolean = await ethereum.request({
+    method: 'wallet_enable',
+    params: [
+        {
+            wallet_snap: {'npm:@keystonehq/aptossnap': {}},
+        },
+    ],
+});
+```
+
+2. Get an Aptos Public Account
+
+```ts
+const result: string = await ethereum.request({
+    method: 'wallet_invokeSnap',
+    params: [
+        "npm:@keystonehq/aptossnap",
+        {
+            method: 'aptso_getAccount'
+        },
+    ],
+});
+```
+
+3. Sign Transaction
+
+```ts
+const result: { txId: string, txHex: string } = await ethereum.request({
+    method: 'wallet_invokeSnap',
+    params: [
+        snapId,
+        {
+            method: 'aptos_signTransaction',
+            params: {
+                rawTransaction: bcsBytes // bcs serialized raw transaction bytes
+            },
+        },
+    ],
+})
+```
+
+### Building
+
+Build the snap and test it locally with the following command:
 
 ```shell
-static-server node_modules/aptossnap-testdapp/dist --port 9011
+yarn build
 ```
 
-## Contributing
+## Live Example
 
-### Setup
-
-- Install [Node.js](https://nodejs.org) version 16
-  - If you are using [nvm](https://github.com/creationix/nvm#installation) (recommended) running `nvm use` will automatically choose the right node version for you.
-- Install [Yarn v1](https://yarnpkg.com/en/docs/install)
-- Run `yarn setup` to install dependencies and run any required post-install scripts
-  - **Warning:** Do not use the `yarn` / `yarn install` command directly. Use `yarn setup` instead. The normal install command will skip required post-install scripts, leaving your development environment in an invalid state.
-
-### Testing and Linting
-
-Run `yarn lint` to run the linter, or run `yarn lint:fix` to run the linter and fix any automatically fixable issues.
-
-This package has no tests.
-
-### Deploying
-
-After merging or pushing to `main`, please run `yarn deploy` in the package root directory if the contents of the `dist/` directory have changed.
-
-### Development
-
-#### Elements Must Be Selectable by XPath
-
-All HTML elements should be easily selectable by XPath.
-This means that appearances can be misleading.
-For example, consider this old bug:
-
-```html
-<button
-  class="btn btn-primary btn-lg btn-block mb-3"
-  id="approveTokensWithoutGas"
-  disabled
->
-  Approve Tokens Without Gas
-</button>
-```
-
-This appears on the page as `Approve Tokens Without Gas`. In reality, the value included the whitespace on the second line, and caused XPath queries for the intended value to fail.
+If you would like to integrate Aptos Snap into your dapp, you can use the following
+codes [here](https://github.com/KeystoneHQ/aptossnap/tree/master/packages/demo).
