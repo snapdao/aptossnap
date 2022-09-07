@@ -18,23 +18,39 @@ export default class WalletAdapter {
   protected readonly config: SnapConfig;
   protected snapInstallationParams: Record<SnapInstallationParamNames, unknown>;
   protected _wallet: any | null;
+  protected _connecting: boolean;
 
   constructor (config: SnapConfig,
     snapOrigin?: string,
     snapInstallationParams: Record<SnapInstallationParamNames, unknown> = {
       version: 'latest'
     }) {
+    this._connecting = false
+
     this.config = config
     this.snapId = snapOrigin ?? defaultSnapOrigin
     this.snapInstallationParams = snapInstallationParams
   }
 
-  connected (): boolean {
+  get connecting (): boolean {
+    return this._connecting
+  }
+
+  get connected (): boolean {
     return !!this._wallet?.isConnected
+  }
+
+  get publicAccount (): PublicAccount {
+    return {
+      publicKey: this._wallet?.publicKey || null,
+      address: this._wallet?.address || null
+    }
   }
 
   async connect (): Promise<void> {
     try {
+      if (this.connected || this.connecting) return
+
       // check all conditions
       if (!hasMetaMask()) {
         throw new Error('Metamask is not installed')
@@ -46,8 +62,14 @@ export default class WalletAdapter {
         throw new Error('Configuration must at least define network type')
       }
 
+      this._connecting = true
+
       const isInstalled = await isSnapInstalled(this.snapId)
-      // const isReinstall = true
+
+      if (this.connected) {
+        await this.disconnect()
+      }
+
       if (!isInstalled) {
         await window.ethereum.request({
           method: 'wallet_enable',
@@ -76,13 +98,16 @@ export default class WalletAdapter {
       }
     } catch (e) {
       console.log('connect failed', e)
+      throw e
+    } finally {
+      this._connecting = false
     }
   }
 
-  publicAccount (): PublicAccount {
-    return {
-      publicKey: this._wallet?.publicKey || null,
-      address: this._wallet?.address || null
+  async disconnect (): Promise<void> {
+    const wallet = this._wallet
+    if (wallet) {
+      this._wallet = null
     }
   }
 
