@@ -20,7 +20,8 @@ const startOnboarding = () => {
 
 // Send Aptos Section
 const sendButton = document.getElementById('sendButton')
-const sendResult = document.getElementById('sendResult')
+const txHashDom = document.getElementById('tx-hash')
+const txOpenBtnBoxDom = document.getElementById('tx-open-btn-box')
 
 const initialize = async () => {
   try {
@@ -42,7 +43,10 @@ const initialize = async () => {
       }
       accountButtonsInitialized = true
       sendButton.onclick = async () => {
-        console.log('sendButton is clicked')
+        setButtonStatus(sendButton, {
+          innerText: 'Transfering...',
+          disabled: true
+        })
         try {
           const transactionPayload = {
             arguments: ['0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd', 2],
@@ -51,16 +55,59 @@ const initialize = async () => {
             type_arguments: ['0x1::aptos_coin::AptosCoin']
           }
           const response = await walletAdapter.signAndSubmitTransaction(transactionPayload)
-          sendResult.innerHTML = response
+
+          txHashDom.innerText = response
+
+          const a = document.createElement('a')
+          a.id = 'open-explorer-btn'
+          a.href = `https://explorer.devnet.aptos.dev/txn/${response}`
+          a.target = '_blank'
+          a.title = response
+          a.innerText = 'Open In AptosExplorer'
+
+          txOpenBtnBoxDom.innerHTML = ''
+          txOpenBtnBoxDom.appendChild(a)
+
+          sendButton.classList.replace('btn-primary', 'btn-green')
+          setButtonStatus(sendButton, {
+            innerText: 'Success',
+            disabled: true
+          })
+
+          setTimeout(() => {
+            sendButton.classList.replace('btn-green', 'btn-primary')
+            setButtonStatus(sendButton, {
+              innerText: 'Transfer',
+              disabled: false
+            })
+          }, 2000)
         } catch (e) {
-          sendResult.innerHTML = JSON.stringify(e)
+          txHashDom.innerText = ''
+          sendButton.classList.replace('btn-primary', 'btn-red')
+          setButtonStatus(sendButton, {
+            innerText: 'Error',
+            disabled: true
+          })
+
+          setTimeout(() => {
+            sendButton.classList.replace('btn-red', 'btn-primary')
+            setButtonStatus(sendButton, {
+              innerText: 'Transfer',
+              disabled: false
+            })
+          }, 2000)
+
+          txOpenBtnBoxDom.innerHTML = JSON.stringify(e)
         }
       }
     }
 
     const onClickConnect = async () => {
       try {
-        applyConnectingStatus()
+        setButtonStatus(onboardButton, {
+          innerText: 'Connecting...',
+          disabled: true
+        })
         await walletAdapter.connect()
         console.log('%c 🥑 walletAdapter', 'color:#2eafb0', walletAdapter)
         const newAccount = walletAdapter.publicAccount
@@ -68,26 +115,45 @@ const initialize = async () => {
         await handleStatus(newAccount)
       } catch (error) {
         console.error(error)
-        applyConnectInitialStatus()
+        applyConnectButtonInitialStatus()
       }
     }
 
-    function applyConnectingStatus () {
-      onboardButton.innerText = 'Connecting!'
-      onboardButton.disabled = true
+    /**
+     * set button status
+     * @param {HTMLElement} button
+     * @param {initial | connecting} status button status
+     * @param {{
+     *  innerText: string
+     *  innerHTML: HTMLElement
+     *  disabled: boolean
+     *  onclick: Function
+     * }} config
+     */
+    function setButtonStatus (button, config) {
+      config.innerHTML && (button.innerHTML = config.innerHTML)
+      config.innerText && (button.innerText = config.innerText)
+
+      typeof config.disabled === 'boolean' && (button.disabled = config.disabled)
+
+      typeof config.onclick === 'function' && (button.onclick = config.onclick)
     }
 
-    function applyConnectInitialStatus () {
-      onboardButton.innerText = 'Connect'
-      onboardButton.onclick = onClickConnect
-      onboardButton.disabled = false
+    function applyConnectButtonInitialStatus () {
+      setButtonStatus(onboardButton, {
+        innerText: 'Connect',
+        disabled: false
+      })
       disconnectButton.disabled = true
+      onboardButton.onclick = onClickConnect
     }
 
     const onClickDisconnect = async () => {
       try {
         await walletAdapter.disconnect()
         await handleStatus()
+        txHashDom.innerText = ''
+        txOpenBtnBoxDom.innerHTML = ''
       } catch (error) {
         console.error(error)
       }
