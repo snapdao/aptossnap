@@ -1,6 +1,5 @@
 {
   "name": "aptossnap",
-  "private": true,
   "workspaces": [
     "packages/*"
   ],
