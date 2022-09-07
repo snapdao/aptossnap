@@ -6,9 +6,10 @@ const webpack = require('webpack');
 
 const Dotenv = require('dotenv-webpack');
 
+// eslint-disable-next-line node/no-process-env
 const env = process.env.NODE_ENV;
 
-console.log("env", env);
+console.log('env', env);
 
 const DIST = path.resolve(__dirname, 'dist');
 
