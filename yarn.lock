@@ -1898,7 +1898,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@keystonehq/aptossnap-adapter@*, @keystonehq/aptossnap-adapter@workspace:packages/adapter":
+"@keystonehq/aptossnap-adapter@^0.1.0, @keystonehq/aptossnap-adapter@workspace:packages/adapter":
   version: 0.0.0-use.local
   resolution: "@keystonehq/aptossnap-adapter@workspace:packages/adapter"
   dependencies:
@@ -6882,13 +6882,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "demo@workspace:packages/demo"
   dependencies:
-    "@keystonehq/aptossnap-adapter": "*"
+    "@keystonehq/aptossnap-adapter": ^0.1.0
     "@metamask/eslint-config": ^6.0.0
     "@metamask/eslint-config-nodejs": ^6.0.0
     aptos: ^1.3.10
     clean-webpack-plugin: ^3.0.0
     compression-webpack-plugin: ^10.0.0
     copy-webpack-plugin: ^6.0.2
+    dotenv: ^16.0.2
+    dotenv-webpack: ^8.0.1
     eslint: ^7.29.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-import: ^2.23.4
@@ -6896,6 +6898,7 @@ __metadata:
     eslint-plugin-prettier: ^3.4.0
     gh-pages: ^3.1.0
     prettier: ^2.3.1
+    process: ^0.11.10
     stream-browserify: ^3.0.0
     webpack: 5.74.0
     webpack-cli: ^3.3.12
@@ -7120,6 +7123,40 @@ __metadata:
   dependencies:
     is-obj: ^2.0.0
   checksum: 30e51ec6408978a6951b21e7bc4938aad01a86f2fdf779efe52330205c6bb8a8ea12f35925c2029d6dc9d1df22f916f32f828ce1e9b259b1371c580541c22b5a
+  languageName: node
+  linkType: hard
+
+"dotenv-defaults@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "dotenv-defaults@npm:2.0.2"
+  dependencies:
+    dotenv: ^8.2.0
+  checksum: 14b7b8f6c21a30404106384398728746e63405bfeabe47ef7aadd0e81de49986d5896a612e5b1acddf655af6472a24947b7b113aa3ef3270a2877afa9c5bd287
+  languageName: node
+  linkType: hard
+
+"dotenv-webpack@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "dotenv-webpack@npm:8.0.1"
+  dependencies:
+    dotenv-defaults: ^2.0.2
+  peerDependencies:
+    webpack: ^4 || ^5
+  checksum: ddd12406e7b27a9f324110d34ddf6efdf386f8f6dbbf903cb74b63ed582c28262197eadca4e20cdee55d1e427cc4acd47c9dadd38bfc49219ae215d0b688c2e8
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^16.0.2":
+  version: 16.0.2
+  resolution: "dotenv@npm:16.0.2"
+  checksum: e9b64fa45f0b693875db50f1876c1202be8e936500aa664478247ab06b2fe8096cc1ab238919771dbdd1f65490b7efe65b61401d3cd61bcea88eab7c2bf06964
+  languageName: node
+  linkType: hard
+
+"dotenv@npm:^8.2.0":
+  version: 8.6.0
+  resolution: "dotenv@npm:8.6.0"
+  checksum: 6750431dea8efbd54b9f2d9681b04e1ccc7989486461dcf058bb708d9e3d63b04115fcdf8840e38ad1e24a4a2e1e7c1560626c5e3ac7bc09371b127c49e2d45f
   languageName: node
   linkType: hard
 
