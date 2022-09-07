@@ -1,15 +1,15 @@
 {
   "name": "demo",
-  "version": "5.2.0",
-  "description": "A simple dapp used in MetaMask e2e tests.",
+  "version": "0.1.0",
+  "description": "A simple dapp for Aptos Snap testing.",
   "engines": {
     "node": ">= 12.0.0"
   },
   "scripts": {
-    "lint": "yarn run lint:style && yarn run lint:types",
-    "lint:types": "tsc --noEmit --pretty",
-    "lint:style": "eslint --color 'src/**/*.{js,ts,tsx}'",
-    "lint:style:fix": "yarn run lint:style --fix",
+    "lint": "yarn lint:eslint",
+    "deploy": "./deploy.sh",
+    "lint:fix": "yarn lint:eslint --fix",
+    "lint:eslint": "eslint . --cache --ext js,ts",
     "start": "webpack-dev-server",
     "build": "webpack --mode production",
     "test": "yarn lint"
@@ -30,9 +30,18 @@
     "stream-browserify": "^3.0.0"
   },
   "devDependencies": {
+    "@metamask/eslint-config": "^6.0.0",
+    "@metamask/eslint-config-nodejs": "^6.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^10.0.0",
     "copy-webpack-plugin": "^6.0.2",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "gh-pages": "^3.1.0",
+    "prettier": "^2.3.1",
     "webpack": "5.74.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "3.11.1"
