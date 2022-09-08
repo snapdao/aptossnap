@@ -36,7 +36,7 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
       const account = await getAccount(wallet)
       return {
         address: account.address().hex(),
-        publicKey: account.signingKey.publicKey.toString()
+        publicKey: account.pubKey().hex()
       }
     }
     case 'aptos_disconnect': {
