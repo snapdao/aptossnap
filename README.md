@@ -32,7 +32,7 @@ Additional information can be found [here](https://docs.metamask.io/guide/snaps.
 packages
 ├── adapter # Aptos Snap adapter is used integrate Aptos Snap into your dapp.
 ├── demo # a simple demo to interact with aptos snap
-└── snap # Aptos Snap is the application allowing users to directly manage Aptos within the MetaMask interface. 
+└── snap # Aptos Snap is the Snap application which run in the MetaMask Flask.
 
 ```
 
