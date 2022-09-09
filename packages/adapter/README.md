@@ -1,6 +1,6 @@
 # Aptos adapter
 
-Atopsnap adapter is used to install Aptos snap and expose API toward snap.
+Atops snap adapter is used to integrate Aptos Snap into your dapp.
 
 ## Installation
 
