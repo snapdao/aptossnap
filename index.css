@@ -68,9 +68,3 @@ header {
 .warning-invisible {
   display: none;
 }
-
-#sendResult a {
-  display: block;
-  margin-top: 20px;
-  text-align: center;
-}
