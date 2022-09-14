@@ -23,9 +23,11 @@ module.exports = {
     publicPath: DIST,
   },
   devServer: {
-    contentBase: DIST,
     port: 9011,
-    writeToDisk: true,
+    devMiddleware: {
+      writeToDisk: true,
+    },
+    static: DIST,
   },
   resolve: {
     fallback: {
@@ -38,6 +40,9 @@ module.exports = {
     }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new CompressionPlugin(),
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
     new webpack.ProvidePlugin({ process: 'process/browser' }),
     // for build scripts
     new CopyPlugin({

@@ -24,3 +24,13 @@ export const EmptyMetamaskState: () => MetamaskState = () => ({
     configuration: defaultConfiguration
   }
 })
+
+export interface SignMessageRequestPayload {
+  address: string;
+  application: string;
+  chainId: number,
+  message: string,
+  nonce: string,
+  prefix: string,
+  fullMessage: string,
+}

@@ -4,9 +4,15 @@ import {
   isMetamaskSnapsSupported,
   isSnapInstalled
 } from './utils'
-import { EntryFunctionPayload, HexEncodedBytes, TransactionPayload } from 'aptos/dist/generated'
+import {
+  PublicAccount,
+  SignMessagePayload,
+  SignMessageRequestPayload,
+  SignMessageResponse,
+  SnapConfig
+} from './types'
 import { AptosClient, BCS } from 'aptos'
-import { PublicAccount, SnapConfig } from './types'
+import { EntryFunctionPayload, PendingTransaction } from 'aptos/src/generated'
 
 const defaultSnapOrigin = 'npm:@keystonehq/aptossnap'
 
@@ -27,7 +33,6 @@ export default class WalletAdapter {
       version: 'latest'
     }) {
     this._connecting = false
-
     this.config = config
     this.snapId = snapOrigin ?? defaultSnapOrigin
     this.snapInstallationParams = snapInstallationParams
@@ -37,21 +42,30 @@ export default class WalletAdapter {
     return this._connecting
   }
 
-  get connected (): boolean {
-    return !!this._wallet?.isConnected
+  isConnected (): Promise<boolean> {
+    return Promise.resolve(!!this._wallet?.isConnected)
   }
 
-  get publicAccount (): PublicAccount {
-    return {
-      publicKey: this._wallet?.publicKey || null,
-      address: this._wallet?.address || null
+  account (): Promise<PublicAccount> {
+    if (this.connecting) {
+      throw new Error('Already in connecting status')
+    }
+    if (!this.isConnected()) {
+      throw new Error('Connect first')
+    } else {
+      return Promise.resolve({
+        publicKey: this._wallet?.publicKey || null,
+        address: this._wallet?.address || null
+      })
     }
   }
 
-  async connect (): Promise<void> {
+  async connect (): Promise<PublicAccount> {
     try {
-      if (this.connected || this.connecting) return
-
+      if (this.connecting) {
+        throw new Error('Already in connecting status')
+      }
+      this._connecting = true
       // check all conditions
       if (!hasMetaMask()) {
         throw new Error('Metamask is not installed')
@@ -66,10 +80,6 @@ export default class WalletAdapter {
       this._connecting = true
 
       const isInstalled = await isSnapInstalled(this.snapId)
-
-      if (this.connected) {
-        await this.disconnect()
-      }
 
       if (!isInstalled) {
         await window.ethereum.request({
@@ -97,9 +107,7 @@ export default class WalletAdapter {
         publicKey: result.publicKey,
         isConnected: true
       }
-    } catch (e) {
-      console.log('connect failed', e)
-      throw e
+      return result
     } finally {
       this._connecting = false
     }
@@ -107,6 +115,16 @@ export default class WalletAdapter {
 
   async disconnect (): Promise<void> {
     const wallet = this._wallet
+    // clean up snap state
+    await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: [
+        this.snapId,
+        {
+          method: 'aptos_disconnect'
+        }
+      ]
+    })
     if (wallet) {
       this._wallet = null
     }
@@ -117,9 +135,9 @@ export default class WalletAdapter {
     return new AptosClient(nodeUrl)
   }
 
-  async signAndSubmitTransaction (transactionPayload: TransactionPayload): Promise<HexEncodedBytes> {
+  async signAndSubmitTransaction (transactionPayload: EntryFunctionPayload): Promise<PendingTransaction> {
     const client = this.getClient()
-    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload as EntryFunctionPayload)
+    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload)
     const s = new BCS.Serializer()
     rawTransaction.serialize(s)
     const signedTx: unknown = await window.ethereum.request({
@@ -132,7 +150,37 @@ export default class WalletAdapter {
         }
       ]
     })
-    const pendingTx = await client.submitTransaction(new Uint8Array(Object.values(signedTx as Object)))
-    return pendingTx.hash
+    return client.submitTransaction(new Uint8Array(Object.values(signedTx as Object)))
+  }
+
+  async signMessage (payload: SignMessagePayload): Promise<SignMessageResponse> {
+    const client = this.getClient()
+    const chainId = await client.getChainId()
+    const prefix = 'APTOS'
+    const fullMessage = `${prefix}\nmessage: ${payload.message}\nnonce: ${payload.nonce}`
+    const rawMessage: SignMessageRequestPayload = {
+      prefix,
+      address: payload.address ? this._wallet.address : undefined,
+      chainId: payload.chainId ? chainId : undefined,
+      application: payload.application ? window.location.hostname : undefined,
+      nonce: payload.nonce,
+      message: payload.message,
+      fullMessage
+    }
+    Object.keys(rawMessage).forEach((key) => rawMessage[key as keyof typeof rawMessage] === undefined && delete rawMessage[key as keyof typeof rawMessage])
+    const signature: string = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: [
+        this.snapId,
+        {
+          method: 'aptos_signMessage',
+          params: { message: rawMessage }
+        }
+      ]
+    })
+    return {
+      ...rawMessage,
+      signature: `${signature}${Buffer.from(fullMessage).toString('hex')}`
+    }
   }
 }

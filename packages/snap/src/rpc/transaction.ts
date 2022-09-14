@@ -1,5 +1,5 @@
-import { Wallet } from '../interfaces'
-import { AptosClient, BCS, TxnBuilderTypes } from 'aptos'
+import { SignMessageRequestPayload, Wallet } from '../interfaces'
+import { AptosAccount, AptosClient, BCS, TxnBuilderTypes } from 'aptos'
 import { getAccount } from './getAccount'
 import { getConfiguration } from '../configuration'
 
@@ -19,6 +19,26 @@ export async function signTransaction (wallet: Wallet, rawTransaction: Uint8Arra
     const state = await getConfiguration(wallet)
     const client = await new AptosClient(state.rpc?.node)
     return client.signTransaction(account, tx)
+  } else {
+    throw new Error('user reject the sign request')
+  }
+}
+
+export async function signMessage (wallet: Wallet, message: Partial<SignMessageRequestPayload>) {
+  const account = await getAccount(wallet)
+  const result = await wallet.request({
+    method: 'snap_confirm',
+    params: [
+      {
+        prompt: 'Sign Aptos Transaction?',
+        description: 'Please verify this message  Detail',
+        textAreaContent: Object.values(message).join('\n')
+      }
+    ]
+  })
+  if (result) {
+    const messageToSign = Buffer.from(message.fullMessage)
+    return account.signBuffer(messageToSign).noPrefix()
   } else {
     throw new Error('user reject the sign request')
   }
