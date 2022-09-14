@@ -1,4 +1,4 @@
-import { TransactionPayload } from 'aptos/dist/generated'
+import { EntryFunctionPayload } from 'aptos/src/generated'
 
 export type AptosNetwork = 'mainnet' | 'devnet';
 
@@ -27,7 +27,14 @@ export interface ConfigureSnapRequest {
 export interface SignAndSubmitTransactionRequest {
   method: 'aptos_signAndSubmitTransaction',
   params: {
-    transactionPayload: TransactionPayload
+    transactionPayload: EntryFunctionPayload
+  }
+}
+
+export interface SignMessageRequest {
+  method: 'aptos_signMessage',
+  params: {
+    message: string
   }
 }
 
@@ -36,6 +43,7 @@ export type MetamaskAptosRpcRequest =
     | DisconnectRequest
     | ConfigureSnapRequest
     | SignAndSubmitTransactionRequest
+    | SignMessageRequest
 
 export interface SnapRpcMethodRequest {
   method: string;
@@ -60,4 +68,25 @@ declare global {
       on: (eventName: unknown, callback: unknown) => unknown;
     };
   }
+}
+
+export interface SignMessagePayload {
+  address?: boolean,
+  application?: boolean,
+  chainId?: boolean,
+  message: string
+  nonce: string
+}
+
+export interface SignMessageRequestPayload {
+  address?: string;
+  application?: string;
+  chainId?: number,
+  message: string,
+  nonce: string,
+  prefix: string,
+  fullMessage: string,
+}
+export interface SignMessageResponse extends SignMessageRequestPayload {
+  signature: string,
 }

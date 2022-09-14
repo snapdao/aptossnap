@@ -1,4 +1,5 @@
 import WalletAdapter from '@keystonehq/aptossnap-adapter';
+import nacl from 'tweetnacl';
 
 let walletAdapter;
 let account = '';
@@ -20,6 +21,15 @@ const disconnectButton = document.getElementById('disconnectButton');
 const getAccountResult = document.getElementById('getAccountResult');
 const isMetaMaskInstalled = () => window.ethereum && window.ethereum.isMetaMask;
 
+// Sign Message
+
+const signMessageButton = document.getElementById('signMessage');
+const signMessageResult = document.getElementById('signMessageResult');
+const signMessageVerify = document.getElementById('signMessageVerify');
+const signMessageVerifyResult = document.getElementById(
+  'signMessageVerifyResult',
+);
+
 // onBoarding
 const startOnboarding = () => {
   window.open(downloadUrl, '_blank');
@@ -27,8 +37,7 @@ const startOnboarding = () => {
 
 // Send Aptos Section
 const sendButton = document.getElementById('sendButton');
-const txHashDom = document.getElementById('tx-hash');
-const txOpenBtnBoxDom = document.getElementById('tx-open-btn-box');
+const sendResult = document.getElementById('sendResult');
 
 const onClickConnect = async () => {
   try {
@@ -37,7 +46,7 @@ const onClickConnect = async () => {
       disabled: true,
     });
     await walletAdapter.connect();
-    const newAccount = walletAdapter.publicAccount;
+    const newAccount = await walletAdapter.account();
     await handleStatus(newAccount);
   } catch (error) {
     console.error(error);
@@ -45,7 +54,7 @@ const onClickConnect = async () => {
   }
 };
 
-const accountButtons = [sendButton];
+const accountButtons = [sendButton, signMessageButton, signMessageVerify];
 const isMetaMaskConnected = () => account && account.length > 0;
 const initializeAccountButtons = () => {
   if (accountButtonsInitialized) {
@@ -53,6 +62,7 @@ const initializeAccountButtons = () => {
   }
   accountButtonsInitialized = true;
   sendButton.onclick = async () => {
+    sendResult.innerHTML = '';
     setButtonStatus(sendButton, {
       innerText: 'Transfering...',
       disabled: true,
@@ -71,48 +81,23 @@ const initializeAccountButtons = () => {
         transactionPayload,
       );
 
-      txHashDom.innerText = response;
+      sendResult.innerHTML = response.hash;
 
       const a = document.createElement('a');
       a.id = 'open-explorer-btn';
-      a.href = `https://explorer.devnet.aptos.dev/txn/${response}`;
+      a.href = `https://explorer.devnet.aptos.dev/txn/${response.hash}`;
       a.target = '_blank';
       a.title = response;
       a.innerText = 'Open In AptosExplorer';
 
-      txOpenBtnBoxDom.innerHTML = '';
-      txOpenBtnBoxDom.appendChild(a);
+      sendResult.appendChild(a);
 
-      sendButton.classList.replace('btn-primary', 'btn-green');
       setButtonStatus(sendButton, {
-        innerText: 'Success',
-        disabled: true,
+        innerText: 'Transfer',
+        disabled: false,
       });
-
-      setTimeout(() => {
-        sendButton.classList.replace('btn-green', 'btn-primary');
-        setButtonStatus(sendButton, {
-          innerText: 'Transfer',
-          disabled: false,
-        });
-      }, 2000);
     } catch (e) {
-      txHashDom.innerText = '';
-      sendButton.classList.replace('btn-primary', 'btn-red');
-      setButtonStatus(sendButton, {
-        innerText: 'Error',
-        disabled: true,
-      });
-
-      setTimeout(() => {
-        sendButton.classList.replace('btn-red', 'btn-primary');
-        setButtonStatus(sendButton, {
-          innerText: 'Transfer',
-          disabled: false,
-        });
-      }, 2000);
-
-      txOpenBtnBoxDom.innerHTML = JSON.stringify(e);
+      sendResult.innerHTML = e;
     }
   };
 };
@@ -126,8 +111,9 @@ const onClickDisconnect = async () => {
   try {
     await walletAdapter.disconnect();
     await handleStatus();
-    txHashDom.innerText = '';
-    txOpenBtnBoxDom.innerHTML = '';
+    sendResult.innerText = '';
+    signMessageResult.innerHTML = '';
+    signMessageVerifyResult.innerHTML = '';
   } catch (error) {
     console.error(error);
   }
@@ -143,6 +129,7 @@ const updateButtons = () => {
     }
   } else {
     sendButton.disabled = false;
+    signMessageButton.disabled = false;
   }
   // window.ethereum exist
   if (!isMetaMaskInstalled()) {
@@ -192,12 +179,48 @@ async function handleStatus(newAccount) {
 }
 
 const initialize = async () => {
-  try {
-    walletAdapter = new WalletAdapter({ network: 'devnet' }, snapId);
-    updateButtons();
-  } catch (error) {
-    console.error(error);
-  }
+  walletAdapter = new WalletAdapter({ network: 'devnet' }, snapId);
+  signMessageButton.onclick = async () => {
+    signMessageResult.innerHTML = '';
+    signMessageVerifyResult.innerHTML = '';
+    try {
+      setButtonStatus(signMessageButton, {
+        innerText: 'Signing...',
+        disabled: true,
+      });
+      const message = 'hello';
+      const nonce = 'random_string';
+      const result = await walletAdapter.signMessage({
+        message,
+        nonce,
+        application: true,
+        chainId: true,
+        address: true,
+      });
+      signMessageResult.innerHTML = result.signature;
+      setButtonStatus(signMessageButton, {
+        innerText: 'Sign',
+        disabled: true,
+      });
+      signMessageVerify.disabled = false;
+    } catch (error) {
+      signMessageResult.innerHTML = error;
+    }
+  };
+  signMessageVerify.onclick = async () => {
+    try {
+      account = await walletAdapter.account();
+      signMessageVerifyResult.innerHTML = nacl.sign.detached.verify(
+        Buffer.from(signMessageResult.innerHTML.slice(128), 'hex'),
+        Buffer.from(signMessageResult.innerHTML.slice(0, 128), 'hex'),
+        Buffer.from(account.publicKey.slice(2), 'hex'),
+      );
+      signMessageButton.disabled = false;
+    } catch (error) {
+      signMessageVerifyResult.innerHTML = error;
+    }
+  };
+  updateButtons();
 };
 
 window.addEventListener('load', initialize);

@@ -2,7 +2,7 @@ import { OnRpcRequestHandler } from '@metamask/snap-types'
 import { getAccount } from './rpc/getAccount'
 import { EmptyMetamaskState, Wallet } from './interfaces'
 import { configure } from './rpc/configure'
-import { signTransaction } from './rpc/transaction'
+import { signMessage, signTransaction } from './rpc/transaction'
 import { isValidConfigureRequest } from './util/params'
 
 declare let wallet: Wallet
@@ -31,6 +31,9 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
 
     case 'aptos_signTransaction': {
       return await signTransaction(wallet, (request.params as any).rawTransaction)
+    }
+    case 'aptos_signMessage': {
+      return await signMessage(wallet, (request.params as any).message)
     }
     case 'aptos_getAccount': {
       const account = await getAccount(wallet)
