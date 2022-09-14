@@ -1,6 +1,5 @@
 import WalletAdapter from '@keystonehq/aptossnap-adapter';
 import nacl from 'tweetnacl';
-import { signMessage } from '@keystonehq/aptossnap/build/rpc/transaction';
 
 let walletAdapter;
 let account = '';
@@ -55,7 +54,7 @@ const onClickConnect = async () => {
   }
 };
 
-const accountButtons = [sendButton, signMessageButton];
+const accountButtons = [sendButton, signMessageButton, signMessageVerify];
 const isMetaMaskConnected = () => account && account.length > 0;
 const initializeAccountButtons = () => {
   if (accountButtonsInitialized) {
@@ -63,6 +62,7 @@ const initializeAccountButtons = () => {
   }
   accountButtonsInitialized = true;
   sendButton.onclick = async () => {
+    sendResult.innerHTML = '';
     setButtonStatus(sendButton, {
       innerText: 'Transfering...',
       disabled: true,
@@ -179,48 +179,48 @@ async function handleStatus(newAccount) {
 }
 
 const initialize = async () => {
-  try {
-    walletAdapter = new WalletAdapter({ network: 'devnet' }, snapId);
-    signMessageButton.onclick = async () => {
-      try {
-        setButtonStatus(signMessageButton, {
-          innerText: 'Signing...',
-          disabled: true,
-        });
-        const message = 'hello';
-        const nonce = 'random_string';
-        const result = await walletAdapter.signMessage({
-          message,
-          nonce,
-          application: true,
-          chainId: true,
-          address: true,
-        });
-        signMessageResult.innerHTML = result.signature;
-        setButtonStatus(signMessageButton, {
-          innerText: 'Sign',
-          disabled: true,
-        });
-        signMessageVerify.disabled = false;
-      } catch (error) {
-        signMessageResult.innerHTML = error;
-      }
-    };
-    signMessageVerify.onclick = async () => {
-      try {
-        account = await walletAdapter.account();
-        signMessageVerifyResult.innerHTML = nacl.sign.detached.verify(
-          Buffer.from(signMessageResult.innerHTML.slice(128), 'hex'),
-          Buffer.from(signMessageResult.innerHTML.slice(0, 128), 'hex'),
-          Buffer.from(account.publicKey.slice(2), 'hex'),
-        );
-        signMessageButton.disabled = false;
-      } catch (error) {
-        signMessageVerifyResult.innerHTML = error;
-      }
-    };
-    updateButtons();
-  } catch (error) {}
+  walletAdapter = new WalletAdapter({ network: 'devnet' }, snapId);
+  signMessageButton.onclick = async () => {
+    signMessageResult.innerHTML = '';
+    signMessageVerifyResult.innerHTML = '';
+    try {
+      setButtonStatus(signMessageButton, {
+        innerText: 'Signing...',
+        disabled: true,
+      });
+      const message = 'hello';
+      const nonce = 'random_string';
+      const result = await walletAdapter.signMessage({
+        message,
+        nonce,
+        application: true,
+        chainId: true,
+        address: true,
+      });
+      signMessageResult.innerHTML = result.signature;
+      setButtonStatus(signMessageButton, {
+        innerText: 'Sign',
+        disabled: true,
+      });
+      signMessageVerify.disabled = false;
+    } catch (error) {
+      signMessageResult.innerHTML = error;
+    }
+  };
+  signMessageVerify.onclick = async () => {
+    try {
+      account = await walletAdapter.account();
+      signMessageVerifyResult.innerHTML = nacl.sign.detached.verify(
+        Buffer.from(signMessageResult.innerHTML.slice(128), 'hex'),
+        Buffer.from(signMessageResult.innerHTML.slice(0, 128), 'hex'),
+        Buffer.from(account.publicKey.slice(2), 'hex'),
+      );
+      signMessageButton.disabled = false;
+    } catch (error) {
+      signMessageVerifyResult.innerHTML = error;
+    }
+  };
+  updateButtons();
 };
 
 window.addEventListener('load', initialize);

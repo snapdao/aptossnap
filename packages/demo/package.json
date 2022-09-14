@@ -25,9 +25,10 @@
     "dist/"
   ],
   "dependencies": {
-    "@keystonehq/aptossnap-adapter": "*",
+    "@keystonehq/aptossnap-adapter": "^0.2.2",
     "aptos": "^1.3.12",
-    "stream-browserify": "^3.0.0"
+    "stream-browserify": "^3.0.0",
+    "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
     "@metamask/eslint-config": "^6.0.0",

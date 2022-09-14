@@ -1,5 +1,5 @@
 import { SignMessageRequestPayload, Wallet } from '../interfaces'
-import { AptosAccount, AptosClient, BCS, TxnBuilderTypes } from 'aptos'
+import { AptosClient, BCS, TxnBuilderTypes } from 'aptos'
 import { getAccount } from './getAccount'
 import { getConfiguration } from '../configuration'
 

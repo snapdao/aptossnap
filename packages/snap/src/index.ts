@@ -2,7 +2,7 @@ import { OnRpcRequestHandler } from '@metamask/snap-types'
 import { getAccount } from './rpc/getAccount'
 import { EmptyMetamaskState, Wallet } from './interfaces'
 import { configure } from './rpc/configure'
-import {signMessage, signTransaction} from './rpc/transaction'
+import { signMessage, signTransaction } from './rpc/transaction'
 import { isValidConfigureRequest } from './util/params'
 
 declare let wallet: Wallet
