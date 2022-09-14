@@ -19,7 +19,7 @@
     "react-router-dom": "^6.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.1.3",
-    "snapkit": "link:.yalc/snapkit"
+    "snapkit": "git+ssh://git@github.com:KeystoneHQ/snapkit#v0.1.2"
   },
   "devDependencies": {
     "@emotion/css": "^11.10.0",

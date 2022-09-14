@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "snapkit": {
-      "signature": "fa87f837b217a39a7e8788f1d1b9f7dc",
-      "link": true
-    }
-  }
-}

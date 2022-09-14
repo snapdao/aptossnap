@@ -1,5 +1,6 @@
 import { FC, useCallback, useContext, useEffect } from "react";
 import { Button, Header, Message, Portal, Segment } from "semantic-ui-react";
+import { Tab, Tabs } from "snapkit";
 import { MetamaskActions, MetaMaskContext } from "~/context/metamask";
 import { initiateAptosSnap } from "~/plugins/metamask";
 
@@ -68,6 +69,11 @@ export const MetaMaskConnector: FC<Props> = () => {
         message={state.aptosSnap.message}
         trigger={<Button>Portal</Button>}
       >
+        <Tabs >
+          <Tab title="All"></Tab>
+          <Tab title="A1"></Tab>
+          <Tab title="B2"></Tab>
+        </Tabs>
         <Segment
           style={{
             left: "40%",
