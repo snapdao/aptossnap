@@ -1,6 +1,6 @@
 {
   "name": "@keystonehq/aptossnap-adapter",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
