@@ -67,7 +67,7 @@
     "typescript": "4.3.5"
   },
   "dependencies": {
-    "@metamask/key-tree": "^4.0.0",
+    "@metamask/key-tree": "^5.0.1",
     "@metamask/snap-types": "^0.18.1",
     "aptos": "^1.3.12",
     "bn.js": "^5.1.2",
