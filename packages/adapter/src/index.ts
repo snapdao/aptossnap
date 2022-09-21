@@ -173,14 +173,28 @@ export default class WalletAdapter {
 
   async signMessage (payload: SignMessagePayload): Promise<SignMessageResponse> {
     const client = this.getClient()
-    const chainId = await client.getChainId()
     const prefix = 'APTOS'
-    const fullMessage = `${prefix}\nmessage: ${payload.message}\nnonce: ${payload.nonce}`
+    let fullMessage = prefix;
+    const address=payload.address ? this._wallet.address : undefined
+    const chainId=payload.chainId ? await client.getChainId() : undefined
+    const application= payload.application ? window.location.hostname : undefined
+    if(address){
+      fullMessage+= `\naddress: ${address}`
+    }
+    if(chainId){
+      fullMessage+= `\nchainId: ${chainId}`
+    }
+    if(application){
+      fullMessage+= `\napplication: ${application}`
+    }
+    fullMessage+= `\nmessage: ${payload.message}`;
+    fullMessage+= `\nnonce: ${payload.nonce}`;
+
     const rawMessage: SignMessageRequestPayload = {
       prefix,
-      address: payload.address ? this._wallet.address : undefined,
-      chainId: payload.chainId ? chainId : undefined,
-      application: payload.application ? window.location.hostname : undefined,
+      address,
+      chainId,
+      application,
       nonce: payload.nonce,
       message: payload.message,
       fullMessage
