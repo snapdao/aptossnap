@@ -1,5 +1,5 @@
 {
-  "version": "0.2.6",
+  "version": "0.2.7",
   "proposedName": "aptossnap",
   "description": "The Aptos snap.",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/keystoneHQ/aptossnap.git"
   },
   "source": {
-    "shasum": "BXQenMjTdZ3NN5ffdeS42E6bgcv2F83bEhPTkbK7aSM=",
+    "shasum": "eU34/W3hEQm2hTdVYy9C1yo6IFlPeD2T7EKOYHXgOW0=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
