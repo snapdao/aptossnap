@@ -1,6 +1,6 @@
 name: ci
 # This workflow is triggered on pushes to the repository.
-on: 
+on:
   push:
     branches:
       - main
@@ -20,7 +20,8 @@ jobs:
         with:
           cache: yarn
           node-version: '16.x'
-      - run: yarn install
+      - run: yarn cache clean --all
+      - run: YARN_CHECKSUM_BEHAVIOR=update yarn
       - name: Run linter
         uses: ./
         with:
