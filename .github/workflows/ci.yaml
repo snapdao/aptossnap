@@ -22,7 +22,7 @@ jobs:
           node-version: '16.x'
       - run: yarn cache clean --all
       - run: YARN_CHECKSUM_BEHAVIOR=update yarn
-      - name: Lint
-        run: yarn run lint
       - name: Build
         run: yarn run build
+      - name: Lint
+        run: yarn run lint
