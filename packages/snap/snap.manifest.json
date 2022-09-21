@@ -7,7 +7,7 @@
     "url": "https://github.com/keystoneHQ/aptossnap.git"
   },
   "source": {
-    "shasum": "9wKzB4SLW+cMpk1p5tk7pf/T41O7ma+HhANqQRPIk4s=",
+    "shasum": "BXQenMjTdZ3NN5ffdeS42E6bgcv2F83bEhPTkbK7aSM=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
