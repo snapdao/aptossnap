@@ -30,9 +30,9 @@ export async function signMessage (wallet: Wallet, message: Partial<SignMessageR
     method: 'snap_confirm',
     params: [
       {
-        prompt: 'Sign Aptos Transaction?',
+        prompt: 'Sign Aptos Message?',
         description: 'Please verify this message  Detail',
-        textAreaContent: Object.values(message).join('\n')
+        textAreaContent: message.fullMessage
       }
     ]
   })

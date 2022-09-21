@@ -153,6 +153,24 @@ export default class WalletAdapter {
     return client.submitTransaction(new Uint8Array(Object.values(signedTx as Object)))
   }
 
+  async signTransaction (transactionPayload: EntryFunctionPayload): Promise<Uint8Array> {
+    const client = this.getClient()
+    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload)
+    const s = new BCS.Serializer()
+    rawTransaction.serialize(s)
+    const signedTx: unknown = await window.ethereum.request({
+      method: 'wallet_invokeSnap',
+      params: [
+        this.snapId,
+        {
+          method: 'aptos_signTransaction',
+          params: { rawTransaction: s.getBytes() }
+        }
+      ]
+    })
+    return new Uint8Array(Object.values(signedTx as Object))
+  }
+
   async signMessage (payload: SignMessagePayload): Promise<SignMessageResponse> {
     const client = this.getClient()
     const chainId = await client.getChainId()

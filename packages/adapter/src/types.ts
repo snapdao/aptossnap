@@ -24,8 +24,8 @@ export interface ConfigureSnapRequest {
   };
 }
 
-export interface SignAndSubmitTransactionRequest {
-  method: 'aptos_signAndSubmitTransaction',
+export interface SignTransactionRequest {
+  method: 'aptos_signTransaction',
   params: {
     transactionPayload: EntryFunctionPayload
   }
@@ -42,8 +42,8 @@ export type MetamaskAptosRpcRequest =
     GetAccountRequest
     | DisconnectRequest
     | ConfigureSnapRequest
-    | SignAndSubmitTransactionRequest
     | SignMessageRequest
+    | SignTransactionRequest
 
 export interface SnapRpcMethodRequest {
   method: string;

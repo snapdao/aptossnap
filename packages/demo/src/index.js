@@ -38,6 +38,8 @@ const startOnboarding = () => {
 // Send Aptos Section
 const sendButton = document.getElementById('sendButton');
 const sendResult = document.getElementById('sendResult');
+const signTxButton = document.getElementById('signTxButton');
+const signTxResult = document.getElementById('signTxResult');
 
 const onClickConnect = async () => {
   try {
@@ -54,7 +56,12 @@ const onClickConnect = async () => {
   }
 };
 
-const accountButtons = [sendButton, signMessageButton, signMessageVerify];
+const accountButtons = [
+  sendButton,
+  signTxButton,
+  signMessageButton,
+  signMessageVerify,
+];
 const isMetaMaskConnected = () => account && account.length > 0;
 const initializeAccountButtons = () => {
   if (accountButtonsInitialized) {
@@ -102,7 +109,7 @@ const initializeAccountButtons = () => {
   };
 };
 const onClickInstall = () => {
-  onboardButton.innerText = 'Onboarding in progress';
+  onboardButton.innerText = 'On-boarding in progress';
   onboardButton.disabled = true;
   startOnboarding();
 };
@@ -130,6 +137,7 @@ const updateButtons = () => {
   } else {
     sendButton.disabled = false;
     signMessageButton.disabled = false;
+    signTxButton.disabled = false;
   }
   // window.ethereum exist
   if (!isMetaMaskInstalled()) {
@@ -218,6 +226,33 @@ const initialize = async () => {
       signMessageButton.disabled = false;
     } catch (error) {
       signMessageVerifyResult.innerHTML = error;
+    }
+  };
+  signTxButton.onclick = async () => {
+    signTxResult.innerHTML = '';
+    try {
+      setButtonStatus(signTxButton, {
+        innerText: 'Signing...',
+        disabled: true,
+      });
+      const transactionPayload = {
+        arguments: [
+          '0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd',
+          2,
+        ],
+        function: '0x1::coin::transfer',
+        type: 'entry_function_payload',
+        type_arguments: ['0x1::aptos_coin::AptosCoin'],
+      };
+      const response = await walletAdapter.signTransaction(transactionPayload);
+
+      setButtonStatus(signTxButton, {
+        innerText: 'Sign Transaction',
+        disabled: true,
+      });
+      signTxResult.innerHTML = Buffer.from(response).toString('hex');
+    } catch (error) {
+      signTxResult.innerHTML = error;
     }
   };
   updateButtons();
