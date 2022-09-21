@@ -22,7 +22,7 @@ jobs:
           node-version: '16.x'
       - run: yarn install
       - name: Run linter
-        use: ./
+        uses: ./
         with:
           working-directory: aptossnap/
           lint: yarn lint
