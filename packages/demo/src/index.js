@@ -78,14 +78,19 @@ const initializeAccountButtons = () => {
       const transactionPayload = {
         arguments: [
           '0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd',
-          2,
+          717,
         ],
         function: '0x1::coin::transfer',
         type: 'entry_function_payload',
         type_arguments: ['0x1::aptos_coin::AptosCoin'],
       };
+      const txOptions = {
+        max_gas_amount: '1000',
+        gas_unit_price: '100',
+      };
       const response = await walletAdapter.signAndSubmitTransaction(
         transactionPayload,
+        txOptions,
       );
 
       sendResult.innerHTML = response.hash;
@@ -187,7 +192,7 @@ async function handleStatus(newAccount) {
 }
 
 const initialize = async () => {
-  walletAdapter = new WalletAdapter({ network: 'devnet' }, snapId);
+  walletAdapter = new WalletAdapter({ network: 'testnet' }, snapId);
   signMessageButton.onclick = async () => {
     signMessageResult.innerHTML = '';
     signMessageVerifyResult.innerHTML = '';

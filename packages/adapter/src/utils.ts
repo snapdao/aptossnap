@@ -60,6 +60,12 @@ export function getConfigurationByNetwork (network: AptosNetwork) {
         node: 'https://fullnode.devnet.aptoslabs.com',
         faucet: 'https://faucet.devnet.aptoslabs.com/'
       }
+    },
+    testnet: {
+      rpc: {
+        node: 'https://fullnode.testnet.aptoslabs.com',
+        faucet: 'https://faucet.testnet.aptoslabs.com/'
+      }
     }
   }[network]
 }

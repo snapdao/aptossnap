@@ -135,9 +135,9 @@ export default class WalletAdapter {
     return new AptosClient(nodeUrl)
   }
 
-  async signAndSubmitTransaction (transactionPayload: EntryFunctionPayload): Promise<PendingTransaction> {
+  async signAndSubmitTransaction (transactionPayload: EntryFunctionPayload, options: any): Promise<PendingTransaction> {
     const client = this.getClient()
-    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload)
+    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload, options)
     const s = new BCS.Serializer()
     rawTransaction.serialize(s)
     const signedTx: unknown = await window.ethereum.request({

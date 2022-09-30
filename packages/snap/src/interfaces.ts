@@ -1,6 +1,6 @@
 import { defaultConfiguration } from './configuration/predefined'
 
-export type AptosNetwork = 'mainnet' | 'devnet';
+export type AptosNetwork = 'mainnet' | 'devnet' | 'testnet';
 
 export interface SnapConfig {
   network: AptosNetwork;
