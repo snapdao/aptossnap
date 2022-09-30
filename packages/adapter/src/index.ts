@@ -73,9 +73,6 @@ export default class WalletAdapter {
       if (!(await isMetamaskSnapsSupported())) {
         throw new Error("Current Metamask version doesn't support snaps")
       }
-      if (!this.config.network) {
-        throw new Error('Configuration must at least define network type')
-      }
 
       this._connecting = true
 
@@ -91,6 +88,22 @@ export default class WalletAdapter {
               }
             }
           ]
+        })
+      }
+      if (!this.config.network) {
+        throw new Error('Configuration must at least define network type')
+      } else {
+        // sync the snap network
+        await window.ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [this.snapId, {
+            method: 'aptos_configure',
+            params: {
+              configuration: {
+                network: this.config.network
+              }
+            }
+          }]
         })
       }
       const result: PublicAccount = await window.ethereum.request({

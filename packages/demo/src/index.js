@@ -77,7 +77,7 @@ const initializeAccountButtons = () => {
     try {
       const transactionPayload = {
         arguments: [
-          '0x1f410f23447ae2ad00e931b35c567783a5beb3b5d92c604f42f912416b7c3ccd',
+          '0xb93f8efe39900d6d06e275998d11634ce68e93061bbe55ae50bd35a85a35370',
           717,
         ],
         function: '0x1::coin::transfer',
