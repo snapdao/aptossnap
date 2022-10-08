@@ -45,7 +45,7 @@
   },
   "homepage": "https://github.com/keystoneHQ/aptossnap#readme",
   "devDependencies": {
-    "@metamask/providers": "^9.0.0",
+    "@metamask/providers": "^10.0.0",
     "@metamask/snaps-cli": "^0.21.0",
     "@types/bn.js": "^4.11.6",
     "@types/chai": "^4.2.10",
