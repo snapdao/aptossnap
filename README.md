@@ -74,13 +74,6 @@ console.log(txHash);
 
 ##
 
-### Known issue
-
-- Since Aptos currently using [slip-10](https://github.com/satoshilabs/slips/blob/master/slip-0010.md) for address
-  generation, which has not been officially released in [Metamask Flask](https://metamask.io/flask/), so
-  you should build the metamask flask from source at this stage to play around. Or you can download the build zip
-  file [here](https://drive.google.com/file/d/1pobkTKT7kthzJ-7tSJp3BMmCfx0KjNeN/view?usp=sharing).
-
 ```shell
 git clone git@github.com:MetaMask/metamask-extension.git
 cd metamask-extension
