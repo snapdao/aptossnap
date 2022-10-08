@@ -1,11 +1,18 @@
 import { MetamaskState, SnapConfig, Wallet } from '../interfaces'
-import { aptosMainnetConfiguration, aptosTestnetConfiguration, defaultConfiguration } from './predefined'
+import {
+  aptosDevnetConfiguration,
+  aptosMainnetConfiguration,
+  aptosTestnetConfiguration,
+  defaultConfiguration
+} from './predefined'
 
 export function getDefaultConfiguration (networkName?: string): SnapConfig {
   switch (networkName) {
     case 'mainnet':
       return aptosMainnetConfiguration
     case 'devnet':
+      return aptosDevnetConfiguration
+    case 'testnet':
       return aptosTestnetConfiguration
     default:
       return defaultConfiguration

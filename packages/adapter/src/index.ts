@@ -73,9 +73,6 @@ export default class WalletAdapter {
       if (!(await isMetamaskSnapsSupported())) {
         throw new Error("Current Metamask version doesn't support snaps")
       }
-      if (!this.config.network) {
-        throw new Error('Configuration must at least define network type')
-      }
 
       this._connecting = true
 
@@ -91,6 +88,22 @@ export default class WalletAdapter {
               }
             }
           ]
+        })
+      }
+      if (!this.config.network) {
+        throw new Error('Configuration must at least define network type')
+      } else {
+        // sync the snap network
+        await window.ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [this.snapId, {
+            method: 'aptos_configure',
+            params: {
+              configuration: {
+                network: this.config.network
+              }
+            }
+          }]
         })
       }
       const result: PublicAccount = await window.ethereum.request({
@@ -135,9 +148,9 @@ export default class WalletAdapter {
     return new AptosClient(nodeUrl)
   }
 
-  async signAndSubmitTransaction (transactionPayload: EntryFunctionPayload): Promise<PendingTransaction> {
+  async signAndSubmitTransaction (transactionPayload: EntryFunctionPayload, options: any): Promise<PendingTransaction> {
     const client = this.getClient()
-    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload)
+    const rawTransaction = await client.generateTransaction(this._wallet.address, transactionPayload, options)
     const s = new BCS.Serializer()
     rawTransaction.serialize(s)
     const signedTx: unknown = await window.ethereum.request({

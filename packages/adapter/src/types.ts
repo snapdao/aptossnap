@@ -1,6 +1,6 @@
 import { EntryFunctionPayload } from 'aptos/src/generated'
 
-export type AptosNetwork = 'mainnet' | 'devnet';
+export type AptosNetwork = 'mainnet' | 'devnet' | 'testnet';
 
 export type SnapConfig = {
   network: AptosNetwork;

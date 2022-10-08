@@ -1,6 +1,6 @@
 {
   "name": "@keystonehq/aptossnap",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "license": "ISC",
   "description": "Aptos - Metamask snap to interact with Aptos.",
   "main": "dist/index.js",

@@ -13,7 +13,8 @@ export const onRpcRequest: OnRpcRequestHandler = async ({ request }) => {
     method: 'snap_manageState',
     params: ['get']
   })
-  if (!state) {
+  // @ts-ignore
+  if (!state || !state.aptos) {
     await wallet.request({
       method: 'snap_manageState',
       params: ['update', EmptyMetamaskState()]
