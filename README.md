@@ -72,15 +72,6 @@ console.log(txHash);
    MetaMask Flask and approve the installation of the Aptos Snap app
 4. Start experimenting
 
-##
-
-```shell
-git clone git@github.com:MetaMask/metamask-extension.git
-cd metamask-extension
-yarn setup
-yarn build dist --build-type flask
-```
-
 ## License
 
 This project is dual-licensed under Apache 2.0 and MIT terms:
