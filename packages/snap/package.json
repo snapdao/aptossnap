@@ -64,7 +64,7 @@
     "sinon": "^9.0.1",
     "sinon-chai": "^3.5.0",
     "ts-node": "^10.8.0",
-    "typescript": "4.3.5"
+    "typescript": "4.8.4"
   },
   "dependencies": {
     "@metamask/key-tree": "^5.0.2",
