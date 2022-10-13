@@ -1606,7 +1606,7 @@ __metadata:
   dependencies:
     "@metamask/key-tree": ^5.0.2
     "@metamask/providers": ^9.0.0
-    "@metamask/snap-types": ^0.21.0
+    "@metamask/snap-types": ^0.22.2
     "@metamask/snaps-cli": ^0.21.0
     "@types/bn.js": ^4.11.6
     "@types/chai": ^4.2.10
@@ -2528,6 +2528,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/snap-types@npm:^0.22.2":
+  version: 0.22.2
+  resolution: "@metamask/snap-types@npm:0.22.2"
+  dependencies:
+    "@metamask/providers": ^9.0.0
+    "@metamask/snap-utils": ^0.22.2
+    "@metamask/types": ^1.1.0
+  checksum: 13f3ac93a7ee43580819335fb0ac56cfb5e0105bb3147928e78235c60eb2abf766e6ac18f25608917961ab6f5233099e3675054a38ce036edd49611ded74d979
+  languageName: node
+  linkType: hard
+
 "@metamask/snap-utils@npm:^0.21.0":
   version: 0.21.0
   resolution: "@metamask/snap-utils@npm:0.21.0"
@@ -2542,6 +2553,26 @@ __metadata:
     semver: ^7.3.7
     ses: ^0.15.17
   checksum: dd4969eead461c3a5aebca9f8aee1f8902956e712a88e6f62d39dba7b6265f55f359622b29b2f2872c07dc7052195bd7dd10e5bbefe6be4a730e60b69469268b
+  languageName: node
+  linkType: hard
+
+"@metamask/snap-utils@npm:^0.22.2":
+  version: 0.22.2
+  resolution: "@metamask/snap-utils@npm:0.22.2"
+  dependencies:
+    "@babel/core": ^7.18.6
+    "@metamask/snap-types": ^0.22.2
+    "@metamask/utils": ^3.1.0
+    "@noble/hashes": ^1.1.3
+    "@scure/base": ^1.1.1
+    ajv: ^8.11.0
+    eth-rpc-errors: ^4.0.3
+    fast-deep-equal: ^3.1.3
+    rfdc: ^1.3.0
+    semver: ^7.3.7
+    ses: ^0.15.17
+    superstruct: ^0.16.5
+  checksum: 91fe33b944a3c500f2f64e609db8d6b52051a24caa8c45b9ea36abb1cf9574e3e5988c12b7634d62c42cc97b8edfb8a5bf178649f6352b37b95893db756e4cfe
   languageName: node
   linkType: hard
 
@@ -2603,6 +2634,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@metamask/utils@npm:^3.1.0":
+  version: 3.2.0
+  resolution: "@metamask/utils@npm:3.2.0"
+  dependencies:
+    "@types/debug": ^4.1.7
+    debug: ^4.3.4
+    fast-deep-equal: ^3.1.3
+    superstruct: ^0.16.5
+  checksum: 09448dd86d78ee0e53917fe62f468c65d38563093c1c864605b4fc001ac57e2699c3f21d8c04d9f47e867554f3bc8d129b6084d86e4a3e232fb3b96a6c90f3ad
+  languageName: node
+  linkType: hard
+
 "@noble/ed25519@npm:^1.6.0":
   version: 1.7.0
   resolution: "@noble/ed25519@npm:1.7.0"
@@ -2614,6 +2657,13 @@ __metadata:
   version: 1.1.2
   resolution: "@noble/hashes@npm:1.1.2"
   checksum: 452a197522dabd163cf5297fe7b768fabba73072a198752074da6fce7c1438c7f614b27891391e9f6b118842656a4da4c0fc04e464ba1e15f306291d05dd106a
+  languageName: node
+  linkType: hard
+
+"@noble/hashes@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "@noble/hashes@npm:1.1.3"
+  checksum: 362719c36ba26d295ec20bc640c71ec56cf3cfaf3bd4708c2b9e7cff43703f94f74f20f852fee67dbe072ee159f81a8ac7adc86979cd813d8f5c0634ec769ec9
   languageName: node
   linkType: hard
 
@@ -3002,7 +3052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@scure/base@npm:^1.0.0, @scure/base@npm:~1.1.0":
+"@scure/base@npm:^1.0.0, @scure/base@npm:^1.1.1, @scure/base@npm:~1.1.0":
   version: 1.1.1
   resolution: "@scure/base@npm:1.1.1"
   checksum: 97d200da8915ca18a4eceb73c23dda7fc3a4b8509f620c9b7756ee451d7c9ebbc828c6662f9ffa047806fbe41f37bf236c6ef75692690688b7659196cb2dc804
@@ -3151,6 +3201,15 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: f11a1ccfed540723dddd7cb496543ad40a2f663f22ff825e9b220f0bae86db8b1ced2184ee41d3fb358b019ad6519e39481b06386db91ebb859003ad1d54fe6a
+  languageName: node
+  linkType: hard
+
+"@types/debug@npm:^4.1.7":
+  version: 4.1.7
+  resolution: "@types/debug@npm:4.1.7"
+  dependencies:
+    "@types/ms": "*"
+  checksum: 742b752b60e14a752d9bf172e64f28e172f630b9933e763d2b54c7c8c1f33b99b1ef067d7312665a4d0539d8df7ea3eb664a8039f900e4b8234c647a569d123a
   languageName: node
   linkType: hard
 
@@ -3309,6 +3368,13 @@ __metadata:
   version: 9.1.1
   resolution: "@types/mocha@npm:9.1.1"
   checksum: d033742ce0c92b917815b6e515165ee396866d0db0c0bbe0c301e49402abe3a61bd51e5bb1df7577f1fac60c99ee505fa744f515b476cc934ecb57f709f327e9
+  languageName: node
+  linkType: hard
+
+"@types/ms@npm:*":
+  version: 0.7.31
+  resolution: "@types/ms@npm:0.7.31"
+  checksum: 19fae4f587651e8761c76a0c72ba8af1700d37054476878d164b758edcc926f4420ed06037a1a7fdddc1dbea25265895d743c8b2ea44f3f3f7ac06c449b9221e
   languageName: node
   linkType: hard
 
@@ -11735,6 +11801,13 @@ __metadata:
   dependencies:
     minimist: ^1.1.0
   checksum: 8ecdfa682e50b98272b283f1094ae2f82e5c84b258fd3ac6e47a69149059bd786ef6586305243a5b60746ce23e3e738de7ed8277c76f3363fa351bbfe9c71f37
+  languageName: node
+  linkType: hard
+
+"superstruct@npm:^0.16.5":
+  version: 0.16.5
+  resolution: "superstruct@npm:0.16.5"
+  checksum: 6115f26863c14080b3ec02a105b9aaaf5af27dd2b11eae1d05f2fa7fc58df89ccb09d2d5c832ea0f47afb42dbdb62f332ac4a3cc3aa5e720cab255e9794133a9
   languageName: node
   linkType: hard
 
