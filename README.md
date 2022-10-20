@@ -68,7 +68,7 @@ console.log(txHash);
 
 1. Create a new browser profile or disable/uninstall any existing versions of Metamask
 2. Download [MetaMask Flask](https://metamask.io/flask/)
-3. Head over to the [Aptos Snap webpage](https://keystonehq.github.io/aptossnap/), create a test wallet, connect it to
+3. Head over to the [Aptos Snap webpage](https://snapdao.github.io/aptossnap/), create a test wallet, connect it to
    MetaMask Flask and approve the installation of the Aptos Snap app
 4. Start experimenting
 
