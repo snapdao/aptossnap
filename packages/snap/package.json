@@ -54,7 +54,7 @@
     "@types/sinon-chai": "^3.2.3",
     "babelify": "^10.0.0",
     "chai": "^4.2.0",
-    "concurrently": "^5.1.0",
+    "concurrently": "^7.5.0",
     "eslint": "^7",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
