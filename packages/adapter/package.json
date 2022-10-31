@@ -1,6 +1,6 @@
 {
   "name": "@keystonehq/aptossnap-adapter",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "./build/index.js",
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -16,7 +16,8 @@
     "lib": "build"
   },
   "files": [
-    "build"
+    "build",
+    "src"
   ],
   "publishConfig": {
     "access": "public"
